@@ -1,0 +1,523 @@
+{
+  "id": "cs0025-m3-m6-m7",
+  "title": "M6 and M7",
+  "examLabel": "[M3-SUMMATIVE] [AI-Prohibited]",
+  "course": "SoftEng1 — CS0025",
+  "topic": "Agile Methodologies, System Modeling, and Requirements Analysis",
+  "questionCount": 20,
+  "questions": [
+    {
+      "id": "q1",
+      "number": 1,
+      "type": "truefalse",
+      "prompt": "Behavioral UML diagrams describe the dynamic aspects and activities of a system.",
+      "instruction": "True or false.",
+      "choices": [
+        {
+          "id": "q1-1279",
+          "text": "False",
+          "correct": false
+        },
+        {
+          "id": "q1-3486",
+          "text": "True",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "q2",
+      "number": 2,
+      "type": "single",
+      "prompt": "What does talent density measure?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q2-3570",
+          "text": "The amount of office space available",
+          "correct": false
+        },
+        {
+          "id": "q2-3882",
+          "text": "The total number of employees in a company",
+          "correct": false
+        },
+        {
+          "id": "q2-4978",
+          "text": "The number of software applications produced",
+          "correct": false
+        },
+        {
+          "id": "q2-6848",
+          "text": "The proportion of high-performing individuals in a workforce",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "q3",
+      "number": 3,
+      "type": "single",
+      "prompt": "Which type of UML diagram represents dynamic and time-dependent system behavior?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q3-4056",
+          "text": "Deployment diagram",
+          "correct": false
+        },
+        {
+          "id": "q3-4061",
+          "text": "Structural diagram",
+          "correct": false
+        },
+        {
+          "id": "q3-6244",
+          "text": "Behavioral diagram",
+          "correct": true
+        },
+        {
+          "id": "q3-9848",
+          "text": "Component diagram",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q4",
+      "number": 4,
+      "type": "single",
+      "prompt": "Which tool is used to manage a machine learning model’s lifecycle?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q4-1815",
+          "text": "UML",
+          "correct": false
+        },
+        {
+          "id": "q4-2393",
+          "text": "CASE",
+          "correct": false
+        },
+        {
+          "id": "q4-3892",
+          "text": "Draw.io",
+          "correct": false
+        },
+        {
+          "id": "q4-9964",
+          "text": "MLflow",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "q5",
+      "number": 5,
+      "type": "truefalse",
+      "prompt": "Open GenAI ecosystems promote collaboration by sharing models, datasets, and development tools.",
+      "instruction": "True or false.",
+      "choices": [
+        {
+          "id": "q5-6031",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "q5-6548",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q6",
+      "number": 6,
+      "type": "single",
+      "prompt": "What should a team consider when selecting a software development strategy?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q6-5006",
+          "text": "The project’s goals, constraints, and challenges",
+          "correct": true
+        },
+        {
+          "id": "q6-5948",
+          "text": "The most popular methodology",
+          "correct": false
+        },
+        {
+          "id": "q6-8843",
+          "text": "Only the number of developers",
+          "correct": false
+        },
+        {
+          "id": "q6-9815",
+          "text": "Only the project’s programming language",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q7",
+      "number": 7,
+      "type": "truefalse",
+      "prompt": "Backward Design involves creating UML diagrams after the program code has been written.",
+      "instruction": "True or false.",
+      "choices": [
+        {
+          "id": "q7-3916",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "q7-8484",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q8",
+      "number": 8,
+      "type": "fill",
+      "prompt": "A UML diagram that describes the different states of an object and how internal or external events cause those states to change. Write in all upper case letters.",
+      "instruction": "Write your answer in all capital letters.",
+      "acceptedAnswers": [
+        "STATE MACHINE DIAGRAM",
+        "STATECHART DIAGRAM"
+      ]
+    },
+    {
+      "id": "q9",
+      "number": 9,
+      "type": "single",
+      "prompt": "Which UML diagram represents classes, attributes, operations, and relationships?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q9-3778",
+          "text": "Use Case Diagram",
+          "correct": false
+        },
+        {
+          "id": "q9-4244",
+          "text": "Class Diagram",
+          "correct": true
+        },
+        {
+          "id": "q9-5902",
+          "text": "Timing Diagram",
+          "correct": false
+        },
+        {
+          "id": "q9-8894",
+          "text": "Activity Diagram",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q10",
+      "number": 10,
+      "type": "single",
+      "prompt": "Which characteristic should be included when selecting a development methodology?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q10-1342",
+          "text": "Elimination of analysis",
+          "correct": false
+        },
+        {
+          "id": "q10-3573",
+          "text": "Dependence on a single tool",
+          "correct": false
+        },
+        {
+          "id": "q10-7633",
+          "text": "Flexibility",
+          "correct": true
+        },
+        {
+          "id": "q10-9356",
+          "text": "Rigidity in all situations",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q11",
+      "number": 11,
+      "type": "single",
+      "prompt": "Which UML design approach creates diagrams before writing the code?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q11-445",
+          "text": "Structural Design",
+          "correct": false
+        },
+        {
+          "id": "q11-1204",
+          "text": "Behavioral Design",
+          "correct": false
+        },
+        {
+          "id": "q11-8368",
+          "text": "Forward Design",
+          "correct": true
+        },
+        {
+          "id": "q11-8794",
+          "text": "Backward Design",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q12",
+      "number": 12,
+      "type": "single",
+      "prompt": "Which UML diagram presents the chronological exchange of messages between actors and objects?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q12-2471",
+          "text": "Deployment Diagram",
+          "correct": false
+        },
+        {
+          "id": "q12-7817",
+          "text": "Sequence Diagram",
+          "correct": true
+        },
+        {
+          "id": "q12-7950",
+          "text": "Object Diagram",
+          "correct": false
+        },
+        {
+          "id": "q12-9998",
+          "text": "Class Diagram",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q13",
+      "number": 13,
+      "type": "single",
+      "prompt": "Why is a one-size-fits-all development strategy discouraged?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q13-715",
+          "text": "Development strategies are unnecessary.",
+          "correct": false
+        },
+        {
+          "id": "q13-1919",
+          "text": "Projects and teams have unique conditions and needs.",
+          "correct": true
+        },
+        {
+          "id": "q13-2054",
+          "text": "Every software project has identical requirements.",
+          "correct": false
+        },
+        {
+          "id": "q13-6087",
+          "text": "Only one strategy is available.",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q14",
+      "number": 14,
+      "type": "fill",
+      "prompt": "A UML diagram that represents a user’s interaction with a system and its functional requirements. Please write in upper case letters.",
+      "instruction": "Write your answer in all capital letters.",
+      "acceptedAnswers": [
+        "USE CASE DIAGRAM"
+      ]
+    },
+    {
+      "id": "q15",
+      "number": 15,
+      "type": "single",
+      "prompt": "What is the primary purpose of UML?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "q15-2394",
+          "text": "To replace programming languages",
+          "correct": false
+        },
+        {
+          "id": "q15-2519",
+          "text": "To provide a standard way to visualize a system’s design",
+          "correct": true
+        },
+        {
+          "id": "q15-3817",
+          "text": "To install a completed system",
+          "correct": false
+        },
+        {
+          "id": "q15-5872",
+          "text": "To calculate a project’s budget",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "q16",
+      "number": 16,
+      "type": "multi",
+      "prompt": "A development team is creating a university information system that must integrate with an existing legacy database. The team has limited resources, changing user requirements, and a strict deadline. Based on the principles of software development strategies, which decisions would be most appropriate for the development team?",
+      "instruction": "Select all that apply.",
+      "choices": [
+        {
+          "id": "q16-2196",
+          "text": "Include opportunities to review assumptions and adjust the development approach when requirements or technical conditions change.",
+          "correct": true
+        },
+        {
+          "id": "q16-4736",
+          "text": "Adopt the methodology that succeeded in a similar institution without conducting additional project-specific analysis.",
+          "correct": false
+        },
+        {
+          "id": "q16-5830",
+          "text": "Evaluate the project's constraints, team capabilities, and existing technical dependencies before selecting a methodology.",
+          "correct": true
+        },
+        {
+          "id": "q16-6745",
+          "text": "Combine compatible, proven development practices when they appropriately address the project's needs.",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "q17",
+      "number": 17,
+      "type": "multi",
+      "prompt": "A university enrollment application requires several UML diagrams. The development team needs to document the applicant's workflow, the chronological messages exchanged during registration, and the software's physical installation across servers. Which UML diagram selections correctly match these modeling requirements?",
+      "instruction": "Select all that apply.",
+      "choices": [
+        {
+          "id": "q17-2133",
+          "text": "Use an Activity Diagram to represent the enrollment steps, decisions, and potentially parallel activities.",
+          "correct": true
+        },
+        {
+          "id": "q17-3259",
+          "text": "Use a Class Diagram to represent the physical servers on which application artifacts are deployed.",
+          "correct": false
+        },
+        {
+          "id": "q17-3621",
+          "text": "Use a Deployment Diagram to represent the physical computing nodes and the software components installed on them.",
+          "correct": true
+        },
+        {
+          "id": "q17-7329",
+          "text": "Use a Sequence Diagram to represent messages exchanged between the registrar and software components in chronological order.",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "q18",
+      "number": 18,
+      "type": "multi",
+      "prompt": "A software company is developing an intelligent learning platform that adapts its recommendations using student interaction data. It also provides an LLM-powered assistant for explaining programming concepts. Which statements correctly distinguish AI-Native Software Engineering from LLM-Based Applications?",
+      "instruction": "Select all that apply.",
+      "choices": [
+        {
+          "id": "q18-1896",
+          "text": "The platform cannot be considered AI-native if it includes an LLM-based assistant because these categories are mutually exclusive.",
+          "correct": false
+        },
+        {
+          "id": "q18-2374",
+          "text": "An LLM-based assistant can be part of an AI-native system when it is integrated into the platform's core design and operation.",
+          "correct": true
+        },
+        {
+          "id": "q18-3194",
+          "text": "The recommendation component can reflect AI-native engineering because AI influences the system's fundamental behavior and ongoing improvement.",
+          "correct": true
+        },
+        {
+          "id": "q18-8508",
+          "text": "The programming assistant is an LLM-based application because it uses language models to generate explanations and respond to questions.",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "q19",
+      "number": 19,
+      "type": "multi",
+      "prompt": "A company wants to build generative AI applications for several departments while also collaborating with external developers through an Open GenAI Ecosystem. Which statements correctly describe the technologies, benefits, and responsibilities involved in these approaches?",
+      "instruction": "Select all that apply.",
+      "choices": [
+        {
+          "id": "q19-1229",
+          "text": "A GenAI platform can use APIs and data pipelines to connect models with organizational systems and relevant information.",
+          "correct": true
+        },
+        {
+          "id": "q19-1649",
+          "text": "An Open GenAI Ecosystem can encourage collaboration by sharing models, development tools, and other resources.",
+          "correct": true
+        },
+        {
+          "id": "q19-4900",
+          "text": "Using an Open GenAI Ecosystem removes the need for governance, interoperability, and security considerations.",
+          "correct": false
+        },
+        {
+          "id": "q19-5166",
+          "text": "Open GenAI initiatives still require attention to infrastructure, model quality, and sustainability.",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "q20",
+      "number": 20,
+      "type": "multi",
+      "prompt": "A software organization is planning to reduce the environmental impact of its AI applications while improving the effectiveness of its development workforce. Which strategies are consistent with the principles of Green Software Engineering and Maximizing Talent Density?",
+      "instruction": "Select all that apply.",
+      "choices": [
+        {
+          "id": "q20-498",
+          "text": "Increase the number of developers as the primary measure of talent density, regardless of their performance or skills.",
+          "correct": false
+        },
+        {
+          "id": "q20-1692",
+          "text": "Use employee development, mentorship, and skills assessments to strengthen team capabilities and identify gaps.",
+          "correct": true
+        },
+        {
+          "id": "q20-5041",
+          "text": "Consider carbon-aware workload scheduling and energy-efficient AI training to reduce environmental impact.",
+          "correct": true
+        },
+        {
+          "id": "q20-8929",
+          "text": "Profile computational workloads and optimize inefficient algorithms to reduce unnecessary resource consumption.",
+          "correct": true
+        }
+      ]
+    }
+  ]
+}

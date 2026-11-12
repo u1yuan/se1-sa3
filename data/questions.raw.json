@@ -1,0 +1,556 @@
+[
+  {
+    "id": 1,
+    "type": "truefalse",
+    "prompt": "Behavioral UML diagrams describe the dynamic aspects and activities of a system.",
+    "choices": [
+      {
+        "id": "1279",
+        "text": "False",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "3486",
+        "text": "True",
+        "correct": true,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "1. Behavioral UML diagrams describe the dynamic aspects and activities of a system. Correct Choices: False True"
+  },
+  {
+    "id": 2,
+    "type": "single",
+    "prompt": "20. What does talent density measure?",
+    "choices": [
+      {
+        "id": "3570",
+        "text": "C. The amount of office space available",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "3882",
+        "text": "A. The total number of employees in a company",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "4978",
+        "text": "D. The number of software applications produced",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "6848",
+        "text": "B. The proportion of high-performing individuals in a workforce",
+        "correct": true,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "2. 20. What does talent density measure? Correct Choices: C. The amount of office space available A. The total number of employees in a company D. The number of software applications produced B. The proportion of high-performing individuals in a workforce"
+  },
+  {
+    "id": 3,
+    "type": "single",
+    "prompt": "Which type of UML diagram represents dynamic and time-dependent system behavior?",
+    "choices": [
+      {
+        "id": "4056",
+        "text": "Deployment diagram",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "4061",
+        "text": "Structural diagram",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "6244",
+        "text": "Behavioral diagram",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "9848",
+        "text": "Component diagram",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "3. Which type of UML diagram represents dynamic and time-dependent system behavior? Correct Choices: Deployment diagram Structural diagram Behavioral diagram Component diagram"
+  },
+  {
+    "id": 4,
+    "type": "single",
+    "prompt": "Which tool is used to manage a machine learning model’s lifecycle?",
+    "choices": [
+      {
+        "id": "1815",
+        "text": "UML",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "2393",
+        "text": "CASE",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "3892",
+        "text": "Draw.io",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "9964",
+        "text": "MLflow",
+        "correct": true,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "4. Which tool is used to manage a machine learning model’s lifecycle? Correct Choices: UML CASE Draw.io MLflow"
+  },
+  {
+    "id": 5,
+    "type": "truefalse",
+    "prompt": "Open GenAI ecosystems promote collaboration by sharing models, datasets, and development tools.",
+    "choices": [
+      {
+        "id": "6031",
+        "text": "True",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "6548",
+        "text": "False",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "5. Open GenAI ecosystems promote collaboration by sharing models, datasets, and development tools. Correct Choices: True False"
+  },
+  {
+    "id": 6,
+    "type": "single",
+    "prompt": "What should a team consider when selecting a software development strategy?",
+    "choices": [
+      {
+        "id": "5006",
+        "text": "The project’s goals, constraints, and challenges",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "5948",
+        "text": "The most popular methodology",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "8843",
+        "text": "Only the number of developers",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "9815",
+        "text": "Only the project’s programming language",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "6. What should a team consider when selecting a software development strategy? Correct Choices: The project’s goals, constraints, and challenges The most popular methodology Only the number of developers Only the project’s programming language"
+  },
+  {
+    "id": 7,
+    "type": "truefalse",
+    "prompt": "Backward Design involves creating UML diagrams after the program code has been written.",
+    "choices": [
+      {
+        "id": "3916",
+        "text": "True",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "8484",
+        "text": "False",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "7. Backward Design involves creating UML diagrams after the program code has been written. Correct Choices: True False"
+  },
+  {
+    "id": 8,
+    "type": "fill",
+    "prompt": "A UML diagram that describes the different states of an object and how internal or external events cause those states to change. Write in all upper case letters.",
+    "choices": [],
+    "full_text": "8. A UML diagram that describes the different states of an object and how internal or external events cause those states to change. Write in all upper case letters. Incorrect Your Answer: Your answer: COMPONENT DIAGRAM"
+  },
+  {
+    "id": 9,
+    "type": "single",
+    "prompt": "Which UML diagram represents classes, attributes, operations, and relationships?",
+    "choices": [
+      {
+        "id": "3778",
+        "text": "Use Case Diagram",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "4244",
+        "text": "Class Diagram",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "5902",
+        "text": "Timing Diagram",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "8894",
+        "text": "Activity Diagram",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "9. Which UML diagram represents classes, attributes, operations, and relationships? Correct Choices: Use Case Diagram Class Diagram Timing Diagram Activity Diagram"
+  },
+  {
+    "id": 10,
+    "type": "single",
+    "prompt": "Which characteristic should be included when selecting a development methodology?",
+    "choices": [
+      {
+        "id": "1342",
+        "text": "Elimination of analysis",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "3573",
+        "text": "Dependence on a single tool",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "7633",
+        "text": "Flexibility",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "9356",
+        "text": "Rigidity in all situations",
+        "correct": false,
+        "was_incorrect_pick": true
+      }
+    ],
+    "full_text": "10. Which characteristic should be included when selecting a development methodology? Incorrect Choices: Elimination of analysis Dependence on a single tool Flexibility Rigidity in all situations"
+  },
+  {
+    "id": 11,
+    "type": "single",
+    "prompt": "Which UML design approach creates diagrams before writing the code?",
+    "choices": [
+      {
+        "id": "445",
+        "text": "Structural Design",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "1204",
+        "text": "Behavioral Design",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "8368",
+        "text": "Forward Design",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "8794",
+        "text": "Backward Design",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "11. Which UML design approach creates diagrams before writing the code? Correct Choices: Structural Design Behavioral Design Forward Design Backward Design"
+  },
+  {
+    "id": 12,
+    "type": "single",
+    "prompt": "Which UML diagram presents the chronological exchange of messages between actors and objects?",
+    "choices": [
+      {
+        "id": "2471",
+        "text": "Deployment Diagram",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "7817",
+        "text": "Sequence Diagram",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "7950",
+        "text": "Object Diagram",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "9998",
+        "text": "Class Diagram",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "12. Which UML diagram presents the chronological exchange of messages between actors and objects? Correct Choices: Deployment Diagram Sequence Diagram Object Diagram Class Diagram"
+  },
+  {
+    "id": 13,
+    "type": "single",
+    "prompt": "Why is a one-size-fits-all development strategy discouraged?",
+    "choices": [
+      {
+        "id": "715",
+        "text": "Development strategies are unnecessary.",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "1919",
+        "text": "Projects and teams have unique conditions and needs.",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "2054",
+        "text": "Every software project has identical requirements.",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "6087",
+        "text": "Only one strategy is available.",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "13. Why is a one-size-fits-all development strategy discouraged? Correct Choices: Development strategies are unnecessary. Projects and teams have unique conditions and needs. Every software project has identical requirements. Only one strategy is available."
+  },
+  {
+    "id": 14,
+    "type": "fill",
+    "prompt": "A UML diagram that represents a user’s interaction with a system and its functional requirements. Please write in upper case letters.",
+    "choices": [],
+    "full_text": "14. A UML diagram that represents a user’s interaction with a system and its functional requirements. Please write in upper case letters. Correct Your Answer: Answer (not graded): USE CASE DIAGRAM"
+  },
+  {
+    "id": 15,
+    "type": "single",
+    "prompt": "What is the primary purpose of UML?",
+    "choices": [
+      {
+        "id": "2394",
+        "text": "To replace programming languages",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "2519",
+        "text": "To provide a standard way to visualize a system’s design",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "3817",
+        "text": "To install a completed system",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "5872",
+        "text": "To calculate a project’s budget",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "15. What is the primary purpose of UML? Correct Choices: To replace programming languages To provide a standard way to visualize a system’s design To install a completed system To calculate a project’s budget"
+  },
+  {
+    "id": 16,
+    "type": "multi",
+    "prompt": "A development team is creating a university information system that must integrate with an existing legacy database. The team has limited resources, changing user requirements, and a strict deadline. Based on the principles of software development strategies, which decisions would be most appropriate for the development team? Select ALL correct answers.",
+    "choices": [
+      {
+        "id": "2196",
+        "text": "Include opportunities to review assumptions and adjust the development approach when requirements or technical conditions change.",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "4736",
+        "text": "Adopt the methodology that succeeded in a similar institution without conducting additional project-specific analysis.",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "5830",
+        "text": "Evaluate the project's constraints, team capabilities, and existing technical dependencies before selecting a methodology.",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "6745",
+        "text": "Combine compatible, proven development practices when they appropriately address the project's needs.",
+        "correct": true,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "16. A development team is creating a university information system that must integrate with an existing legacy database. The team has limited resources, changing user requirements, and a strict deadline. Based on the principles of software development strategies, which decisions would be most appropriate for the development team? Select ALL correct answers. Correct Choices: Include opportunities t"
+  },
+  {
+    "id": 17,
+    "type": "multi",
+    "prompt": "A university enrollment application requires several UML diagrams. The development team needs to document the applicant's workflow, the chronological messages exchanged during registration, and the software's physical installation across servers. Which UML diagram selections correctly match these modeling requirements? Select ALL correct answers.",
+    "choices": [
+      {
+        "id": "2133",
+        "text": "Use an Activity Diagram to represent the enrollment steps, decisions, and potentially parallel activities.",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "3259",
+        "text": "Use a Class Diagram to represent the physical servers on which application artifacts are deployed.",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "3621",
+        "text": "Use a Deployment Diagram to represent the physical computing nodes and the software components installed on them.",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "7329",
+        "text": "Use a Sequence Diagram to represent messages exchanged between the registrar and software components in chronological order.",
+        "correct": true,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "17. A university enrollment application requires several UML diagrams. The development team needs to document the applicant's workflow, the chronological messages exchanged during registration, and the software's physical installation across servers. Which UML diagram selections correctly match these modeling requirements? Select ALL correct answers. Correct Choices: Use an Activity Diagram to rep"
+  },
+  {
+    "id": 18,
+    "type": "multi",
+    "prompt": "A software company is developing an intelligent learning platform that adapts its recommendations using student interaction data. It also provides an LLM-powered assistant for explaining programming concepts. Which statements correctly distinguish AI-Native Software Engineering from LLM-Based Applications? Select ALL correct answers.",
+    "choices": [
+      {
+        "id": "1896",
+        "text": "The platform cannot be considered AI-native if it includes an LLM-based assistant because these categories are mutually exclusive.",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "2374",
+        "text": "An LLM-based assistant can be part of an AI-native system when it is integrated into the platform's core design and operation.",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "3194",
+        "text": "The recommendation component can reflect AI-native engineering because AI influences the system's fundamental behavior and ongoing improvement.",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "8508",
+        "text": "The programming assistant is an LLM-based application because it uses language models to generate explanations and respond to questions.",
+        "correct": false,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "18. A software company is developing an intelligent learning platform that adapts its recommendations using student interaction data. It also provides an LLM-powered assistant for explaining programming concepts. Which statements correctly distinguish AI-Native Software Engineering from LLM-Based Applications? Select ALL correct answers. Not answered Choices: The platform cannot be considered AI-n"
+  },
+  {
+    "id": 19,
+    "type": "multi",
+    "prompt": "A company wants to build generative AI applications for several departments while also collaborating with external developers through an Open GenAI Ecosystem. Which statements correctly describe the technologies, benefits, and responsibilities involved in these approaches? Select ALL correct answers.",
+    "choices": [
+      {
+        "id": "1229",
+        "text": "A GenAI platform can use APIs and data pipelines to connect models with organizational systems and relevant information.",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "1649",
+        "text": "An Open GenAI Ecosystem can encourage collaboration by sharing models, development tools, and other resources.",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "4900",
+        "text": "Using an Open GenAI Ecosystem removes the need for governance, interoperability, and security considerations.",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "5166",
+        "text": "Open GenAI initiatives still require attention to infrastructure, model quality, and sustainability.",
+        "correct": true,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "19. A company wants to build generative AI applications for several departments while also collaborating with external developers through an Open GenAI Ecosystem. Which statements correctly describe the technologies, benefits, and responsibilities involved in these approaches? Select ALL correct answers. Correct Choices: A GenAI platform can use APIs and data pipelines to connect models with organ"
+  },
+  {
+    "id": 20,
+    "type": "multi",
+    "prompt": "A software organization is planning to reduce the environmental impact of its AI applications while improving the effectiveness of its development workforce. Which strategies are consistent with the principles of Green Software Engineering and Maximizing Talent Density? Select ALL correct answers.",
+    "choices": [
+      {
+        "id": "498",
+        "text": "Increase the number of developers as the primary measure of talent density, regardless of their performance or skills.",
+        "correct": false,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "1692",
+        "text": "Use employee development, mentorship, and skills assessments to strengthen team capabilities and identify gaps.",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "5041",
+        "text": "Consider carbon-aware workload scheduling and energy-efficient AI training to reduce environmental impact.",
+        "correct": true,
+        "was_incorrect_pick": false
+      },
+      {
+        "id": "8929",
+        "text": "Profile computational workloads and optimize inefficient algorithms to reduce unnecessary resource consumption.",
+        "correct": true,
+        "was_incorrect_pick": false
+      }
+    ],
+    "full_text": "20. A software organization is planning to reduce the environmental impact of its AI applications while improving the effectiveness of its development workforce. Which strategies are consistent with the principles of Green Software Engineering and Maximizing Talent Density? Select ALL correct answers. Correct Choices: Increase the number of developers as the primary measure of talent density, rega"
+  }
+]

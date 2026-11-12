@@ -6,6 +6,8 @@ Built with Next.js, React, and TypeScript. The app runs in the browser and expor
 
 ![Reviewer start screen with prep and exam mode options](screenshots/start.png)
 
+[View the 375px mobile layout](screenshots/start-mobile.png)
+
 ## Review modes
 
 | Mode | After each submission | At the end |
@@ -13,9 +15,19 @@ Built with Next.js, React, and TypeScript. The app runs in the browser and expor
 | Prep | Shows whether your answer is correct and displays the correct answer(s). | Score, percentage, and a full answer review. |
 | Exam | Confirms that your answer is locked; hides correctness. | Score, percentage, and a full answer review. |
 
+Choose **Prep** (selected by default) or **Exam**, then use **Start Prep** or **Start Exam**. The source label is available under **Question bank details**.
+
 Questions appear one at a time in a fixed order. Choose or enter an answer, select **Submit answer**, then continue with **Next question**. Submitted answers stay locked: you cannot edit them, return to earlier questions, or skip ahead. The final question leads to **See results**.
 
+The continuous progress bar counts submitted answers; it is not question navigation. Browser Back works normally and leaves the reviewer without reopening earlier questions.
+
+Results include **All**, **Incorrect**, and **Correct** filters with counts, preserving original question numbers and order. **Review incorrect answers** opens and focuses the incorrect-answer review when mistakes exist. Empty filters explain that no answers match. Restarting returns to mode selection.
+
 An attempt saves to `sessionStorage`, so refreshing restores the current question and submitted answers when browser storage is available. Unsubmitted input is not saved. Use **Discard attempt** to clear progress and return to mode selection, or **Start a new attempt** after reviewing results.
+
+![Prep feedback with locked answers](screenshots/prep-feedback.png)
+
+![Results with answer filters](screenshots/results.png)
 
 ## Run locally
 
@@ -40,7 +52,7 @@ Open [localhost:3000](http://localhost:3000). No environment variables or backen
 
 The project uses static export; preview production output with `npx serve out`. The `npm start` script uses `next start`, which does not support this output mode.
 
-Newsreader and IBM Plex Sans are configured through `next/font/google`. Builds need internet access to download the fonts; the generated site serves them locally.
+IBM Plex Sans is configured through `next/font/google`. Builds need internet access to download the fonts; the generated site serves them locally.
 
 ## Question bank and grading
 

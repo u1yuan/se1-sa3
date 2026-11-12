@@ -1,51 +1,46 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import type { Mode, QuestionBank } from "@/lib/types";
 import RunningHead from "./RunningHead";
 
 export default function StartScreen({ bank, onStart }: { bank: QuestionBank; onStart: (mode: Mode) => void }) {
-  const n = bank.questions.length;
+  const [mode, setMode] = useState<Mode>("prep");
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => heading.current?.focus({ preventScroll: true }), []);
   return (
     <main className="sheet sheet--start">
       <RunningHead bank={bank} />
       <section className="title-block" aria-labelledby="title">
-        <p className="eyebrow">Reviewer</p>
-        <h1 id="title" className="title">{bank.title}</h1>
+        <p className="eyebrow">Your study space</p>
+        <h1 id="title" className="title" ref={heading} tabIndex={-1}>{bank.title}</h1>
         <p className="subtitle">{bank.topic}</p>
-        <dl className="facts">
-          <div>
-            <dt>Questions</dt>
-            <dd>{n}</dd>
-          </div>
-          <div>
-            <dt>Order</dt>
-            <dd>Fixed</dd>
-          </div>
-          <div>
-            <dt>Label</dt>
-            <dd>{bank.examLabel}</dd>
-          </div>
-        </dl>
+        <p className="bank-count">{bank.questions.length} questions <span aria-hidden="true">&middot;</span> Fixed order</p>
       </section>
-
-      <aside className="rules" aria-label="Before you begin">
-        <p className="rules__head">Before you begin</p>
-        <p>
-          Questions appear one at a time. Once you submit an answer it is <strong>locked</strong>: you cannot change it,
-          go back, or skip ahead. Refreshing the page resumes where you left off.
-        </p>
-      </aside>
-
-      <section className="modes" aria-label="Choose a mode">
-        <button type="button" className="mode-card" onClick={() => onStart("prep")}>
-          <span className="mode-card__name">Prep mode</span>
-          <span className="mode-card__desc">See right or wrong, and the correct answer, right after each submit.</span>
-          <span className="mode-card__go" aria-hidden="true">Begin →</span>
-        </button>
-        <button type="button" className="mode-card mode-card--exam" onClick={() => onStart("exam")}>
-          <span className="mode-card__name">Exam mode</span>
-          <span className="mode-card__desc">No feedback until the end. Score and full review after question {n}.</span>
-          <span className="mode-card__go" aria-hidden="true">Begin →</span>
-        </button>
-      </section>
+      <form onSubmit={(e) => { e.preventDefault(); onStart(mode); }}>
+        <fieldset className="modes">
+          <legend>Choose your mode</legend>
+          {(["prep", "exam"] as const).map((value) => (
+            <label key={value} className={`mode-card${mode === value ? " is-selected" : ""}`}>
+              <input type="radio" name="mode" value={value} checked={mode === value} onChange={() => setMode(value)} />
+              <span>
+                <span className="mode-card__name">{value === "prep" ? "Prep" : "Exam"}</span>
+                <span className="mode-card__desc">{value === "prep" ? "Learn as you go. See correctness and answers after each submission." : "Test what you know. See correctness and answers at the end."}</span>
+              </span>
+            </label>
+          ))}
+        </fieldset>
+        <aside className="rules" aria-label="Before you begin">
+          <p className="rules__head">One question at a time</p>
+          <p>Submitted answers cannot be changed or revisited. You cannot skip questions.</p>
+          <p>Refreshing restores submitted answers. Unsubmitted input is not saved.</p>
+        </aside>
+        <button type="submit" className="btn btn--primary start-button">Start {mode === "prep" ? "Prep" : "Exam"} <span aria-hidden="true">&rarr;</span></button>
+      </form>
+      <details className="bank-details">
+        <summary>Question bank details</summary>
+        <p>Source label: <span>{bank.examLabel}</span></p>
+      </details>
     </main>
   );
 }

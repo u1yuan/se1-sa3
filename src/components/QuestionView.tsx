@@ -13,13 +13,12 @@ interface Props {
   bank: QuestionBank;
   attempt: Attempt;
   question: Question;
-  backNotice: boolean;
   onSubmit: (answer: Answer) => void;
   onNext: () => void;
   onQuit: () => void;
 }
 
-export default function QuestionView({ bank, attempt, question, backNotice, onSubmit, onNext, onQuit }: Props) {
+export default function QuestionView({ bank, attempt, question, onSubmit, onNext, onQuit }: Props) {
   const locked: Answer | undefined = attempt.answers[question.id];
   const isLocked = locked !== undefined;
   const prep = attempt.mode === "prep";
@@ -69,12 +68,6 @@ export default function QuestionView({ bank, attempt, question, backNotice, onSu
       <RunningHead bank={bank} mode={attempt.mode} />
       <Progress current={attempt.index} total={total} lockedCurrent={isLocked} />
 
-      {backNotice && (
-        <p className="notice" role="status">
-          Answers are locked. You can’t go back to earlier questions.
-        </p>
-      )}
-
       <form className="question" onSubmit={handleSubmit} onKeyDown={handleKeyDown} noValidate>
         <h1 className="prompt" ref={headingRef} tabIndex={-1} id={`${question.id}-prompt`}>
           <span className="prompt__num" aria-hidden="true">
@@ -85,12 +78,13 @@ export default function QuestionView({ bank, attempt, question, backNotice, onSu
         </h1>
 
         <p className="instruction" id={`${question.id}-instr`}>
-          {question.instruction}
+          {multi ? "Select all that apply. Select every correct choice and no incorrect choices; no partial credit." : question.instruction}
+          {multi && <span className="selection-count">{selectedIds.size} selected</span>}
         </p>
 
         {question.type === "fill" ? (
           <div className="fill">
-            <label className="visually-hidden" htmlFor={fieldName}>
+            <label className="fill__label" htmlFor={fieldName}>
               Your answer
             </label>
             <input
@@ -106,7 +100,7 @@ export default function QuestionView({ bank, attempt, question, backNotice, onSu
               onChange={(e) => setText(e.target.value.toUpperCase())}
               readOnly={isLocked}
               aria-readonly={isLocked}
-              placeholder="TYPE YOUR ANSWER"
+              placeholder="Enter your answer"
             />
           </div>
         ) : (
@@ -124,22 +118,23 @@ export default function QuestionView({ bank, attempt, question, backNotice, onSu
                 if (prep) {
                   if (c.correct && selected) {
                     state = "is-correct";
-                    tag = "Your answer · correct";
+                    tag = "\u2713 Your answer · correct";
                   } else if (c.correct) {
                     state = "is-missed";
-                    tag = multi ? "Correct · not selected" : "Correct answer";
+                    tag = multi ? "\u2713 Correct - missed" : "\u2713 Correct answer";
                   } else if (selected) {
                     state = "is-wrong";
-                    tag = "Your answer · incorrect";
+                    tag = "\u2715 Your answer - incorrect";
                   } else state = "is-dim";
                 } else {
                   state = selected ? "is-locked-selected" : "is-dim";
+                  if (selected) tag = "\u2713 Submitted";
                 }
-              } else if (selected) state = "is-selected";
+              } else if (selected) { state = "is-selected"; tag = "Selected"; }
               return (
                 <label key={c.id} className={`choice ${multi ? "choice--multi" : ""} ${state}`}>
                   <input
-                    className="visually-hidden"
+                    className="choice__input"
                     type={multi ? "checkbox" : "radio"}
                     name={fieldName}
                     value={c.id}
@@ -178,8 +173,8 @@ export default function QuestionView({ bank, attempt, question, backNotice, onSu
           )}
           {isLocked && !prep && (
             <div className="feedback feedback--locked" role="status">
-              <span className="feedback__verdict">Answer locked.</span>
-              <span className="feedback__hint">Results appear after question {total}.</span>
+              <span className="feedback__verdict">Answer submitted.</span>
+              <span className="feedback__hint">Correctness and answers appear after all {total} questions.</span>
             </div>
           )}
         </div>
@@ -191,17 +186,18 @@ export default function QuestionView({ bank, attempt, question, backNotice, onSu
               <span className="btn__arrow" aria-hidden="true">→</span>
             </button>
           ) : (
-            <button type="submit" className="btn btn--primary" disabled={!valid} aria-disabled={!valid}>
+            <button type="submit" className="btn btn--primary" disabled={!valid} aria-describedby="submit-hint">
               Submit answer
             </button>
           )}
-          <span className="actions__hint" aria-hidden="true">
+          <span className="actions__hint" id="submit-hint">
             {isLocked ? "Press Enter to continue" : valid ? "Press Enter to submit" : multi ? "Select one or more" : question.type === "fill" ? "Type an answer" : "Select an answer"}
           </span>
         </div>
       </form>
 
       <footer className="sheet__foot">
+        <p>Submitted answers are saved for this tab. Unsubmitted input is not saved.</p>
         <button type="button" className="link-btn" onClick={onQuit}>
           Discard attempt
         </button>
@@ -236,7 +232,7 @@ function Feedback({
 }) {
   return (
     <div className={`feedback ${correct ? "feedback--correct" : "feedback--wrong"}`} role="status">
-      <p className="feedback__verdict">{correct ? "Correct." : "Incorrect."}</p>
+      <p className="feedback__verdict">{correct ? "\u2713 Correct." : "\u2715 Incorrect."}</p>
       <dl className="feedback__grid">
         <div>
           <dt>{yoursLabel}</dt>

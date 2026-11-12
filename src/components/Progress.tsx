@@ -1,25 +1,13 @@
 export default function Progress({ current, total, lockedCurrent }: { current: number; total: number; lockedCurrent: boolean }) {
+  const submitted = current + (lockedCurrent ? 1 : 0);
   return (
     <div className="progress">
-      <p className="progress__count">
-        <span className="progress__now">{current + 1}</span>
-        <span className="progress__of"> of {total}</span>
-      </p>
-      <div
-        className="progress__track"
-        role="progressbar"
-        aria-label="Progress"
-        aria-valuemin={0}
-        aria-valuemax={total}
-        aria-valuenow={current + (lockedCurrent ? 1 : 0)}
-        aria-valuetext={`Question ${current + 1} of ${total}`}
-      >
-        {Array.from({ length: total }, (_, i) => (
-          <span
-            key={i}
-            className={`progress__tick${i < current || (i === current && lockedCurrent) ? " is-done" : ""}${i === current ? " is-now" : ""}`}
-          />
-        ))}
+      <div className="progress__labels">
+        <p>Question <strong>{current + 1}</strong> of {total}</p>
+        <p className="progress__submitted">{submitted} of {total} submitted</p>
+      </div>
+      <div className="progress__track" role="progressbar" aria-label="Submitted answers" aria-valuemin={0} aria-valuemax={total} aria-valuenow={submitted} aria-valuetext={`${submitted} of ${total} answers submitted`}>
+        <span className="progress__fill" style={{ transform: `scaleX(${submitted / total})` }} />
       </div>
     </div>
   );

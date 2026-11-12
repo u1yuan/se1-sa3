@@ -11,7 +11,6 @@ import Results from "./Results";
 export default function Reviewer({ bank }: { bank: QuestionBank }) {
   const [hydrated, setHydrated] = useState(false);
   const [attempt, setAttempt] = useState<Attempt | null>(null);
-  const [backNotice, setBackNotice] = useState(0);
 
   // Restore an in-progress attempt after a refresh.
   useEffect(() => {
@@ -24,31 +23,6 @@ export default function Reviewer({ bank }: { bank: QuestionBank }) {
     setAttempt(next);
   }, []);
 
-  const active = !!attempt && !attempt.finished;
-
-  // Trap the browser Back button while an attempt is running. The page never
-  // changes URL per question, so Back can't reopen anything; we also re-push a
-  // guard entry so Back doesn't silently leave the attempt either.
-  useEffect(() => {
-    if (!active) return;
-    const guard = { examReviewerGuard: true };
-    if (!(window.history.state && window.history.state.examReviewerGuard)) {
-      window.history.pushState(guard, "", window.location.href);
-    }
-    const onPop = () => {
-      window.history.pushState(guard, "", window.location.href);
-      setBackNotice((n) => n + 1);
-    };
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, [active]);
-
-  useEffect(() => {
-    if (!backNotice) return;
-    const t = window.setTimeout(() => setBackNotice(0), 4000);
-    return () => window.clearTimeout(t);
-  }, [backNotice]);
-
   // Keep the top of each new screen in view.
   const screenKey = !attempt ? "start" : attempt.finished ? "results" : `q-${attempt.index}`;
   useEffect(() => {
@@ -56,7 +30,7 @@ export default function Reviewer({ bank }: { bank: QuestionBank }) {
   }, [screenKey, hydrated]);
 
   if (!hydrated) {
-    return <main className="sheet" aria-busy="true" />;
+    return <main className="sheet loading" aria-busy="true"><p role="status">Restoring your study session...</p></main>;
   }
 
   if (!attempt) {
@@ -74,11 +48,10 @@ export default function Reviewer({ bank }: { bank: QuestionBank }) {
       bank={bank}
       attempt={attempt}
       question={question}
-      backNotice={backNotice > 0}
       onSubmit={(answer: Answer) => update(lockAnswer(bank, attempt, answer))}
       onNext={() => update(advance(bank, attempt))}
       onQuit={() => {
-        if (window.confirm("Discard this attempt? Your locked answers will be lost and you'll return to mode select.")) {
+        if (window.confirm("Discard this attempt? Your submitted answers will be lost and you'll return to mode selection.")) {
           update(null);
         }
       }}

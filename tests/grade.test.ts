@@ -8,11 +8,10 @@ import {
   scoreAttempt,
   correctAnswerTexts,
 } from "../src/lib/grade.ts";
-import type { Answer, ChoiceQuestion, FillQuestion, Question, QuestionBank } from "../src/lib/types.ts";
+import type { Answer, ChoiceQuestion, FillQuestion, Question } from "../src/lib/types.ts";
 
-const bank: QuestionBank = JSON.parse(
-  readFileSync(new URL("../data/questions.json", import.meta.url), "utf8"),
-);
+const SOFTENG1 = new URL("../data/assessments/cs0025-m3-m6-m7.json", import.meta.url);
+const bank: { id: string; questions: Question[] } = JSON.parse(readFileSync(SOFTENG1, "utf8"));
 const byId = (id: string) => {
   const q = bank.questions.find((x) => x.id === id);
   if (!q) throw new Error(`missing ${id}`);
@@ -26,7 +25,7 @@ const wrongIds = (q: Question) => (q as ChoiceQuestion).choices.filter((c) => !c
 test("bank shape: 20 questions in order, no historical score", () => {
   assert.equal(bank.questions.length, 20);
   bank.questions.forEach((q, i) => assert.equal(q.number, i + 1));
-  const raw = readFileSync(new URL("../data/questions.json", import.meta.url), "utf8");
+  const raw = readFileSync(SOFTENG1, "utf8");
   assert.ok(!/17\s*\/\s*20/.test(raw));
 });
 

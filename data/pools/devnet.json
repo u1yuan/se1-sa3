@@ -1,0 +1,1647 @@
+{
+  "id": "devnet",
+  "title": "DevNet Associate (v1.0) — Modules 5–6 & FA 6",
+  "questions": [
+    {
+      "id": "m5_q1",
+      "type": "single",
+      "prompt": "What command can a technician use on a computer to see if DNS is functioning properly?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q1-a",
+          "text": "ipconfig",
+          "correct": false
+        },
+        {
+          "id": "m5_q1-b",
+          "text": "net share",
+          "correct": false
+        },
+        {
+          "id": "m5_q1-c",
+          "text": "nslookup",
+          "correct": true
+        },
+        {
+          "id": "m5_q1-d",
+          "text": "net use",
+          "correct": false
+        }
+      ],
+      "explanation": "The nslookup command can be used to test DNS functionality.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q2",
+      "type": "multi",
+      "prompt": "Which two OSI model layers have the same functionality as two layers of the TCP/IP model? (Choose two.)",
+      "choose": 2,
+      "instruction": "Select all that apply · choose two.",
+      "choices": [
+        {
+          "id": "m5_q2-a",
+          "text": "physical",
+          "correct": false
+        },
+        {
+          "id": "m5_q2-b",
+          "text": "data link",
+          "correct": false
+        },
+        {
+          "id": "m5_q2-c",
+          "text": "network",
+          "correct": true
+        },
+        {
+          "id": "m5_q2-d",
+          "text": "transport",
+          "correct": true
+        },
+        {
+          "id": "m5_q2-e",
+          "text": "session",
+          "correct": false
+        }
+      ],
+      "explanation": "The OSI transport layer is functionally equivalent to the TCP/IP transport layer, and the OSI network layer is equivalent to the TCP/IP Internet layer. The OSI data link and physical layers together are equivalent to the TCP/IP network access layer. The OSI session layer (with the presentation layer) is included within the TCP/IP application layer.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q3",
+      "type": "single",
+      "prompt": "What is one advantage of using the cut-through switching method instead of the store-and-forward switching method?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q3-a",
+          "text": "provides the flexibility to support any of Ethernet speeds",
+          "correct": false
+        },
+        {
+          "id": "m5_q3-b",
+          "text": "has a lower latency appropriate for high-performance computing applications",
+          "correct": true
+        },
+        {
+          "id": "m5_q3-c",
+          "text": "makes a fast forwarding decision based on the source MAC address of the frame",
+          "correct": false
+        },
+        {
+          "id": "m5_q3-d",
+          "text": "has a positive impact on bandwidth by dropping most of the invalid frames",
+          "correct": false
+        }
+      ],
+      "explanation": "Cut-through switching provides lower latency switching for high-performance computing (HPC) applications. Cut-through switching allows more invalid frames to cross the network than store-and-forward switching. The cut-through switching method can make a forwarding decision as soon as it looks up the destination MAC address of the frame.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q4",
+      "type": "single",
+      "prompt": "Which solution improves web response time by deploying multiple web servers and DNS servers?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q4-a",
+          "text": "memcaching",
+          "correct": false
+        },
+        {
+          "id": "m5_q4-b",
+          "text": "distributed databases",
+          "correct": false
+        },
+        {
+          "id": "m5_q4-c",
+          "text": "sharding",
+          "correct": false
+        },
+        {
+          "id": "m5_q4-d",
+          "text": "load balancing",
+          "correct": true
+        }
+      ],
+      "explanation": "Maintaining availability is the primary concern for companies working with big data. Some solutions to improve the availability include the following: Load Balancing – deploying multiple web servers and DNS servers to respond to requests simultaneously Distributed Databases – improving database access speed and demands Memcaching – offloading demand on database servers by keeping frequently requested data available in memory for fast access Sharding – partitioning a large relational database across multiple servers to improve search speed",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q5",
+      "type": "single",
+      "prompt": "What will a host on an Ethernet network do if it receives a frame with a unicast destination MAC address that does not match its own MAC address?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q5-a",
+          "text": "It will remove the frame from the media.",
+          "correct": false
+        },
+        {
+          "id": "m5_q5-b",
+          "text": "It will forward the frame to the next host.",
+          "correct": false
+        },
+        {
+          "id": "m5_q5-c",
+          "text": "It will strip off the data-link frame to check the destination IP address.",
+          "correct": false
+        },
+        {
+          "id": "m5_q5-d",
+          "text": "It will discard the frame.",
+          "correct": true
+        }
+      ],
+      "explanation": "In an Ethernet network, each NIC in the network checks every arriving frame to see if the destination MAC address in the frame matches its own MAC address. If there is no match, the device discards the frame. If there is a match, the NIC passes the frame up to the next OSI layer.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q6",
+      "type": "single",
+      "prompt": "What is the common term given to SNMP log messages that are generated by network devices and sent to the SNMP server?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q6-a",
+          "text": "auditing",
+          "correct": false
+        },
+        {
+          "id": "m5_q6-b",
+          "text": "warnings",
+          "correct": false
+        },
+        {
+          "id": "m5_q6-c",
+          "text": "acknowledgments",
+          "correct": false
+        },
+        {
+          "id": "m5_q6-d",
+          "text": "traps",
+          "correct": true
+        }
+      ],
+      "explanation": "Network devices being monitored by the SNMP protocol can be configured to generate log messages that are sent to an SNMP server. The log messages, also called traps, contain all type of information from simple status reports to complex urgent conditions that require immediate attention.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q7",
+      "type": "single",
+      "prompt": "What is the function of the Nslookup utility?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q7-a",
+          "text": "to manually force a client to send a DHCP request",
+          "correct": false
+        },
+        {
+          "id": "m5_q7-b",
+          "text": "to display all cached DNS entries on a host",
+          "correct": false
+        },
+        {
+          "id": "m5_q7-c",
+          "text": "to view the network settings on a host",
+          "correct": false
+        },
+        {
+          "id": "m5_q7-d",
+          "text": "to manually query the name servers to resolve a given host name",
+          "correct": true
+        }
+      ],
+      "explanation": "Nslookup is a command-line utility that is used to send a query to DNS servers to resolve a specific host name to an IP address.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q8",
+      "type": "single",
+      "prompt": "What type of address is 01-00-5E-0A-00-02?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q8-a",
+          "text": "an address that reaches every host in the network",
+          "correct": false
+        },
+        {
+          "id": "m5_q8-b",
+          "text": "an address that reaches every host inside a local subnet",
+          "correct": false
+        },
+        {
+          "id": "m5_q8-c",
+          "text": "an address that reaches a specific group of hosts",
+          "correct": true
+        },
+        {
+          "id": "m5_q8-d",
+          "text": "an address that reaches one specific host",
+          "correct": false
+        }
+      ],
+      "explanation": "The multicast MAC address is a special value that begins with 01-00-5E in hexadecimal. It allows a source device to send a packet to a group of devices.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q9",
+      "type": "matching",
+      "prompt": "Refer to the exhibit. The PC is sending a packet to the Server on the remote network. Router R1 is performing NAT overload. From the perspective of the PC, match the NAT address type with the correct IP address. (Not all options are used.)",
+      "instruction": "Choose a match for every item.",
+      "prompts": [
+        {
+          "id": "m5_q9-p1",
+          "text": "Inside global",
+          "answer": "192.0.2.1"
+        },
+        {
+          "id": "m5_q9-p2",
+          "text": "Outside global",
+          "answer": "203.0.113.5"
+        },
+        {
+          "id": "m5_q9-p3",
+          "text": "Inside local",
+          "answer": "10.130.5.76"
+        }
+      ],
+      "options": [
+        "203.0.113.5",
+        "203.0.113.14",
+        "192.0.2.2",
+        "192.0.2.1",
+        "10.130.5.1",
+        "10.130.5.76"
+      ],
+      "exhibits": [
+        {
+          "src": "/exhibits/devnet-m5-q9.jpg",
+          "alt": "Topology: PC 10.130.5.76/24 behind router R1 (LAN 10.130.5.1/24). R1 S0/0/0 192.0.2.1/30 links to a second router S0/0/1 192.0.2.2/30, whose LAN 203.0.113.14/28 reaches the Server at 203.0.113.5/28.",
+          "width": 631,
+          "height": 328
+        }
+      ],
+      "explanation": "The inside local address is the private IP address of the source or the PC in this instance. The inside global address is the translated address of the source or the address as seen by the outside device. Since the PC is using the outside address of the R1 router, the inside global address is 192.0.2.1. The outside addressing is simply the address of the server or 203.0.113.5. [Matching note: Converted from drag-and-drop. Unused IPs (no match): 203.0.113.14, 192.0.2.2, 10.130.5.1.]",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q10",
+      "type": "matching",
+      "prompt": "Match the OSI layer to the layer number. (Not all options are used.)",
+      "instruction": "Choose a match for every item.",
+      "prompts": [
+        {
+          "id": "m5_q10-p1",
+          "text": "physical layer",
+          "answer": "1"
+        },
+        {
+          "id": "m5_q10-p2",
+          "text": "data link layer",
+          "answer": "2"
+        },
+        {
+          "id": "m5_q10-p3",
+          "text": "network layer",
+          "answer": "3"
+        },
+        {
+          "id": "m5_q10-p4",
+          "text": "transport layer",
+          "answer": "4"
+        },
+        {
+          "id": "m5_q10-p5",
+          "text": "session layer",
+          "answer": "5"
+        },
+        {
+          "id": "m5_q10-p6",
+          "text": "presentation layer",
+          "answer": "6"
+        },
+        {
+          "id": "m5_q10-p7",
+          "text": "application layer",
+          "answer": "7"
+        },
+        {
+          "id": "m5_q10-p8",
+          "text": "internet layer",
+          "answer": "Not used"
+        },
+        {
+          "id": "m5_q10-p9",
+          "text": "network access layer",
+          "answer": "Not used"
+        }
+      ],
+      "options": [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "Not used"
+      ],
+      "explanation": "[Matching note: Converted from drag-and-drop. TCP/IP-only names (internet, network access) are unused.]",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q11",
+      "type": "single",
+      "prompt": "A high school in New York (school A) is using videoconferencing technology to establish student interactions with another high school (school B) in Russia. The videoconferencing is conducted between two end devices through the Internet. The network administrator of school A configures the end device with the IP address 209.165.201.10. The administrator sends a request for the IP address for the end device in school B and the response is 192.168.25.10. Neither school is using a VPN. The administrator knows immediately that this IP will not work. Why?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q11-a",
+          "text": "This is a link-local address.",
+          "correct": false
+        },
+        {
+          "id": "m5_q11-b",
+          "text": "This is a private IP address.",
+          "correct": true
+        },
+        {
+          "id": "m5_q11-c",
+          "text": "There is an IP address conflict.",
+          "correct": false
+        },
+        {
+          "id": "m5_q11-d",
+          "text": "This is a loopback address.",
+          "correct": false
+        }
+      ],
+      "explanation": "The IP address 192.168.25.10 is an IPv4 private address. This address will not be routed over the Internet, so school A will not be able to reach school B. Because the address is a private one, it can be used freely on an internal network. As long as no two devices on the internal network are assigned the same private IP, there is no IP conflict issue. Devices that are assigned a private IP will need to use NAT in order to communicate over the Internet.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q12",
+      "type": "single",
+      "prompt": "Refer to the exhibit. An organization is using static NAT to translate the private IP address of Host A to a single public IP address leased from the ISP. Which address is the inside global address of Host A?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q12-a",
+          "text": "209.165.202.129",
+          "correct": true
+        },
+        {
+          "id": "m5_q12-b",
+          "text": "203.0.113.2",
+          "correct": false
+        },
+        {
+          "id": "m5_q12-c",
+          "text": "192.168.2.253",
+          "correct": false
+        },
+        {
+          "id": "m5_q12-d",
+          "text": "192.168.1.1",
+          "correct": false
+        },
+        {
+          "id": "m5_q12-e",
+          "text": "192.168.1. 10",
+          "correct": false
+        }
+      ],
+      "exhibits": [
+        {
+          "src": "/exhibits/devnet-m5-q12.jpg",
+          "alt": "Topology: Host A 192.168.1.10 on R2 G0/0 (192.168.1.1). R2 (.253) and the NAT router (.254) share 192.168.2.0; the NAT router's .129 interface on 209.165.202.128 connects to the ISP, which reaches HQ (.2 on 203.0.113.0) and a Server at 10.0.0.253.",
+          "width": 630,
+          "height": 302
+        }
+      ],
+      "explanation": "There are four NAT address types. Listed below are the four types from the perspective of Host A behind the NAT device: Inside local: 192.168.1.10 Inside global: 209.165.202.128 Outside local: 10.0.0.253 Outside global: 203.0.113.2",
+      "sections": [
+        "m5"
+      ],
+      "note": "Source marks 209.165.202.129 as correct; its explanation lists Inside global as 209.165.202.128. Marked answer kept, as in the source."
+    },
+    {
+      "id": "m5_q13",
+      "type": "single",
+      "prompt": "Consider the following routing table entry for R1: What is the significance of the Serial0/0/0?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q13-a",
+          "text": "It is the interface on the final destination router that is directly connected to the 10.1.1.0/24 network.",
+          "correct": false
+        },
+        {
+          "id": "m5_q13-b",
+          "text": "It is the R1 interface through which the EIGRP update was learned.",
+          "correct": false
+        },
+        {
+          "id": "m5_q13-c",
+          "text": "It is the interface on the next-hop router when the destination IP address the 10.1.1.0/24 network.",
+          "correct": false
+        },
+        {
+          "id": "m5_q13-d",
+          "text": "It is the interface on R1 used to send data that is destined for 10.1.1.0/24.",
+          "correct": true
+        }
+      ],
+      "code": [
+        "D 10.1.1.0/24 [90/2170112] via 209.165.200.226, 00:00:05, Serial0/0/0"
+      ],
+      "explanation": "The Serial0/0/0 indicates the outgoing interface on R1 that is used to send packets for the 10.1.1.0/24 destination network.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q14",
+      "type": "single",
+      "prompt": "A device has an IPV6 address listed as 2001:0DB8:75a3:0214:0607:1234:aa10:ba01. What is the interface ID of the device?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q14-a",
+          "text": "2001:0DB8:75a3",
+          "correct": false
+        },
+        {
+          "id": "m5_q14-b",
+          "text": "ba01",
+          "correct": false
+        },
+        {
+          "id": "m5_q14-c",
+          "text": "0607:1234:aa10:ba01",
+          "correct": true
+        },
+        {
+          "id": "m5_q14-d",
+          "text": "2001:0DB8",
+          "correct": false
+        }
+      ],
+      "explanation": "An IPv6 address comprises 128 bits represented as eight blocks of four hexadecimal digits. The last four blocks of the address represent the interface ID and is controlled by the administrator.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q15",
+      "type": "multi",
+      "prompt": "In what two situations would UDP be the preferred transport protocol over TCP? (Choose two.)",
+      "choose": 2,
+      "instruction": "Select all that apply · choose two.",
+      "choices": [
+        {
+          "id": "m5_q15-a",
+          "text": "when applications need to guarantee that a packet arrives intact, in sequence, and unduplicated",
+          "correct": false
+        },
+        {
+          "id": "m5_q15-b",
+          "text": "when a faster delivery mechanism is needed",
+          "correct": true
+        },
+        {
+          "id": "m5_q15-c",
+          "text": "when delivery overhead is not an issue",
+          "correct": false
+        },
+        {
+          "id": "m5_q15-d",
+          "text": "when applications do not need to guarantee delivery of the data",
+          "correct": true
+        },
+        {
+          "id": "m5_q15-e",
+          "text": "when destination port numbers are dynamic",
+          "correct": false
+        }
+      ],
+      "explanation": "UDP is a stateless protocol, which means that neither device on either end of the conversation must keep track of the conversation. As a stateless protocol, UDP is used as the Layer 4 protocol for applications that need speedy (best-effort) delivery. An example of such traffic is the transport of digitized voice or video.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q16",
+      "type": "single",
+      "prompt": "Refer to the exhibit. A computer that is configured with the IPv4 address as shown in the exhibit is unable to access the internet. What is the problem?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q16-a",
+          "text": "The gateway address is in the wrong subnet.",
+          "correct": true
+        },
+        {
+          "id": "m5_q16-b",
+          "text": "The IP address is a network address.",
+          "correct": false
+        },
+        {
+          "id": "m5_q16-c",
+          "text": "The settings were not validated.",
+          "correct": false
+        },
+        {
+          "id": "m5_q16-d",
+          "text": "The IP address is a broadcast address.",
+          "correct": false
+        }
+      ],
+      "exhibits": [
+        {
+          "src": "/exhibits/devnet-m5-q16.jpg",
+          "alt": "Windows IPv4 properties: IP address 192.168.44.150, subnet mask 255.255.255.224, default gateway 192.168.44.161, preferred DNS 64.102.255.44, alternate DNS 128.107.241.185.",
+          "width": 383,
+          "height": 427
+        }
+      ],
+      "explanation": "The subnet mask of 255.255.255.224 identifies the network of 192.168.44.128. The usable range for the network is 192.168.44.129 through 192.168.44.158. The default gateway address of 192.168.44.161 exists on a separate network from the PC it is configured on.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q17",
+      "type": "matching",
+      "prompt": "Match the Layer 2 frame field names to the correctly ordered locations for an Ethernet frame. Fields should be ordered from the beginning of the Ethernet frame to the end.",
+      "instruction": "Choose a match for every item.",
+      "prompts": [
+        {
+          "id": "m5_q17-p1",
+          "text": "Preamble",
+          "answer": "first field"
+        },
+        {
+          "id": "m5_q17-p2",
+          "text": "SFD",
+          "answer": "second field"
+        },
+        {
+          "id": "m5_q17-p3",
+          "text": "Destination Address",
+          "answer": "third field"
+        },
+        {
+          "id": "m5_q17-p4",
+          "text": "Source Address",
+          "answer": "fourth field"
+        },
+        {
+          "id": "m5_q17-p5",
+          "text": "EtherType",
+          "answer": "fifth field"
+        },
+        {
+          "id": "m5_q17-p6",
+          "text": "Data",
+          "answer": "sixth field"
+        },
+        {
+          "id": "m5_q17-p7",
+          "text": "FCS",
+          "answer": "seventh field"
+        }
+      ],
+      "options": [
+        "first field",
+        "second field",
+        "third field",
+        "fourth field",
+        "fifth field",
+        "sixth field",
+        "seventh field"
+      ],
+      "explanation": "The Ethernet frame contains seven fields. In order these fields are: preamble, SFD, destination address, source address, type, data, and FCS. [Matching note: Converted from drag-and-drop (Ethernet frame field order).]",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "m5_q18",
+      "type": "single",
+      "prompt": "What IPv4-related DNS record type is used by a DNS server in response to a host requesting for a web server address via the URL?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "m5_q18-a",
+          "text": "AAAA record",
+          "correct": false
+        },
+        {
+          "id": "m5_q18-b",
+          "text": "NS record",
+          "correct": false
+        },
+        {
+          "id": "m5_q18-c",
+          "text": "A record",
+          "correct": true
+        },
+        {
+          "id": "m5_q18-d",
+          "text": "MX record",
+          "correct": false
+        }
+      ],
+      "explanation": "A DNS server uses an A record type for an IPv4 end device address. The AAAA record is for an IPv6 end device address. The MX record is used to map the domain name to mail exchange servers. The NS record indicates the authoritative name server.",
+      "sections": [
+        "m5"
+      ]
+    },
+    {
+      "id": "fa6_q1",
+      "type": "single",
+      "prompt": "Which statement describes the term containers in virtualization technology?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q1-a",
+          "text": "a virtual area with multiple independent applications sharing the host OS and hardware",
+          "correct": true
+        },
+        {
+          "id": "fa6_q1-b",
+          "text": "isolated areas of a virtualization environment, where each area is administered by a customer",
+          "correct": false
+        },
+        {
+          "id": "fa6_q1-c",
+          "text": "a group of VMs with identical OS and applications",
+          "correct": false
+        },
+        {
+          "id": "fa6_q1-d",
+          "text": "a subsection of a virtualization environment that contains one or more VMs",
+          "correct": false
+        }
+      ],
+      "explanation": "Containers package applications so multiple independent workloads share the host OS kernel and hardware while staying isolated from each other.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q2",
+      "type": "single",
+      "prompt": "In software development, what is the purpose of a jump box?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q2-a",
+          "text": "to act as a single trusted machine used to launch connections to sensitive systems",
+          "correct": true
+        },
+        {
+          "id": "fa6_q2-b",
+          "text": "to filter packets based on Layer 3 and Layer 4 addressing",
+          "correct": false
+        },
+        {
+          "id": "fa6_q2-c",
+          "text": "to receive incoming requests and forward them to multiple servers",
+          "correct": false
+        },
+        {
+          "id": "fa6_q2-d",
+          "text": "to make all requests originating from within a network look like they come from the same source IP address",
+          "correct": false
+        }
+      ],
+      "explanation": "A jump box is a hardened bastion host used as the single trusted stepping stone into sensitive systems.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q9"
+    },
+    {
+      "id": "fa6_q3",
+      "type": "single",
+      "prompt": "Which social engineering technique is carried out by someone attempting to gain access to a building by wearing a delivery service uniform?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q3-a",
+          "text": "smishing",
+          "correct": false
+        },
+        {
+          "id": "fa6_q3-b",
+          "text": "phishing",
+          "correct": false
+        },
+        {
+          "id": "fa6_q3-c",
+          "text": "vishing",
+          "correct": false
+        },
+        {
+          "id": "fa6_q3-d",
+          "text": "impersonation",
+          "correct": true
+        }
+      ],
+      "explanation": "Impersonation is a social-engineering method that uses a fake identity or uniform, such as a delivery worker, to gain physical access.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q4",
+      "type": "single",
+      "prompt": "What is Bash?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q4-a",
+          "text": "a Linux script engine that allows commands to be entered on the command line",
+          "correct": true
+        },
+        {
+          "id": "fa6_q4-b",
+          "text": "a web application framework written in Python",
+          "correct": false
+        },
+        {
+          "id": "fa6_q4-c",
+          "text": "a philosophy for software deployment that figures prominently in the field of DevOps",
+          "correct": false
+        },
+        {
+          "id": "fa6_q4-d",
+          "text": "a code injection technique used to attack data-driven applications",
+          "correct": false
+        }
+      ],
+      "explanation": "Bash is the common Linux command-line shell and scripting engine used to run commands interactively or from scripts.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q5",
+      "type": "single",
+      "prompt": "Which Linux-based platform is used to create, run, and manage containers in a virtual environment?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q5-a",
+          "text": "KVM",
+          "correct": false
+        },
+        {
+          "id": "fa6_q5-b",
+          "text": "Hyper-V",
+          "correct": false
+        },
+        {
+          "id": "fa6_q5-c",
+          "text": "Docker",
+          "correct": true
+        },
+        {
+          "id": "fa6_q5-d",
+          "text": "Bash",
+          "correct": false
+        }
+      ],
+      "explanation": "Docker is the widely used Linux platform for building, running, and managing application containers.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q6",
+      "type": "single",
+      "prompt": "Which security device is used to make responses to client requests look like they all come from the same server?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q6-a",
+          "text": "jump box",
+          "correct": false
+        },
+        {
+          "id": "fa6_q6-b",
+          "text": "reverse proxy",
+          "correct": true
+        },
+        {
+          "id": "fa6_q6-c",
+          "text": "forward proxy",
+          "correct": false
+        },
+        {
+          "id": "fa6_q6-d",
+          "text": "stateful firewall",
+          "correct": false
+        }
+      ],
+      "explanation": "A reverse proxy sits in front of servers and makes many backend responses appear to come from one front-end server.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q2"
+    },
+    {
+      "id": "fa6_q7",
+      "type": "single",
+      "prompt": "What is CI/CD?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q7-a",
+          "text": "It is a philosophy for software deployment that is often used in the field of DevOps.",
+          "correct": true
+        },
+        {
+          "id": "fa6_q7-b",
+          "text": "It is a script engine that allows users to execute commands from the command line.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q7-c",
+          "text": "It is a malicious code injection technique which is used to attack data-driven applications.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q7-d",
+          "text": "It is a web application development framework that is written in Python.",
+          "correct": false
+        }
+      ],
+      "explanation": "CI/CD is the DevOps practice of continuously integrating code changes and automatically delivering or deploying them.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q8",
+      "type": "single",
+      "prompt": "What is a philosophy for software deployment used in the field of DevOps?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q8-a",
+          "text": "DevNet",
+          "correct": false
+        },
+        {
+          "id": "fa6_q8-b",
+          "text": "OWASP",
+          "correct": false
+        },
+        {
+          "id": "fa6_q8-c",
+          "text": "CI/CD",
+          "correct": true
+        },
+        {
+          "id": "fa6_q8-d",
+          "text": "SOAP",
+          "correct": false
+        }
+      ],
+      "explanation": "In DevOps, CI/CD is the deployment philosophy that automates build, test, and release pipelines.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q11"
+    },
+    {
+      "id": "fa6_q9",
+      "type": "single",
+      "prompt": "What is used to isolate the different parts of a running container?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q9-a",
+          "text": "namespaces",
+          "correct": true
+        },
+        {
+          "id": "fa6_q9-b",
+          "text": "union file systems",
+          "correct": false
+        },
+        {
+          "id": "fa6_q9-c",
+          "text": "control groups",
+          "correct": false
+        },
+        {
+          "id": "fa6_q9-d",
+          "text": "wrappers",
+          "correct": false
+        }
+      ],
+      "explanation": "Linux namespaces isolate process views of system resources so each container sees its own network, mounts, PIDs, and similar scopes.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q15"
+    },
+    {
+      "id": "fa6_q10",
+      "type": "single",
+      "prompt": "What is a characteristic of the blue-green upgrade deployment strategy?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q10-a",
+          "text": "The code changes are periodically rolled out in such a way that they do not impact current users.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q10-b",
+          "text": "The new code is deployed all at once to the old environment. If users experience no issues, it is then moved to the new environment.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q10-c",
+          "text": "The new code version is first rolled out to a subset of users. Changes can then be rolled back if the users experience any problems.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q10-d",
+          "text": "A new environment is created with the new code in it, while the old environment is held in reserve in case users experience problems.",
+          "correct": true
+        }
+      ],
+      "explanation": "Blue-green deployment runs the new release in a parallel environment and keeps the old one ready for quick rollback.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q4"
+    },
+    {
+      "id": "fa6_q11",
+      "type": "matching",
+      "prompt": "Match the OWASP resource with a description.",
+      "instruction": "Choose a match for every item.",
+      "prompts": [
+        {
+          "id": "fa6_q11-p1",
+          "text": "explains ways to mitigate command security issues in web applications",
+          "answer": "Cheat Sheet Series"
+        },
+        {
+          "id": "fa6_q11-p2",
+          "text": "looks for known vulnerabilities in code",
+          "answer": "Dependency Check"
+        },
+        {
+          "id": "fa6_q11-p3",
+          "text": "streamlines the code testing process",
+          "answer": "DefectDojo"
+        },
+        {
+          "id": "fa6_q11-p4",
+          "text": "generic attack detection rules used with web application firewalls",
+          "answer": "ModSecurity Core Rule Set"
+        }
+      ],
+      "options": [
+        "Cheat Sheet Series",
+        "Dependency Check",
+        "DefectDojo",
+        "ModSecurity Core Rule Set"
+      ],
+      "explanation": "OWASP Cheat Sheets guide mitigations, Dependency Check finds known vulnerable libraries, DefectDojo organizes testing, and ModSecurity CRS supplies WAF attack rules.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q14"
+    },
+    {
+      "id": "fa6_q12",
+      "type": "single",
+      "prompt": "Which characters are used to separate batched SQL statements?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q12-a",
+          "text": "pound signs #",
+          "correct": false
+        },
+        {
+          "id": "fa6_q12-b",
+          "text": "semicolons ;",
+          "correct": true
+        },
+        {
+          "id": "fa6_q12-c",
+          "text": "parentheses ()",
+          "correct": false
+        },
+        {
+          "id": "fa6_q12-d",
+          "text": "colons :",
+          "correct": false
+        }
+      ],
+      "explanation": "In SQL, a semicolon ends one statement so multiple batched statements can be separated that way.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q10"
+    },
+    {
+      "id": "fa6_q13",
+      "type": "single",
+      "prompt": "Which load balancing technique will check the load status of multiple hosting servers and send the next incoming request to the server with the lowest load?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q13-a",
+          "text": "blue-green",
+          "correct": false
+        },
+        {
+          "id": "fa6_q13-b",
+          "text": "canary",
+          "correct": false
+        },
+        {
+          "id": "fa6_q13-c",
+          "text": "IP hash",
+          "correct": false
+        },
+        {
+          "id": "fa6_q13-d",
+          "text": "least connections",
+          "correct": true
+        }
+      ],
+      "explanation": "Least-connections load balancing sends each new request to the server that currently has the fewest active connections (lowest load).",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q14",
+      "type": "single",
+      "prompt": "A company has remote employees who need to connect to the company network in order to participate in meetings and to share the data and progress of application development. Which data transportation security technique can be implemented to allow remote employees to securely connect to the company private network?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q14-a",
+          "text": "TLS",
+          "correct": false
+        },
+        {
+          "id": "fa6_q14-b",
+          "text": "SSH",
+          "correct": false
+        },
+        {
+          "id": "fa6_q14-c",
+          "text": "VPN",
+          "correct": true
+        },
+        {
+          "id": "fa6_q14-d",
+          "text": "SSL",
+          "correct": false
+        }
+      ],
+      "explanation": "A VPN extends private-network reach over the internet so remote workers can join meetings and share development resources securely.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q15",
+      "type": "matching",
+      "prompt": "Match the environments in the four-tier development environment structure to the description.",
+      "instruction": "Choose a match for every item.",
+      "prompts": [
+        {
+          "id": "fa6_q15-p1",
+          "text": "development",
+          "answer": "where coding takes place"
+        },
+        {
+          "id": "fa6_q15-p2",
+          "text": "testing",
+          "answer": "includes automated tools such as Jenkins, CircleCI, or Travis CI, and is often integrated with a version control system"
+        },
+        {
+          "id": "fa6_q15-p3",
+          "text": "staging",
+          "answer": "structurally as close to the actual production environment as possible"
+        },
+        {
+          "id": "fa6_q15-p4",
+          "text": "production",
+          "answer": "contains code that has been tested multiple times and is error free"
+        }
+      ],
+      "options": [
+        "where coding takes place",
+        "includes automated tools such as Jenkins, CircleCI, or Travis CI, and is often integrated with a version control system",
+        "structurally as close to the actual production environment as possible",
+        "contains code that has been tested multiple times and is error free"
+      ],
+      "explanation": "In the four-tier model, development is for coding, testing runs automated CI tools, staging mirrors production, and production holds fully tested code.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q7",
+      "note": "Merged with m6_q7; FA6 uses environment→description orientation (Module 6 image was inverted)."
+    },
+    {
+      "id": "fa6_q16",
+      "type": "single",
+      "prompt": "Which attack involves the insertion of malicious code into SQL statements?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q16-a",
+          "text": "brute force",
+          "correct": false
+        },
+        {
+          "id": "fa6_q16-b",
+          "text": "cross-site scripting",
+          "correct": false
+        },
+        {
+          "id": "fa6_q16-c",
+          "text": "SQL injection",
+          "correct": true
+        },
+        {
+          "id": "fa6_q16-d",
+          "text": "local file inclusion",
+          "correct": false
+        }
+      ],
+      "explanation": "SQL injection inserts attacker-controlled SQL into application queries so the database executes malicious statements.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q8"
+    },
+    {
+      "id": "fa6_q17",
+      "type": "single",
+      "prompt": "What is a characteristic of a virtual machine running on a PC?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q17-a",
+          "text": "A virtual machine is not susceptible to threats and malicious attacks.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q17-b",
+          "text": "The number of virtual machines that can be made available depends on the software resources of the host machine.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q17-c",
+          "text": "A virtual machine needs a physical network adapter to connect to the Internet.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q17-d",
+          "text": "A virtual machine runs its own operating system.",
+          "correct": true
+        }
+      ],
+      "explanation": "Each virtual machine runs its own guest operating system on top of a hypervisor, separate from the host OS.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q3"
+    },
+    {
+      "id": "fa6_q18",
+      "type": "single",
+      "prompt": "In serverless computing, which term refers to the ability for resources surrounding an app to change and adjust capacity as needed?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q18-a",
+          "text": "extensible",
+          "correct": false
+        },
+        {
+          "id": "fa6_q18-b",
+          "text": "elastic",
+          "correct": true
+        },
+        {
+          "id": "fa6_q18-c",
+          "text": "flexible",
+          "correct": false
+        },
+        {
+          "id": "fa6_q18-d",
+          "text": "scalable",
+          "correct": false
+        }
+      ],
+      "explanation": "In serverless designs, elasticity means surrounding resources automatically grow or shrink with demand.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q19",
+      "type": "matching",
+      "prompt": "Match the cloud model to its description. (Not all options are used.)",
+      "instruction": "Choose a match for every item.",
+      "prompts": [
+        {
+          "id": "fa6_q19-p1",
+          "text": "These are clouds that are intended for a specific organization or entity, such as the government. They can be set up using the private network of an organization.",
+          "answer": "private"
+        },
+        {
+          "id": "fa6_q19-p2",
+          "text": "These clouds are made up of two or more clouds. However, each part remains a distinctive and separate object. Both of these are connected using a single architecture.",
+          "answer": "hybrid"
+        },
+        {
+          "id": "fa6_q19-p3",
+          "text": "These are clouds that locate computing as close as possible to the user.",
+          "answer": "edge"
+        }
+      ],
+      "options": [
+        "private",
+        "hybrid",
+        "edge",
+        "public"
+      ],
+      "explanation": "Private clouds serve one organization, hybrid combines distinct clouds under one architecture, and edge places compute near users; public is unused here.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q5",
+      "note": "Merged with m6_q5; FA6 answer key preferred."
+    },
+    {
+      "id": "fa6_q20",
+      "type": "single",
+      "prompt": "Which web application attack involves an attacker accessing, and potentially changing, serialized versions of data and objects?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q20-a",
+          "text": "cross-site scripting",
+          "correct": false
+        },
+        {
+          "id": "fa6_q20-b",
+          "text": "security misconfiguration",
+          "correct": false
+        },
+        {
+          "id": "fa6_q20-c",
+          "text": "broken authentication",
+          "correct": false
+        },
+        {
+          "id": "fa6_q20-d",
+          "text": "insecure deserialization",
+          "correct": true
+        }
+      ],
+      "explanation": "Insecure deserialization lets attackers read or tamper with serialized objects to compromise an application.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q21",
+      "type": "single",
+      "prompt": "Which technology is used to containerize applications and allows them to run in a variety of environments?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q21-a",
+          "text": "Cisco DNA",
+          "correct": false
+        },
+        {
+          "id": "fa6_q21-b",
+          "text": "VirtualBox",
+          "correct": false
+        },
+        {
+          "id": "fa6_q21-c",
+          "text": "Docker",
+          "correct": true
+        },
+        {
+          "id": "fa6_q21-d",
+          "text": "GitHub",
+          "correct": false
+        }
+      ],
+      "explanation": "Docker containerizes applications so the same image can run across many host environments.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q13"
+    },
+    {
+      "id": "fa6_q22",
+      "type": "single",
+      "prompt": "Which technique is used to help mitigate SQL injection attacks?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q22-a",
+          "text": "using the same owner or admin account in the web applications to connect to the database",
+          "correct": false
+        },
+        {
+          "id": "fa6_q22-b",
+          "text": "assigning DBA or admin access rights to the application account",
+          "correct": false
+        },
+        {
+          "id": "fa6_q22-c",
+          "text": "limiting the read access to specific fields of a table or joins of tables",
+          "correct": true
+        },
+        {
+          "id": "fa6_q22-d",
+          "text": "using stored procedures with the \"db_owner\" default role",
+          "correct": false
+        }
+      ],
+      "explanation": "Limiting an app’s database account to only needed table fields reduces what SQL injection can read or join.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q1"
+    },
+    {
+      "id": "fa6_q23",
+      "type": "multi",
+      "prompt": "What are three characteristics of a virtual machine? (Choose three.)",
+      "choose": 3,
+      "instruction": "Select all that apply · choose three.",
+      "choices": [
+        {
+          "id": "fa6_q23-a",
+          "text": "It is an isolated environment for applications.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q23-b",
+          "text": "It includes a guest OS.",
+          "correct": true
+        },
+        {
+          "id": "fa6_q23-c",
+          "text": "It shares the underlying resources of the host OS.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q23-d",
+          "text": "It is a virtualized physical server.",
+          "correct": true
+        },
+        {
+          "id": "fa6_q23-e",
+          "text": "It leverages the kernel of the host OS for quick starts.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q23-f",
+          "text": "It requires a hypervisor.",
+          "correct": true
+        }
+      ],
+      "explanation": "A VM is a virtualized server that includes its own guest OS and needs a hypervisor; it does not merely share the host kernel like a container.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q24",
+      "type": "multi",
+      "prompt": "Which two attacks target web servers through exploiting possible vulnerabilities of input functions used by an application? (Choose two.)",
+      "choose": 2,
+      "instruction": "Select all that apply · choose two.",
+      "choices": [
+        {
+          "id": "fa6_q24-a",
+          "text": "trust exploitation",
+          "correct": false
+        },
+        {
+          "id": "fa6_q24-b",
+          "text": "port scanning",
+          "correct": false
+        },
+        {
+          "id": "fa6_q24-c",
+          "text": "cross-site scripting",
+          "correct": true
+        },
+        {
+          "id": "fa6_q24-d",
+          "text": "SQL injection",
+          "correct": true
+        },
+        {
+          "id": "fa6_q24-e",
+          "text": "port redirection",
+          "correct": false
+        }
+      ],
+      "explanation": "Cross-site scripting and SQL injection both abuse unsanitized application input to attack web servers.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q25",
+      "type": "single",
+      "prompt": "What is a characteristic of the development environment in the four-tier deployment environment structure?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q25-a",
+          "text": "It is structurally similar to the final production environment.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q25-b",
+          "text": "It is where coding takes place.",
+          "correct": true
+        },
+        {
+          "id": "fa6_q25-c",
+          "text": "It is where users will interact with the code.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q25-d",
+          "text": "It contains code that has been tested and is error free.",
+          "correct": false
+        }
+      ],
+      "explanation": "The development tier is specifically where application coding happens before test, staging, and production.",
+      "sections": [
+        "fa6"
+      ]
+    },
+    {
+      "id": "fa6_q26",
+      "type": "single",
+      "prompt": "Which mitigation method is effective against cross-site scripting?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q26-a",
+          "text": "consistent hardening of systems and applications",
+          "correct": false
+        },
+        {
+          "id": "fa6_q26-b",
+          "text": "using only necessary features and secure packages downloaded from official sources and verified with a signature",
+          "correct": false
+        },
+        {
+          "id": "fa6_q26-c",
+          "text": "sanitizing untrusted content",
+          "correct": true
+        },
+        {
+          "id": "fa6_q26-d",
+          "text": "requiring multifactor authentication",
+          "correct": false
+        }
+      ],
+      "explanation": "Sanitizing or encoding untrusted content blocks script injection used in cross-site scripting attacks.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q6"
+    },
+    {
+      "id": "fa6_q27",
+      "type": "single",
+      "prompt": "Which statement is a characteristic of the broken access control threat to web applications?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q27-a",
+          "text": "It allows attackers to access, and potentially change, serialized versions of data and objects.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q27-b",
+          "text": "It allows attackers to steal sensitive information such as passwords or personal information.",
+          "correct": false
+        },
+        {
+          "id": "fa6_q27-c",
+          "text": "It allows users to circumvent existing authentication requirements.",
+          "correct": true
+        },
+        {
+          "id": "fa6_q27-d",
+          "text": "It allows an attacker to use the dynamic functions of a site to inject malicious content into the page.",
+          "correct": false
+        }
+      ],
+      "explanation": "Broken access control lets users bypass authentication or authorization checks and reach resources they should not.",
+      "sections": [
+        "fa6",
+        "m6"
+      ],
+      "mergedFrom": "m6_q12"
+    },
+    {
+      "id": "fa6_q28",
+      "type": "single",
+      "prompt": "A threat actor has used malicious commands to trick the database into returning unauthorized records and other data. Which web front-end vulnerability is the threat actor exploiting?",
+      "instruction": "Select one answer.",
+      "choices": [
+        {
+          "id": "fa6_q28-a",
+          "text": "SQL injections",
+          "correct": true
+        },
+        {
+          "id": "fa6_q28-b",
+          "text": "broken authentication",
+          "correct": false
+        },
+        {
+          "id": "fa6_q28-c",
+          "text": "security misconfiguration",
+          "correct": false
+        },
+        {
+          "id": "fa6_q28-d",
+          "text": "cross-site scripting",
+          "correct": false
+        }
+      ],
+      "explanation": "Tricking a database into returning unauthorized rows is classic SQL injection against the web front end.",
+      "sections": [
+        "fa6"
+      ]
+    }
+  ]
+}

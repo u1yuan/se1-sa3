@@ -1,0 +1,21 @@
+{
+  "id": "devnet-m6",
+  "pool": "devnet",
+  "questionIds": [
+    "fa6_q2",
+    "fa6_q6",
+    "fa6_q8",
+    "fa6_q9",
+    "fa6_q10",
+    "fa6_q11",
+    "fa6_q12",
+    "fa6_q15",
+    "fa6_q16",
+    "fa6_q17",
+    "fa6_q19",
+    "fa6_q21",
+    "fa6_q22",
+    "fa6_q26",
+    "fa6_q27"
+  ]
+}

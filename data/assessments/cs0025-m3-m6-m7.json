@@ -1,10 +1,5 @@
 {
   "id": "cs0025-m3-m6-m7",
-  "title": "M6 and M7",
-  "examLabel": "[M3-SUMMATIVE] [AI-Prohibited]",
-  "course": "SoftEng1 — CS0025",
-  "topic": "Agile Methodologies, System Modeling, and Requirements Analysis",
-  "questionCount": 20,
   "questions": [
     {
       "id": "q1",

@@ -1,0 +1,63 @@
+{
+  "courses": [
+    {
+      "id": "cs0025",
+      "code": "CS0025",
+      "title": "SoftEng1",
+      "assessments": [
+        {
+          "id": "m3-m6-m7",
+          "bankId": "cs0025-m3-m6-m7",
+          "title": "M6 and M7",
+          "examLabel": "[M3-SUMMATIVE] [AI-Prohibited]",
+          "topic": "Agile Methodologies, System Modeling, and Requirements Analysis",
+          "questionCount": 20,
+          "examTimerMinutes": null
+        }
+      ]
+    },
+    {
+      "id": "devnet",
+      "code": "DEVNET",
+      "title": "DevNet Associate (v1.0)",
+      "assessments": [
+        {
+          "id": "module-5",
+          "bankId": "devnet-m5",
+          "title": "Module 5",
+          "examLabel": null,
+          "topic": "Network Fundamentals",
+          "questionCount": 18,
+          "examTimerMinutes": 60
+        },
+        {
+          "id": "module-6",
+          "bankId": "devnet-m6",
+          "title": "Module 6",
+          "examLabel": null,
+          "topic": "Application Deployment and Security",
+          "questionCount": 15,
+          "examTimerMinutes": 60
+        },
+        {
+          "id": "fa-6",
+          "bankId": "devnet-fa6",
+          "title": "Formative Assessment 6",
+          "examLabel": null,
+          "topic": "Formative assessment · includes all 15 Module 6 questions",
+          "questionCount": 28,
+          "examTimerMinutes": 60
+        },
+        {
+          "id": "all",
+          "bankId": "devnet-all",
+          "title": "All",
+          "examLabel": null,
+          "topic": "Every unique question from Module 5, Module 6, and FA 6",
+          "questionCount": 46,
+          "examTimerMinutes": 60
+        }
+      ]
+    }
+  ]
+}

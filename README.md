@@ -31,7 +31,7 @@ assessments, so their keys can't drift.
 
 ## How the player works
 
-- **Start screen:** pick **Prep** or **Exam**.
+- **Start screen:** select **Prep** or **Exam**, then press Start.
 - **One question at a time**, fixed source order. No shuffle of questions or
   choices.
 - **Explicit Submit.** Submit stays disabled until the answer is valid: one
@@ -46,7 +46,7 @@ assessments, so their keys can't drift.
   question N." No colours or right/wrong anywhere until the results screen.
 - **Results (both modes):** score X/N and percentage, then a read-only review
   of every question with explanations. "Start a new attempt" clears the run.
-  No "retake missed". The historical QuizFetch 17/20 score never appears.
+  Filter the read-only review by All, Incorrect, or Correct. No "retake missed". The historical QuizFetch 17/20 score never appears.
 - **Back button:** trapped during an attempt; you stay on the current question
   and see "Answers are locked." The header has no links mid-attempt — leaving
   needs **Discard attempt** (with a confirm), which returns to mode select.
@@ -113,7 +113,7 @@ npm run dev        # http://localhost:3000
 npm test           # unit tests
 npm run lint       # TypeScript type check
 npm run build      # production build
-npm start          # serve the production build
+npx serve out      # preview the static production build
 ```
 
 IBM Plex Mono is loaded with `next/font/google`, which downloads it at build
@@ -122,9 +122,7 @@ build machine needs internet access.
 
 ## Deployment
 
-Not deployed yet. It is meant to go to Vercel later as a standard Next.js
-project (all routes are statically generated; no environment variables or
-secrets).
+The existing GitHub Pages workflow deploys `out/` on pushes to `main` or manual dispatch. Keep the repository remote as `https://github.com/u1yuan/se1-sa3.git` and set Pages source to GitHub Actions. The workflow supplies `NEXT_PUBLIC_BASE_PATH` for the repository path; local builds default to `/`. All course and assessment routes are statically generated. `npm start` uses Next server mode and is not supported for this static export.
 
 ## Notes and caveats
 
@@ -144,3 +142,11 @@ secrets).
   from the source export.
 - No analytics. To also turn off Next.js's CLI telemetry on your machine, run
   `npx next telemetry disable`.
+
+## Consolidated repository
+
+This checkout combines the course hub and original reviewer histories. The original folder remains unchanged. Current attempts use per-assessment version-2 session storage; legacy version-1 attempts reset. Browser Back remains restricted during an active attempt.
+
+Browser verification: build the app, serve `out/` on port 3100, then run `node scripts/e2e-walkthrough.cjs`. Set `BASE_URL` to test a mounted repository path and `CHROME_PATH` if the browser is outside its usual Windows location (Chrome and Edge are detected automatically). Screenshots can be redirected with `SCREENSHOTS_DIR`. The walkthrough requires `playwright-core` (`npm install --no-save --package-lock=false playwright-core`).
+
+The postbuild script normalizes nested Windows RSC segment filenames to the dotted names requested by browsers. It leaves already-correct exports unchanged.

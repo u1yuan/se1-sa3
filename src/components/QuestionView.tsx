@@ -118,7 +118,7 @@ export default function QuestionView({ bank, attempt, question, remaining, notic
               </p>
             </div>
             <p className="qcard__instr" id={`${question.id}-instr`}>
-              {question.instruction}
+              {question.type === "multi" ? "Select every correct choice and no incorrect choices; no partial credit." : question.instruction}
             </p>
           </div>
 
@@ -157,11 +157,11 @@ export default function QuestionView({ bank, attempt, question, remaining, notic
                 {isLast ? "See results" : "Next"} <span aria-hidden="true">→</span>
               </button>
             ) : (
-              <button type="submit" className="btn btn--primary" disabled={!valid}>
+              <button type="submit" className="btn btn--primary" disabled={!valid} aria-describedby={`${question.id}-submit-hint`}>
                 Submit
               </button>
             )}
-            <span className="actions__hint">{hint}</span>
+            <span className="actions__hint" id={`${question.id}-submit-hint`}>{hint}</span>
           </div>
         </form>
 
@@ -171,7 +171,7 @@ export default function QuestionView({ bank, attempt, question, remaining, notic
         </aside>
       </div>
 
-      <footer className="player__foot">
+      <footer className="player__foot"><p>Submitted answers are saved for this tab. Unsubmitted input is not saved.</p>
         <button type="button" className="link-btn" onClick={onQuit}>
           Discard attempt
         </button>
@@ -200,6 +200,7 @@ function ChoiceInput({
   const fieldName = `answer-${question.id}`;
   return (
     <fieldset className="choices" aria-labelledby={`${question.id}-prompt`} aria-describedby={`${question.id}-instr`} disabled={isLocked}>
+      {multi && <legend className="selection-count">{selectedIds.size} selected</legend>}
       {question.choices.map((c, i) => {
         const selected = selectedIds.has(c.id);
         let state = "";
@@ -210,8 +211,8 @@ function ChoiceInput({
             else if (c.correct) [state, tag] = ["is-missed", multi ? "Correct · not selected" : "Correct answer"];
             else if (selected) [state, tag] = ["is-wrong", "Your answer · incorrect"];
             else state = "is-dim";
-          } else state = selected ? "is-locked-selected" : "is-dim";
-        } else if (selected) state = "is-selected";
+          } else { state = selected ? "is-locked-selected" : "is-dim"; if (selected) tag = "Submitted"; }
+        } else if (selected) { state = "is-selected"; tag = "Selected"; }
         const mark = multi ? (selected ? "[x]" : "[ ]") : selected ? "(*)" : "( )";
         return (
           <label key={c.id} className={`choice ${state}`}>

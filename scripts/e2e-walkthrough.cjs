@@ -1,11 +1,12 @@
-// Headless walkthrough used to verify the hub (needs playwright-core + Chrome and `npm start -- -p 3100`).
+// Headless walkthrough used to verify the hub (needs playwright-core + Chrome and a static server for `out/` on port 3100).
 // Run: node scripts/e2e-walkthrough.cjs  (writes screenshots/)
 const { chromium } = require('playwright-core');
 const fs = require('fs');
 const path = require('path');
 const ROOT = process.env.ROOT || process.cwd();
-const BASE = 'http://localhost:3100';
-const SHOTS = path.join(ROOT, 'screenshots');
+const BASE = process.env.BASE_URL || 'http://localhost:3100';
+const SHOTS = process.env.SCREENSHOTS_DIR || path.join(ROOT, 'screenshots');
+fs.mkdirSync(SHOTS, { recursive: true });
 const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', p), 'utf8'));
 const pool = read('pools/devnet.json');
 const byId = new Map(pool.questions.map((q) => [q.id, q]));
@@ -34,7 +35,7 @@ const next = (page) => page.click('button[type=submit]:has-text("Next"), button[
 const qText = (page) => page.locator('.qcard__count').innerText();
 
 (async () => {
-  const browser = await chromium.launch({ executablePath: '/usr/bin/google-chrome', headless: true });
+  const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || (process.platform === 'win32' ? ['C:/Program Files/Google/Chrome/Application/chrome.exe', 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'].find((p) => fs.existsSync(p)) : '/usr/bin/google-chrome'), headless: true });
   const ctx = await browser.newContext({ viewport: { width: 1280, height: 860 } });
   const page = await ctx.newPage();
   const errors = [];
@@ -47,19 +48,19 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await page.screenshot({ path: `${SHOTS}/01-hub.png` });
   check('hub lists 2 courses', (await page.locator('.card').count()) === 2);
   await page.click('.card:has-text("DEVNET")');
-  await page.waitForURL('**/courses/devnet');
+  await page.waitForURL('**/courses/devnet/');
   check('DevNet course page: 4 assessments', (await page.locator('.card').count()) === 4);
   check('DevNet cards mention 60-minute timer', (await page.locator('.card:has-text("60-minute exam timer")').count()) === 4);
   await page.screenshot({ path: `${SHOTS}/02-course-devnet.png` });
   await page.click('.card:has-text("Module 5")');
-  await page.waitForURL('**/courses/devnet/module-5');
+  await page.waitForURL('**/courses/devnet/module-5/');
   await page.waitForSelector('.mode-card');
   check('DevNet exam card mentions countdown', (await page.locator('.mode-card:has-text("60-minute countdown")').count()) === 1);
   await page.screenshot({ path: `${SHOTS}/03-start-devnet-m5.png`, fullPage: true });
 
   // Exam mode
   const m5 = bankQs('devnet-m5');
-  await page.click('.mode-card:has-text("Exam mode")');
+  await page.click('.mode-card:has-text("Exam mode")'); await page.click('.start-button');
   await page.waitForSelector('.qcard');
   const t0 = await page.locator('.timer').innerText();
   check('exam timer visible', /^\d{2}:\d{2}$/.test(t0), t0);
@@ -84,6 +85,9 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await page.keyboard.press('Enter');
   await page.waitForSelector('.feedback--locked');
   check('Enter submits', true);
+  await page.goBack();
+  await page.waitForSelector('.notice');
+  check('browser Back keeps current locked question', (await qText(page)).toUpperCase().includes('6 OF 18'));
   await page.screenshot({ path: `${SHOTS}/05-exam-locked.png` });
   await page.keyboard.press('Enter');
   await page.waitForFunction(() => document.querySelector('.qcard__count')?.textContent?.includes('7 of'));
@@ -102,7 +106,7 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   // Back stays put
   await page.goBack();
   await page.waitForTimeout(600);
-  check('Back stays on Q7', page.url().endsWith('/courses/devnet/module-5') && (await qText(page)).toUpperCase() === 'QUESTION 7 OF 18', page.url());
+  check('Back stays on Q7', page.url().endsWith('/courses/devnet/module-5/') && (await qText(page)).toUpperCase() === 'QUESTION 7 OF 18', page.url());
   check('Back notice', (await page.locator('.notice:has-text("Answers are locked")').count()) === 1);
   check('header not navigable mid-attempt', (await page.locator('.statusbar a').count()) === 0);
 
@@ -126,9 +130,15 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await page.waitForSelector('.score__figure');
   check('results survive refresh', (await page.locator('.score__figure').innerText()).includes('17 / 18'));
 
+  await page.getByRole('button', { name: 'Incorrect (1)', exact: true }).click();
+  check('incorrect filter retains original question number', (await page.locator('.review__item').count()) === 1 && (await page.locator('.review__num').innerText()) === '3');
+  await page.getByRole('button', { name: 'Correct (17)', exact: true }).click();
+  check('correct filter', (await page.locator('.review__item').count()) === 17);
+  await page.getByRole('button', { name: 'All (18)', exact: true }).click();
+
   // Another assessment in the same tab: Module 6 prep, 2 answers, then leave by URL
   await page.goto(BASE + '/courses/devnet/module-6');
-  await page.click('.mode-card:has-text("Prep mode")');
+  await page.click('.mode-card:has-text("Prep mode")'); await page.click('.start-button');
   const m6 = bankQs('devnet-m6');
   for (let i = 0; i < 2; i++) { await answer(page, m6[i]); await submit(page); await next(page); }
   check('prep has no timer', (await page.locator('.timer').count()) === 0);
@@ -154,7 +164,7 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await page.click('button:has-text("Start a new attempt") >> nth=0');
   await page.waitForSelector('.mode-card');
   check('restart clears to start screen', true);
-  await page.click('.mode-card:has-text("Prep mode")');
+  await page.click('.mode-card:has-text("Prep mode")'); await page.click('.start-button');
   await answer(page, m5[0], { wrong: true });
   await submit(page);
   await page.waitForSelector('.feedback--wrong');
@@ -200,14 +210,14 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   // SoftEng1 exam untimed, full run
   await page.goto(BASE + '/');
   await page.click('.card:has-text("CS0025")');
-  await page.waitForURL('**/courses/cs0025');
+  await page.waitForURL('**/courses/cs0025/');
   check('SoftEng1 card no timer', (await page.locator('.card:has-text("timer")').count()) === 0);
   await page.screenshot({ path: `${SHOTS}/13-course-softeng1.png` });
   await page.click('.card:has-text("M6 and M7")');
   await page.waitForSelector('.mode-card');
   check('SoftEng1 exam card no timer', (await page.locator('.mode-card:has-text("countdown")').count()) === 0);
   await page.screenshot({ path: `${SHOTS}/14-start-softeng1.png`, fullPage: true });
-  await page.click('.mode-card:has-text("Exam mode")');
+  await page.click('.mode-card:has-text("Exam mode")'); await page.click('.start-button');
   await page.waitForSelector('.qcard');
   check('SoftEng1 exam untimed', (await page.locator('.timer').count()) === 0);
   const se = bankQs('cs0025-m3-m6-m7');
@@ -228,7 +238,7 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await mp.goto(BASE + '/');
   await mp.screenshot({ path: `${SHOTS}/16-mobile-hub.png` });
   await mp.goto(BASE + '/courses/devnet/module-5');
-  await mp.tap('.mode-card:has-text("Exam mode")');
+  await mp.tap('.mode-card:has-text("Exam mode")'); await mp.tap('.start-button');
   await mp.waitForSelector('.qcard');
   await answer(mp, m5[0]);
   await mp.screenshot({ path: `${SHOTS}/17-mobile-exam-question.png` });
@@ -236,7 +246,7 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   check('360px: no horizontal overflow', !overflow);
   check('360px: grid hidden, progress shown', !(await mp.locator('.side').isVisible()) && (await mp.locator('.qcard__progress-mobile .progress-line').isVisible()));
   await mp.goto(BASE + '/courses/devnet/fa-6');
-  await mp.tap('.mode-card:has-text("Prep mode")');
+  await mp.tap('.mode-card:has-text("Prep mode")'); await mp.tap('.start-button');
   const fa6 = bankQs('devnet-fa6');
   for (let i = 0; i < 14; i++) { await answer(mp, fa6[i]); await submit(mp); await next(mp); }
   await answer(mp, fa6[14]); // fa6_q15 long options
@@ -251,7 +261,7 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   tp.on('pageerror', (e) => errors.push(String(e)));
   await tp.clock.install();
   await tp.goto(BASE + '/courses/devnet/fa-6');
-  await tp.click('.mode-card:has-text("Exam mode")');
+  await tp.click('.mode-card:has-text("Exam mode")'); await tp.click('.start-button');
   await tp.waitForSelector('.qcard');
   await answer(tp, fa6[0]); await submit(tp); await next(tp);
   await answer(tp, fa6[1]);

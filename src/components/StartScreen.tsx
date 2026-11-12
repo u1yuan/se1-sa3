@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Mode, QuestionBank } from "@/lib/types";
 import StatusBar from "./StatusBar";
 
 export default function StartScreen({ bank, onStart }: { bank: QuestionBank; onStart: (mode: Mode) => void }) {
+  const [mode, setMode] = useState<Mode>("prep");
   const n = bank.questions.length;
   const minutes = bank.examTimerMinutes;
   const courseHref = `/courses/${bank.courseId}`;
@@ -49,27 +50,27 @@ export default function StartScreen({ bank, onStart }: { bank: QuestionBank; onS
             <li>One question at a time, in a fixed order.</li>
             <li>Submit locks your answer. Next is the only way forward: no going back, no skipping.</li>
             <li>Every question needs an answer before you can submit.</li>
-            <li>Refreshing resumes where you left off. Closing the tab ends the attempt.</li>
+            <li>Refreshing restores submitted answers; unsubmitted input is not saved. Closing the tab ends the attempt.</li>
           </ul>
         </section>
 
-        <section className="modes" aria-label="Choose a mode">
-          <button type="button" className="mode-card" onClick={() => onStart("prep")}>
+        <form onSubmit={(e) => { e.preventDefault(); onStart(mode); }}><fieldset className="modes"><legend>Choose your mode</legend>
+          <label className={`mode-card${mode === "prep" ? " is-selected" : ""}`}><input type="radio" name="mode" value="prep" checked={mode === "prep"} onChange={() => setMode("prep")} />
             <span className="mode-card__name">Prep mode</span>
             <span className="mode-card__desc">
               Correct or incorrect, the right answer{bank.questions.some((q) => q.explanation) ? ", and an explanation" : ""} after every submit. No timer.
             </span>
-            <span className="mode-card__go" aria-hidden="true">BEGIN →</span>
-          </button>
-          <button type="button" className="mode-card" onClick={() => onStart("exam")}>
+            <span className="mode-card__go" aria-hidden="true">SELECT →</span>
+          </label>
+          <label className={`mode-card${mode === "exam" ? " is-selected" : ""}`}><input type="radio" name="mode" value="exam" checked={mode === "exam"} onChange={() => setMode("exam")} />
             <span className="mode-card__name">Exam mode</span>
             <span className="mode-card__desc">
               No feedback until the end. Score and full review after question {n}.
               {minutes ? ` ${minutes}-minute countdown; at 00:00 the attempt submits itself and unanswered questions count as incorrect.` : ""}
             </span>
-            <span className="mode-card__go" aria-hidden="true">BEGIN →</span>
-          </button>
-        </section>
+            <span className="mode-card__go" aria-hidden="true">SELECT →</span>
+          </label>
+        </fieldset><button type="submit" className="btn btn--primary start-button">Start {mode === "prep" ? "Prep" : "Exam"}</button></form>
 
         <p className="back-link">
           <Link href={courseHref}>← back to {bank.courseCode}</Link>

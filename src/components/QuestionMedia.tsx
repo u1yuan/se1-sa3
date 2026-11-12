@@ -8,7 +8,7 @@ export default function QuestionMedia({ question }: { question: Question }) {
         <figure key={ex.src} className="exhibit">
           <figcaption className="exhibit__cap">Exhibit{question.exhibits!.length > 1 ? ` ${i + 1}` : ""}</figcaption>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={ex.src} alt={ex.alt} width={ex.width} height={ex.height} loading="eager" decoding="async" />
+          <img src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}${ex.src}`} alt={ex.alt} width={ex.width} height={ex.height} loading="eager" decoding="async" />
         </figure>
       ))}
       {question.code && question.code.length > 0 && (

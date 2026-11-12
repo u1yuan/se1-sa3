@@ -91,7 +91,7 @@ export default function Reviewer({ bank }: { bank: QuestionBank }) {
 
   if (!hydrated) {
     return (
-      <div className="page" aria-busy="true">
+      <div className="page" aria-busy="true"><p role="status">Restoring your study session...</p>
         <StatusBar crumbs={[{ label: bank.courseCode }, { label: bank.title }]} locked />
       </div>
     );

@@ -1205,3 +1205,17 @@ fieldset {
     transition: none !important;
   }
 }
+
+/* Integrated mode selection and answer review controls. */
+fieldset.modes { padding: 0; border: 0; min-width: 0; }
+.modes legend { margin-bottom: 12px; }
+.mode-card.is-selected { border-color: var(--blue); background: var(--blue-wash); }
+.mode-card:has(input:focus-visible) { outline: 2px solid var(--blue); outline-offset: 3px; }
+.mode-card input { accent-color: var(--blue); align-self: flex-start; }
+.start-button { margin-top: 20px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 20px 8px; }
+.filter-btn { padding: 8px 14px; border: 1px solid var(--rule); background: var(--panel); cursor: pointer; }
+.filter-btn[aria-pressed=true] { color: var(--blue); border-color: var(--blue); background: var(--blue-wash); }
+.review-count { padding: 8px 20px; }
+.selection-count { font-size: 14px; color: var(--blue); }
+.progress-line { flex-wrap: wrap; }

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { QuestionBank } from "@/lib/types";
 import { formatClock, timeUsedMs, timerMs, type Attempt } from "@/lib/attempt";
 import { gradeAnswer, scoreAttempt } from "@/lib/grade";
@@ -10,6 +10,9 @@ import { feedbackLines } from "./QuestionView";
 
 export default function Results({ bank, attempt, onRestart }: { bank: QuestionBank; attempt: Attempt; onRestart: () => void }) {
   const { correct, total, percent } = scoreAttempt(bank.questions, attempt.answers);
+  const [filter, setFilter] = useState<"all" | "incorrect" | "correct">("all");
+  const reviewRef = useRef<HTMLHeadingElement>(null);
+  const questions = bank.questions.filter((q) => filter === "all" || gradeAnswer(q, attempt.answers[q.id]) === (filter === "correct"));
   const headRef = useRef<HTMLHeadingElement>(null);
   useEffect(() => headRef.current?.focus({ preventScroll: true }), []);
   const courseHref = `/courses/${bank.courseId}`;
@@ -42,6 +45,7 @@ export default function Results({ bank, attempt, onRestart }: { bank: QuestionBa
         </section>
 
         <div className="results-actions">
+          {correct < total && <button type="button" className="btn btn--outline" onClick={() => { setFilter("incorrect"); reviewRef.current?.focus(); }}>Review incorrect answers</button>}
           <button type="button" className="btn btn--primary btn--wide" onClick={onRestart}>
             Start a new attempt
           </button>
@@ -51,17 +55,22 @@ export default function Results({ bank, attempt, onRestart }: { bank: QuestionBa
         </div>
 
         <section aria-labelledby="review-head" className="panel review">
-          <h2 id="review-head" className="panel__head">
+          <h2 id="review-head" className="panel__head" ref={reviewRef} tabIndex={-1}>
             Review · {total} questions
           </h2>
+          <div className="filters" role="group" aria-label="Filter answer review">
+            {(["all", "incorrect", "correct"] as const).map((value) => <button key={value} type="button" className="filter-btn" aria-pressed={filter === value} onClick={() => setFilter(value)}>{value === "all" ? "All" : value === "incorrect" ? "Incorrect" : "Correct"} ({value === "all" ? total : value === "correct" ? correct : total - correct})</button>)}
+          </div>
+          <p className="review-count" role="status">{questions.length} questions shown</p>
+          {questions.length === 0 && <p className="review-count">No {filter} answers. <button type="button" className="link-btn" onClick={() => setFilter("all")}>Show all answers</button></p>}
           <ol className="review__list">
-            {bank.questions.map((q) => {
+            {questions.map((q) => {
               const a = attempt.answers[q.id];
               const ok = gradeAnswer(q, a);
               const yours = a ? feedbackLines(q, a, false) : [];
               const right = feedbackLines(q, a, true);
               return (
-                <li key={q.id} className={`review__item ${ok ? "is-correct" : "is-wrong"}`}>
+                <li value={q.number} key={q.id} className={`review__item ${ok ? "is-correct" : "is-wrong"}`}>
                   <span className="review__num">{q.number}</span>
                   <span className={`verdict ${ok ? "verdict--correct" : "verdict--wrong"}`}>{ok ? "Correct" : "Incorrect"}</span>
                   <div className="review__body">
@@ -87,6 +96,7 @@ export default function Results({ bank, attempt, onRestart }: { bank: QuestionBa
         </section>
 
         <div className="results-actions">
+          {correct < total && <button type="button" className="btn btn--outline" onClick={() => { setFilter("incorrect"); reviewRef.current?.focus(); }}>Review incorrect answers</button>}
           <button type="button" className="btn btn--primary btn--wide" onClick={onRestart}>
             Start a new attempt
           </button>

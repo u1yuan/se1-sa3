@@ -28,7 +28,7 @@ export function ProgressLine({ current, total, lockedCurrent }: { current: numbe
       <span
         className="progress-line__bar"
         role="progressbar"
-        aria-label="Progress"
+        aria-label="Submitted answers"
         aria-valuemin={0}
         aria-valuemax={total}
         aria-valuenow={done}
@@ -38,7 +38,7 @@ export function ProgressLine({ current, total, lockedCurrent }: { current: numbe
         <span className="progress-line__rest">{"-".repeat(width - filled)}</span>]
       </span>
       <span className="progress-line__count" aria-hidden="true">
-        {current + 1}/{total}
+        {done}/{total} submitted
       </span>
     </div>
   );

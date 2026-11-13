@@ -2,6 +2,7 @@
 // passed to the client; the catalog pages only need metadata.
 import catalogJson from "../../data/catalog.json";
 import softeng1 from "../../data/assessments/cs0025-m3-m6-m7.json";
+import mlSa3 from "../../data/assessments/cs0075-sa3-mock-exam.json";
 import devnetM5 from "../../data/assessments/devnet-m5.json";
 import devnetM6 from "../../data/assessments/devnet-m6.json";
 import devnetFa6 from "../../data/assessments/devnet-fa6.json";
@@ -10,7 +11,7 @@ import devnetPool from "../../data/pools/devnet.json";
 import type { AssessmentFile, Catalog, QuestionBank, QuestionPool } from "./types.ts";
 import { findAssessment, findCourse, resolveBank, type DataSet } from "./resolve.ts";
 
-const files = [softeng1, devnetM5, devnetM6, devnetFa6, devnetAll] as unknown as AssessmentFile[];
+const files = [softeng1, devnetM5, devnetM6, devnetFa6, devnetAll, mlSa3] as unknown as AssessmentFile[];
 
 const data: DataSet = {
   catalog: catalogJson as Catalog,

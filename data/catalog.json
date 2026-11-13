@@ -58,6 +58,22 @@
           "examTimerMinutes": 60
         }
       ]
+    },
+    {
+      "id": "cs0075",
+      "code": "CS0075",
+      "title": "Machine Learning and Algorithms",
+      "assessments": [
+        {
+          "id": "sa-3-mock-exam",
+          "bankId": "cs0075-sa3-mock-exam",
+          "title": "SA 3 Mock Exam",
+          "examLabel": null,
+          "topic": "Decision Trees, Random Forests, Gradient Boosting, and SVM",
+          "questionCount": 60,
+          "examTimerMinutes": 60
+        }
+      ]
     }
   ]
 }

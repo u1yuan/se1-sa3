@@ -16,10 +16,20 @@ Look: light-mode "Canvas in a terminal" — paper background, white panels,
 | | Module 6 | 15 | 60 min |
 | | Formative Assessment 6 | 28 | 60 min |
 | | All (every unique question; overlaps counted once) | 46 | 60 min |
+| **CS0075 · Machine Learning and Algorithms** | SA 3 Mock Exam — Decision Trees, Random Forests, Gradient Boosting, and SVM | 60 | 60 min |
 
 Module 6's 15 questions all also appear in Formative Assessment 6. They are
 stored **once** in `data/pools/devnet.json` and referenced by id from both
 assessments, so their keys can't drift.
+
+CS0075's SA 3 Mock Exam imports all 60 questions from `cs0075-sa3-reviewer.html`:
+24 true/false, 21 single choice, and 15 fill-ins. Question IDs, question and
+choice order, answer keys, accepted answers, and explanations follow that source.
+References are appended to explanations, and ten code excerpts use the existing
+monospace code blocks. Fill-ins ignore case and surrounding/repeated whitespace;
+spelling, underscores, hyphens, and punctuation still matter. The hub uses fixed
+order and locked answers, untimed Prep, and a 60-minute Exam, overriding the
+standalone reviewer's shuffle settings. Standalone saved progress is not imported.
 
 ## Routes
 
@@ -62,7 +72,7 @@ assessments, so their keys can't drift.
 - Exhibits are JPEG files in `public/exhibits/`; Module 5 Q13 has a monospace
   routing-table block.
 
-### Exam timer (DevNet exam mode only)
+### Exam timer (DevNet and CS0075 exam modes)
 
 - 60:00 countdown in the header. SoftEng1 exam mode and every prep run are
   untimed.
@@ -92,14 +102,16 @@ assessments, so their keys can't drift.
 ```
 data/catalog.json                    courses + assessment metadata (titles, labels, counts, timer)
 data/assessments/cs0025-m3-m6-m7.json SoftEng1 bank (questions inline, confirmed keys)
+data/assessments/cs0075-sa3-mock-exam.json Machine Learning SA 3 bank (60 questions inline)
 data/assessments/devnet-*.json       DevNet assessments: ordered question-id lists into the pool
 data/pools/devnet.json               46 unique DevNet questions (source order)
 public/exhibits/                     exhibit images extracted from the DevNet export
 scripts/import-devnet.py             one-off importer for the DevNet HTML export
+scripts/import-cs0075.py             SA 3 reviewer HTML importer; --check verifies source fidelity
 src/lib/                             types, grading, catalog resolution, attempt/timer
 src/components/                      status bar, start screen, player, question index, results
 src/app/                             App Router pages, fonts, styles
-tests/                               node:test suites (grading, DevNet data, attempt/timer)
+tests/                               node:test suites (grading, catalog and assessment data, attempt/timer)
 ```
 
 ## Run locally
@@ -150,3 +162,10 @@ This checkout combines the course hub and original reviewer histories. The origi
 Browser verification: build the app, serve `out/` on port 3100, then run `node scripts/e2e-walkthrough.cjs`. Set `BASE_URL` to test a mounted repository path and `CHROME_PATH` if the browser is outside its usual Windows location (Chrome and Edge are detected automatically). Screenshots can be redirected with `SCREENSHOTS_DIR`. The walkthrough requires `playwright-core` (`npm install --no-save --package-lock=false playwright-core`).
 
 The postbuild script normalizes nested Windows RSC segment filenames to the dotted names requested by browsers. It leaves already-correct exports unchanged.
+
+To reproduce or verify the Machine Learning import, run
+`python scripts/import-cs0075.py path/to/cs0075-sa3-reviewer.html` (writes the bank)
+or add `--check` (compares all converted questions without writing).
+The browser walkthrough also checks the CS0075 route, Prep feedback and source
+references, locked answers and refresh restoration, Exam countdown and hidden
+feedback, results, and code excerpts at desktop and 360px widths.

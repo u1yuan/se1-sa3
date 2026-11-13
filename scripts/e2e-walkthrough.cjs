@@ -46,7 +46,7 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   // Hub → DevNet → Module 5
   await page.goto(BASE + '/');
   await page.screenshot({ path: `${SHOTS}/01-hub.png` });
-  check('hub lists 2 courses', (await page.locator('.card').count()) === 2);
+  check('hub lists 3 courses', (await page.locator('.card').count()) === 3);
   await page.click('.card:has-text("DEVNET")');
   await page.waitForURL('**/courses/devnet/');
   check('DevNet course page: 4 assessments', (await page.locator('.card').count()) === 4);
@@ -231,6 +231,84 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await page.waitForSelector('.score__figure');
   check('SoftEng1 perfect 20/20 (Q8 STATECHART)', (await page.locator('.score__figure').innerText()).includes('20 / 20'));
 
+  // Machine Learning: hub navigation, all 60 Prep questions, every code excerpt.
+  const ml = bankQs('cs0075-sa3-mock-exam');
+  const mlRoute = '/courses/cs0075/sa-3-mock-exam';
+  await page.goto(BASE + '/');
+  await page.click('.card:has-text("CS0075")');
+  await page.waitForURL('**/courses/cs0075/');
+  check('CS0075 course has one assessment with a 60-minute timer', (await page.locator('.card:has-text("SA 3 Mock Exam"):has-text("60-minute exam timer")').count()) === 1);
+  await page.click('.card:has-text("SA 3 Mock Exam")');
+  await page.waitForURL('**/courses/cs0075/sa-3-mock-exam/');
+  await page.waitForSelector('.mode-card');
+  check('CS0075 start shows 60 questions and topic', (await page.locator('.facts').innerText()).includes('60') && (await page.locator('.subhead').innerText()) === 'Decision Trees, Random Forests, Gradient Boosting, and SVM');
+  await page.screenshot({ path: `${SHOTS}/21-start-cs0075.png`, fullPage: true });
+  await page.click('.start-button');
+  await page.waitForSelector('.qcard');
+  check('CS0075 Prep is untimed', (await page.locator('.timer').count()) === 0);
+  let mlCode = 0;
+  for (let i = 0; i < ml.length; i++) {
+    const q = ml[i];
+    check(`CS0075 Prep Q${i + 1} source prompt`, (await page.locator('.prompt').innerText()).replace(/^Question \d+\.\s*/, '') === q.prompt);
+    if (q.type !== 'fill') {
+      check(`CS0075 Prep Q${i + 1} fixed choice order`, JSON.stringify(await page.locator('.choice__text').allTextContents()) === JSON.stringify(q.choices.map((c) => c.text)));
+    }
+    if (q.code) {
+      mlCode++;
+      check(`CS0075 desktop code ${q.id}`, (await page.locator('.codeblock code').textContent()) === q.code.join('\n'));
+      check(`CS0075 desktop code ${q.id} fits page`, await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
+      if (q.id === 'RF-15') await page.screenshot({ path: `${SHOTS}/22-cs0075-desktop-code.png`, fullPage: true });
+    }
+    if (q.type === 'fill') {
+      await page.fill('.fill__input', `  ${q.acceptedAnswers[0].toUpperCase().replace(/ /g, '   ')}  `);
+      check(`CS0075 fill ${q.id} instructions`, (await page.locator('.qcard__instr').innerText()) === q.instruction);
+    } else await answer(page, q);
+    await submit(page);
+    await page.waitForSelector('.feedback--correct');
+    check(`CS0075 Prep Q${i + 1} explanation and references`, (await page.locator('.feedback__explain').textContent()) === q.explanation);
+    if (i === 12) {
+      check('CS0075 submitted fill is locked', !(await page.locator('.fill__input').isEditable()));
+      await page.reload();
+      await page.waitForSelector('.feedback--correct');
+      check('CS0075 refresh restores locked code question', (await qText(page)).toUpperCase() === 'QUESTION 13 OF 60' && !(await page.locator('.fill__input').isEditable()) && (await page.locator('.codeblock code').textContent()) === q.code.join('\n'));
+      await page.screenshot({ path: `${SHOTS}/23-cs0075-prep-feedback.png`, fullPage: true });
+    }
+    await next(page);
+  }
+  check('CS0075 desktop checked all ten code excerpts', mlCode === 10);
+  await page.waitForSelector('.score__figure');
+  check('CS0075 normalized perfect Prep scores 60/60', (await page.locator('.score__figure').innerText()).includes('60 / 60'));
+  check('CS0075 results include every explanation and reference', JSON.stringify(await page.locator('.review__explain').allTextContents()) === JSON.stringify(ml.map((q) => q.explanation)));
+  await page.screenshot({ path: `${SHOTS}/24-cs0075-results.png` });
+  await page.reload();
+  await page.waitForSelector('.score__figure');
+  check('CS0075 results survive refresh', (await page.locator('.score__figure').innerText()).includes('60 / 60'));
+
+  // Independent Exam attempt with a controlled clock, including restoration and expiry.
+  const mlCtx = await browser.newContext({ viewport: { width: 1280, height: 860 } });
+  const mlExam = await mlCtx.newPage();
+  mlExam.on('pageerror', (e) => errors.push(String(e)));
+  await mlExam.clock.install();
+  await mlExam.goto(BASE + mlRoute);
+  await mlExam.click('.mode-card:has-text("Exam mode")'); await mlExam.click('.start-button');
+  await mlExam.waitForSelector('.timer');
+  check('CS0075 Exam starts with 60-minute timer', ['60:00', '59:59'].includes(await mlExam.locator('.timer').innerText()));
+  await answer(mlExam, ml[0]); await submit(mlExam);
+  await mlExam.waitForSelector('.feedback--locked');
+  check('CS0075 Exam locks choices and hides correctness and sources', await mlExam.locator('.choice input').first().isDisabled() && (await mlExam.locator('.feedback--correct, .feedback--wrong, .feedback__explain, .is-correct, .is-wrong').count()) === 0 && !(await mlExam.locator('body').innerText()).includes('Sources:'));
+  const mlStorageKey = 'exam-reviewer:attempt:cs0075-sa3-mock-exam';
+  const mlDeadline = await mlExam.evaluate((key) => JSON.parse(sessionStorage.getItem(key)).endsAt, mlStorageKey);
+  await mlExam.clock.fastForward('01:00');
+  await mlExam.reload();
+  await mlExam.waitForSelector('.feedback--locked');
+  const mlRemaining = await mlExam.locator('.timer').innerText();
+  check('CS0075 Exam restores locked question and original deadline', (await qText(mlExam)).toUpperCase() === 'QUESTION 1 OF 60' && (await mlExam.evaluate((key) => JSON.parse(sessionStorage.getItem(key)).endsAt, mlStorageKey)) === mlDeadline && mlRemaining <= '59:00' && mlRemaining >= '58:50', mlRemaining);
+  await next(mlExam);
+  await mlExam.clock.fastForward('59:01');
+  await mlExam.waitForSelector('.score__figure');
+  check('CS0075 Exam expires into results with 59 unanswered', (await mlExam.locator('.score__figure').innerText()).includes('1 / 60') && (await mlExam.locator('.score__note').innerText()).includes('59 unanswered'));
+  await mlCtx.close();
+
   // Mobile 360
   const mob = await browser.newContext({ viewport: { width: 360, height: 760 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   const mp = await mob.newPage();
@@ -254,6 +332,22 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await mp.screenshot({ path: `${SHOTS}/18-mobile-prep-matching.png`, fullPage: true });
   const ov2 = await mp.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
   check('360px matching: no horizontal overflow', !ov2);
+
+  // All ten CS0075 code excerpts on mobile, including the longest constructor.
+  await mp.goto(BASE + mlRoute);
+  await mp.tap('.start-button');
+  await mp.waitForSelector('.qcard');
+  let mobileCode = 0;
+  for (let i = 0; i < 45; i++) {
+    const q = ml[i];
+    if (q.code) {
+      mobileCode++;
+      check(`CS0075 mobile code ${q.id}`, (await mp.locator('.codeblock code').textContent()) === q.code.join('\n') && await mp.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
+      if (q.id === 'RF-15') await mp.screenshot({ path: `${SHOTS}/25-cs0075-mobile-code.png`, fullPage: true });
+    }
+    await answer(mp, q); await submit(mp); await next(mp);
+  }
+  check('CS0075 mobile checked all ten code excerpts', mobileCode === 10);
 
   // Timer auto-finish with fake clock: FA 6 exam, Q1 locked, Q2 picked not submitted
   const tctx = await browser.newContext({ viewport: { width: 1280, height: 860 } });

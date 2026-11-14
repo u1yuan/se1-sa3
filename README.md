@@ -16,10 +16,59 @@ Look: light-mode "Canvas in a terminal" — paper background, white panels,
 | | Module 6 | 15 | 60 min |
 | | Formative Assessment 6 | 28 | 60 min |
 | | All (every unique question; overlaps counted once) | 46 | 60 min |
+| **CS0075 · Machine Learning and Algorithms** | SA3 Mock Set A — Decision Trees, Random Forests, Gradient Boosting, and SVM | 60 | 60 min |
+| | SA3 Mock Set B (same questions, separate attempt) | 60 | 60 min |
+| | SA 3 Concepts & Hyperparameters | 50 | 60 min |
 
 Module 6's 15 questions all also appear in Formative Assessment 6. They are
 stored **once** in `data/pools/devnet.json` and referenced by id from both
 assessments, so their keys can't drift.
+
+CS0075's SA3 Mock Set A and SA3 Mock Set B each import all 60 questions from `cs0075-sa3-reviewer.html`:
+24 true/false, 21 single choice, and 15 fill-ins. Question IDs, question and
+choice order, answer keys, accepted answers, and explanations follow that source.
+References are appended to explanations, and ten code excerpts use the existing
+monospace code blocks. Fill-ins ignore case and surrounding/repeated whitespace;
+spelling, underscores, hyphens, and punctuation still matter. The hub uses fixed
+order and locked answers, untimed Prep, and a 60-minute Exam, overriding the
+standalone reviewer's shuffle settings. Standalone saved progress is not imported.
+The identical Set B is intentional. Set A keeps its original route
+`/courses/cs0075/sa-3-mock-exam/` and bank ID `cs0075-sa3-mock-exam`, so
+existing hub attempts still restore. Set B uses `/courses/cs0075/sa3-mock-set-b/`
+and bank ID `cs0075-sa3-mock-set-b` with independent attempt storage.
+
+## SA 3 Concepts & Hyperparameters
+
+This native CS0075 assessment is available at
+`/courses/cs0075/sa3-concepts-hyperparameters/` with bank ID
+`cs0075-sa3-concepts-hyperparameters`. It uses the same RevHub start screen,
+player, feedback, results, grading, countdown, and independent session storage
+as every other assessment: fixed source order, locked submitted answers,
+no backtracking, untimed Prep, and a 60-minute Exam.
+
+Its 50 questions comprise 20 single choice, 10 true/false, and 20 blanks
+(12 hyperparameter identifiers and 8 conceptual identification items).
+All wording, choices, accepted answers, explanations, PDF/notebook references,
+and six code excerpts are preserved from the source. Original source exports
+and the authoring record remain unchanged under `public/reviewers/` as archival
+references. Progress from the original standalone HTML player is not migrated.
+
+To reproduce or verify the native import:
+
+```bash
+python scripts/import-cs0075.py public/reviewers/cs0075-sa3-concepts-hyperparameters-reviewer.html --bank-id cs0075-sa3-concepts-hyperparameters
+python scripts/import-cs0075.py public/reviewers/cs0075-sa3-concepts-hyperparameters-reviewer.html --bank-id cs0075-sa3-concepts-hyperparameters --check
+```
+
+## Reviewer import convention
+
+Every reviewer import belongs in the native catalog, assessment data loader,
+and shared `/courses/[courseId]/[assessmentId]/` flow. Reuse RevHub's components,
+grading, timer, and per-bank attempt storage. Convert source HTML into question
+data and preserve its content and keys; source player behavior does not replace
+RevHub's fixed-order, no-backtracking rules. Do not present imports as standalone
+HTML players, embedded pages, or special course cards. This convention is also
+recorded in `AGENTS.md` for future agents.
 
 ## Routes
 
@@ -62,7 +111,7 @@ assessments, so their keys can't drift.
 - Exhibits are JPEG files in `public/exhibits/`; Module 5 Q13 has a monospace
   routing-table block.
 
-### Exam timer (DevNet exam mode only)
+### Exam timer (DevNet and CS0075 exam modes)
 
 - 60:00 countdown in the header. SoftEng1 exam mode and every prep run are
   untimed.
@@ -92,14 +141,18 @@ assessments, so their keys can't drift.
 ```
 data/catalog.json                    courses + assessment metadata (titles, labels, counts, timer)
 data/assessments/cs0025-m3-m6-m7.json SoftEng1 bank (questions inline, confirmed keys)
+data/assessments/cs0075-sa3-mock-exam.json Machine Learning SA3 Set A bank (60 questions inline)
+data/assessments/cs0075-sa3-mock-set-b.json Machine Learning SA3 Set B bank (60 questions inline)
+data/assessments/cs0075-sa3-concepts-hyperparameters.json Native Concepts & Hyperparameters bank (50 questions)
 data/assessments/devnet-*.json       DevNet assessments: ordered question-id lists into the pool
 data/pools/devnet.json               46 unique DevNet questions (source order)
 public/exhibits/                     exhibit images extracted from the DevNet export
 scripts/import-devnet.py             one-off importer for the DevNet HTML export
+scripts/import-cs0075.py             SA 3 reviewer HTML importer; --check verifies source fidelity
 src/lib/                             types, grading, catalog resolution, attempt/timer
 src/components/                      status bar, start screen, player, question index, results
 src/app/                             App Router pages, fonts, styles
-tests/                               node:test suites (grading, DevNet data, attempt/timer)
+tests/                               node:test suites (grading, catalog and assessment data, attempt/timer)
 ```
 
 ## Run locally
@@ -122,7 +175,7 @@ build machine needs internet access.
 
 ## Deployment
 
-The existing GitHub Pages workflow deploys `out/` on pushes to `main` or manual dispatch. Keep the repository remote as `https://github.com/u1yuan/se1-sa3.git` and set Pages source to GitHub Actions. The workflow supplies `NEXT_PUBLIC_BASE_PATH` for the repository path; local builds default to `/`. All course and assessment routes are statically generated. `npm start` uses Next server mode and is not supported for this static export.
+The existing GitHub Pages workflow deploys `out/` on pushes to `main` or manual dispatch. The repository remote is `https://github.com/u1yuan/revhub.git`, and Pages source must be GitHub Actions. The live site is https://u1yuan.github.io/revhub/. The workflow supplies `NEXT_PUBLIC_BASE_PATH` from the Pages configuration; local builds default to `/`. After renaming the repository, run the workflow again so links and asset URLs are rebuilt with the new repository path. All course and assessment routes are statically generated. `npm start` uses Next server mode and is not supported for this static export.
 
 ## Notes and caveats
 
@@ -150,3 +203,19 @@ This checkout combines the course hub and original reviewer histories. The origi
 Browser verification: build the app, serve `out/` on port 3100, then run `node scripts/e2e-walkthrough.cjs`. Set `BASE_URL` to test a mounted repository path and `CHROME_PATH` if the browser is outside its usual Windows location (Chrome and Edge are detected automatically). Screenshots can be redirected with `SCREENSHOTS_DIR`. The walkthrough requires `playwright-core` (`npm install --no-save --package-lock=false playwright-core`).
 
 The postbuild script normalizes nested Windows RSC segment filenames to the dotted names requested by browsers. It leaves already-correct exports unchanged.
+
+To reproduce or verify the Machine Learning import, run
+`python scripts/import-cs0075.py path/to/cs0075-sa3-reviewer.html` (writes the bank)
+or add `--check` (compares all converted questions without writing).
+The default bank ID remains `cs0075-sa3-mock-exam` (Set A). To import Set B:
+
+```bash
+python scripts/import-cs0075.py path/to/cs0075-sa3-reviewer.html --bank-id cs0075-sa3-mock-set-b
+python scripts/import-cs0075.py path/to/cs0075-sa3-reviewer.html --bank-id cs0075-sa3-mock-set-b --check
+```
+
+`--bank-id` controls both the stored ID and `data/assessments/<bank-id>.json`
+destination; it must be a lowercase alphanumeric slug separated by hyphens.
+The browser walkthrough also checks all three CS0075 routes, independent saved
+attempts, Prep feedback and source references, locked answers and refresh restoration, Exam countdown and hidden
+feedback, results, and code excerpts at desktop and 360px widths.

@@ -58,6 +58,40 @@
           "examTimerMinutes": 60
         }
       ]
+    },
+    {
+      "id": "cs0075",
+      "code": "CS0075",
+      "title": "Machine Learning and Algorithms",
+      "assessments": [
+        {
+          "id": "sa-3-mock-exam",
+          "bankId": "cs0075-sa3-mock-exam",
+          "title": "SA3 Mock Set A",
+          "examLabel": null,
+          "topic": "Decision Trees, Random Forests, Gradient Boosting, and SVM",
+          "questionCount": 60,
+          "examTimerMinutes": 60
+        },
+        {
+          "id": "sa3-mock-set-b",
+          "bankId": "cs0075-sa3-mock-set-b",
+          "title": "SA3 Mock Set B",
+          "examLabel": null,
+          "topic": "Decision Trees, Random Forests, Gradient Boosting, and SVM",
+          "questionCount": 60,
+          "examTimerMinutes": 60
+        },
+        {
+          "id": "sa3-concepts-hyperparameters",
+          "bankId": "cs0075-sa3-concepts-hyperparameters",
+          "title": "SA 3 Concepts & Hyperparameters",
+          "examLabel": null,
+          "topic": "Decision Trees, Random Forests, Gradient Boosting, and SVM",
+          "questionCount": 50,
+          "examTimerMinutes": 60
+        }
+      ]
     }
   ]
 }

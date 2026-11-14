@@ -19,6 +19,8 @@ beforeEach(() => store.clear());
 
 const m5 = bankFor("devnet", "module-5");
 const softeng = bankFor("cs0025", "m3-m6-m7");
+const mlA = bankFor("cs0075", "sa-3-mock-exam");
+const mlB = bankFor("cs0075", "sa3-mock-set-b");
 const T0 = 1_800_000_000_000;
 const HOUR = 60 * 60_000;
 const right = (i: number, bank = m5): Answer => {
@@ -32,6 +34,20 @@ function play(bank = m5, upTo: number, start = newAttempt(bank, "exam", T0)) {
   for (let i = 0; i < upTo; i++) a = advance(bank, lockAnswer(bank, a, right(i, bank)), T0 + 1000);
   return a;
 }
+
+test("CS0075 sets keep independent saved attempts and reject each other's state", () => {
+  const a = play(mlA, 3);
+  const b = play(mlB, 1, newAttempt(mlB, "prep", T0));
+  assert.equal(storageKey(mlA.id), "exam-reviewer:attempt:cs0075-sa3-mock-exam");
+  assert.notEqual(storageKey(mlA.id), storageKey(mlB.id));
+  saveAttempt(mlA.id, a);
+  assert.equal(loadAttempt(mlB), null);
+  saveAttempt(mlB.id, b);
+  assert.deepEqual(loadAttempt(mlA), a);
+  assert.deepEqual(loadAttempt(mlB), b);
+  assert.equal(validateAttempt(mlB, a), null);
+  assert.equal(validateAttempt(mlA, b), null);
+});
 
 test("exam timer only on timed banks in exam mode", () => {
   assert.equal(newAttempt(m5, "exam", T0).endsAt, T0 + HOUR);

@@ -5,6 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = process.env.ROOT || process.cwd();
 const BASE = process.env.BASE_URL || 'http://localhost:3100';
+// Browsers may probe the host root for an icon, outside a mounted Pages app.
+const hostFavicon = new URL(BASE).pathname !== '/' ? new URL('/favicon.ico', BASE).href : null;
 const SHOTS = process.env.SCREENSHOTS_DIR || path.join(ROOT, 'screenshots');
 fs.mkdirSync(SHOTS, { recursive: true });
 const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', p), 'utf8'));
@@ -40,13 +42,13 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
-  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text() + ' @ ' + (m.location()?.url || '')); });
-  page.on('response', (r) => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
+  page.on('console', (m) => { if (m.type() === 'error' && m.location()?.url !== hostFavicon) errors.push(m.text() + ' @ ' + (m.location()?.url || '')); });
+  page.on('response', (r) => { if (r.status() >= 400 && r.url() !== hostFavicon) errors.push(`${r.status()} ${r.url()}`); });
 
   // Hub → DevNet → Module 5
   await page.goto(BASE + '/');
   await page.screenshot({ path: `${SHOTS}/01-hub.png` });
-  check('hub lists 2 courses', (await page.locator('.card').count()) === 2);
+  check('hub lists 3 courses', (await page.locator('.card').count()) === 3);
   await page.click('.card:has-text("DEVNET")');
   await page.waitForURL('**/courses/devnet/');
   check('DevNet course page: 4 assessments', (await page.locator('.card').count()) === 4);
@@ -231,6 +233,103 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await page.waitForSelector('.score__figure');
   check('SoftEng1 perfect 20/20 (Q8 STATECHART)', (await page.locator('.score__figure').innerText()).includes('20 / 20'));
 
+  // Machine Learning: every native assessment, every Prep question, every code excerpt.
+  const mlSets = [
+    { title: 'SA3 Mock Set A', bankId: 'cs0075-sa3-mock-exam', route: '/courses/cs0075/sa-3-mock-exam' },
+    { title: 'SA3 Mock Set B', bankId: 'cs0075-sa3-mock-set-b', route: '/courses/cs0075/sa3-mock-set-b' },
+    { title: 'SA 3 Concepts & Hyperparameters', bankId: 'cs0075-sa3-concepts-hyperparameters', route: '/courses/cs0075/sa3-concepts-hyperparameters' },
+  ];
+  const savedStates = {};
+  for (const set of mlSets) {
+    const ml = bankQs(set.bankId);
+    const mlRoute = set.route;
+    const codeCount = ml.filter((q) => q.code).length;
+    const refreshAt = ml.findIndex((q) => q.code);
+    await page.goto(BASE + '/');
+    await page.click('.card:has-text("CS0075")');
+    await page.waitForURL('**/courses/cs0075/');
+    check('CS0075 course lists all native assessments in catalog order', JSON.stringify(await page.locator('.card[href*="/courses/cs0075/"] .card__title').allTextContents()) === JSON.stringify(mlSets.map((s) => s.title)));
+    check('all CS0075 cards have a 60-minute timer', (await page.locator('.card:has-text("60-minute exam timer")').count()) === mlSets.length);
+    check('CS0075 has no standalone reviewer cards', (await page.locator('.card[href*="/reviewers/"]').count()) === 0);
+    await page.click(`.card:has-text("${set.title}")`);
+    await page.waitForURL(`**${mlRoute}/`);
+    await page.waitForFunction((title) => document.title.includes(title), set.title);
+    check(`${set.title} page title`, (await page.title()).includes(set.title));
+    await page.waitForSelector('.mode-card');
+    check(`${set.title} start shows question count and topic`, (await page.locator('.facts dd').first().innerText()) === String(ml.length) && (await page.locator('.subhead').innerText()) === 'Decision Trees, Random Forests, Gradient Boosting, and SVM');
+    await page.screenshot({ path: `${SHOTS}/${set.bankId}-21-start-cs0075.png`, fullPage: true });
+    await page.click('.start-button');
+    await page.waitForSelector('.qcard');
+    check('CS0075 Prep is untimed', (await page.locator('.timer').count()) === 0);
+    let mlCode = 0;
+    for (let i = 0; i < ml.length; i++) {
+      const q = ml[i];
+      check(`CS0075 Prep Q${i + 1} source prompt`, (await page.locator('.prompt').innerText()).replace(/^Question \d+\.\s*/, '') === q.prompt);
+      if (q.type !== 'fill') {
+        check(`CS0075 Prep Q${i + 1} fixed choice order`, JSON.stringify(await page.locator('.choice__text').allTextContents()) === JSON.stringify(q.choices.map((c) => c.text)));
+      }
+      if (q.code) {
+        mlCode++;
+        check(`CS0075 desktop code ${q.id}`, (await page.locator('.codeblock code').textContent()) === q.code.join('\n'));
+        check(`CS0075 desktop code ${q.id} fits page`, await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
+        if (q.id === ml.findLast((q) => q.code)?.id) await page.screenshot({ path: `${SHOTS}/${set.bankId}-22-cs0075-desktop-code.png`, fullPage: true });
+      }
+      if (q.type === 'fill') {
+        await page.fill('.fill__input', `  ${q.acceptedAnswers[0].toUpperCase().replace(/ /g, '   ')}  `);
+        check(`CS0075 fill ${q.id} instructions`, (await page.locator('.qcard__instr').innerText()) === q.instruction);
+      } else await answer(page, q);
+      await submit(page);
+      await page.waitForSelector('.feedback--correct');
+      check(`CS0075 Prep Q${i + 1} explanation and references`, (await page.locator('.feedback__explain').textContent()) === q.explanation);
+      if (i === refreshAt) {
+        check('CS0075 submitted fill is locked', !(await page.locator('.fill__input').isEditable()));
+        await page.reload();
+        await page.waitForSelector('.feedback--correct');
+        check('CS0075 refresh restores locked code question', (await qText(page)).toUpperCase() === `QUESTION ${refreshAt + 1} OF ${ml.length}` && !(await page.locator('.fill__input').isEditable()) && (await page.locator('.codeblock code').textContent()) === q.code.join('\n'));
+        await page.screenshot({ path: `${SHOTS}/${set.bankId}-23-cs0075-prep-feedback.png`, fullPage: true });
+      }
+      await next(page);
+    }
+    check(`${set.title} desktop checked all code excerpts`, mlCode === codeCount);
+    await page.waitForSelector('.score__figure');
+    check(`${set.title} normalized perfect Prep score`, (await page.locator('.score__figure').innerText()).includes(`${ml.length} / ${ml.length}`));
+    check('CS0075 results include every explanation and reference', JSON.stringify(await page.locator('.review__explain').allTextContents()) === JSON.stringify(ml.map((q) => q.explanation)));
+    await page.screenshot({ path: `${SHOTS}/${set.bankId}-24-cs0075-results.png` });
+    await page.reload();
+    await page.waitForSelector('.score__figure');
+    check(`${set.title} results survive refresh`, (await page.locator('.score__figure').innerText()).includes(`${ml.length} / ${ml.length}`));
+
+    // Independent Exam attempt with a controlled clock, including restoration and expiry.
+    const mlCtx = await browser.newContext({ viewport: { width: 1280, height: 860 } });
+    const mlExam = await mlCtx.newPage();
+    mlExam.on('pageerror', (e) => errors.push(String(e)));
+    await mlExam.clock.install();
+    await mlExam.goto(BASE + mlRoute);
+    await mlExam.click('.mode-card:has-text("Exam mode")'); await mlExam.click('.start-button');
+    await mlExam.waitForSelector('.timer');
+    check('CS0075 Exam starts with 60-minute timer', ['60:00', '59:59'].includes(await mlExam.locator('.timer').innerText()));
+    await answer(mlExam, ml[0]); await submit(mlExam);
+    await mlExam.waitForSelector('.feedback--locked');
+    check('CS0075 Exam locks choices and hides correctness and sources', await mlExam.locator('.choice input').first().isDisabled() && (await mlExam.locator('.feedback--correct, .feedback--wrong, .feedback__explain, .is-correct, .is-wrong').count()) === 0 && !(await mlExam.locator('body').innerText()).includes('Sources:'));
+    const mlStorageKey = 'exam-reviewer:attempt:' + set.bankId;
+    const mlDeadline = await mlExam.evaluate((key) => JSON.parse(sessionStorage.getItem(key)).endsAt, mlStorageKey);
+    await mlExam.clock.fastForward('01:00');
+    await mlExam.reload();
+    await mlExam.waitForSelector('.feedback--locked');
+    const mlRemaining = await mlExam.locator('.timer').innerText();
+    check('CS0075 Exam restores locked question and original deadline', (await qText(mlExam)).toUpperCase() === `QUESTION 1 OF ${ml.length}` && (await mlExam.evaluate((key) => JSON.parse(sessionStorage.getItem(key)).endsAt, mlStorageKey)) === mlDeadline && mlRemaining <= '59:00' && mlRemaining >= '58:50', mlRemaining);
+    await next(mlExam);
+    await mlExam.clock.fastForward('59:01');
+    await mlExam.waitForSelector('.score__figure');
+    check(`${set.title} Exam expiry score and unanswered count`, (await mlExam.locator('.score__figure').innerText()).includes(`1 / ${ml.length}`) && (await mlExam.locator('.score__note').innerText()).includes(`${ml.length - 1} unanswered`));
+    await mlCtx.close();
+    const saved = await page.evaluate(() => ({ ...sessionStorage }));
+    for (const [key, value] of Object.entries(savedStates)) check(`${set.title} preserves ${key}`, saved[key] === value);
+    const key = 'exam-reviewer:attempt:' + set.bankId;
+    check(`${set.title} saves its own attempt`, JSON.parse(saved[key]).bankId === set.bankId);
+    savedStates[key] = saved[key];
+  }
+
   // Mobile 360
   const mob = await browser.newContext({ viewport: { width: 360, height: 760 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true });
   const mp = await mob.newPage();
@@ -254,6 +353,25 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await mp.screenshot({ path: `${SHOTS}/18-mobile-prep-matching.png`, fullPage: true });
   const ov2 = await mp.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
   check('360px matching: no horizontal overflow', !ov2);
+
+  // Every code excerpt in all native CS0075 assessments on mobile.
+  for (const set of mlSets) {
+    const ml = bankQs(set.bankId);
+    await mp.goto(BASE + set.route);
+    await mp.tap('.start-button');
+    await mp.waitForSelector('.qcard');
+    let mobileCode = 0;
+    for (let i = 0; i < ml.length; i++) {
+      const q = ml[i];
+      if (q.code) {
+        mobileCode++;
+        check(`CS0075 mobile code ${q.id}`, (await mp.locator('.codeblock code').textContent()) === q.code.join('\n') && await mp.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
+        if (q.id === ml.findLast((q) => q.code)?.id) await mp.screenshot({ path: `${SHOTS}/${set.bankId}-25-cs0075-mobile-code.png`, fullPage: true });
+      }
+      await answer(mp, q); await submit(mp); await next(mp);
+    }
+    check(`${set.title} mobile checked all code excerpts`, mobileCode === ml.filter((q) => q.code).length);
+  }
 
   // Timer auto-finish with fake clock: FA 6 exam, Q1 locked, Q2 picked not submitted
   const tctx = await browser.newContext({ viewport: { width: 1280, height: 860 } });

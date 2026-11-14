@@ -73,10 +73,107 @@ recorded in `AGENTS.md` for future agents.
 ## Routes
 
 - `/` — course list
-- `/courses/[courseId]` — that course's assessments (shows "in progress" or
-  "results ready" for attempts in this tab)
+- `/courses/[courseId]/` — Mock exams (default) and Study guides tabs, with
+  counts. Assessment cards show "in progress" or "results ready" for attempts
+  in this browser tab. `?tab=study-guides` selects the guide library.
+- `/courses/[courseId]/study-guides/?guide=<guideId>` — viewport-filling guide
+  reader, with a collapsed course sidebar and a mobile modal drawer.
 - `/courses/[courseId]/[assessmentId]` — start screen → player → results.
   The URL never changes per question.
+
+## Course study guides
+
+Every course starts with an empty `studyGuides` array and displays “No study
+guides yet.” Guides are reading material and interactive visualizations;
+question-based reviewers still follow the **Reviewer import convention** above.
+
+To register a guide:
+
+1. Save the original, unchanged HTML at
+   `public/study-guides/<courseId>/<guideId>.html`.
+2. Add metadata to that course’s `studyGuides` array in `data/catalog.json`:
+
+   ```json
+   {
+     "id": "concept-map",
+     "title": "Concept map",
+     "description": "Explore the relationships between course concepts.",
+     "artifactPath": "/study-guides/cs0025/concept-map.html"
+   }
+   ```
+
+3. Run `npm run validate:study-guides`, `npm test`, `npm run lint`, and
+   `npm run build`. The build also runs guide validation automatically.
+4. Review `/courses/cs0025/?tab=study-guides` and
+   `/courses/cs0025/study-guides/?guide=concept-map` in the exported site.
+   Publish `out/` through the existing build/deployment process. For a mounted
+   site, set `NEXT_PUBLIC_BASE_PATH` at build time, as for assessment routes.
+   No additional registration in TypeScript is required.
+
+IDs must be lowercase alphanumeric slugs separated by hyphens and unique within
+the course. Titles and descriptions must be nonempty strings. The artifact path
+must match the course and guide IDs exactly, without query strings, fragments,
+external URLs, or traversal. Validation checks the file exists inside
+`public/study-guides`. The assessment route ID `study-guides` is reserved.
+Empty libraries are valid and their reader routes are still statically generated.
+
+Artifacts must be complete, self-contained HTML documents: include a UTF-8
+charset and viewport meta tag, inline CSS and JavaScript, and embed images/fonts
+as data URLs. SVG and canvas work. Do not depend on external services, CDNs,
+neighboring files, modules loaded over the network, browser storage, or access
+to RevHub. Check these requirements when importing; metadata validation does
+not analyze every script or resource reference inside an artifact.
+
+The reader fetches only the selected artifact (with the deployment base path),
+then presents its original HTML as `srcDoc` in a titled iframe sandboxed with
+`allow-scripts` only. The sandbox gives it an opaque origin, isolating its
+document and storage from RevHub; it cannot navigate the top page or open
+popups. Styles and scrolling remain inside the artifact. Switching or reopening
+a guide starts it afresh. There is no guide progress, annotation, or persistence
+feature. Loading failures offer Retry; missing or unknown selections never load
+an artifact. Leaving the reader returns to the course’s Study guides tab.
+
+### Browser verification
+
+The new walkthrough uses the same optional `playwright-core` dependency and
+Chrome/Edge detection as `scripts/e2e-walkthrough.cjs`. `BASE_URL` must include
+the deployment prefix. For example, in PowerShell:
+
+```powershell
+$env:NEXT_PUBLIC_BASE_PATH = '/revhub'
+npm run build
+node scripts/serve-static-test.mjs out 3100 /revhub
+# In a second terminal:
+$env:BASE_URL = 'http://127.0.0.1:3100/revhub'
+node scripts/e2e-study-guides.cjs
+$env:SCREENSHOTS_DIR = 'tmp/assessment-walkthrough'
+node scripts/e2e-walkthrough.cjs
+```
+
+Populated tests use an isolated copy so no sample guide is published. The helper
+prints a new directory under ignored `tmp/`, copies the current source, links
+the installed dependencies, and registers test-only HTML from
+`tests/fixtures/study-guides/interactive.html` in that copy. On Windows it uses
+a directory junction; on other systems it uses a symlink.
+
+```powershell
+$fixture = node scripts/prepare-study-guide-fixture.mjs
+$env:NEXT_PUBLIC_BASE_PATH = '/revhub'
+npm --prefix $fixture run build
+node scripts/serve-static-test.mjs "$fixture/out" 3101 /revhub
+# In a second terminal, set ROOT to the exact directory printed above:
+$env:ROOT = '<absolute fixture directory>'
+$env:BASE_URL = 'http://127.0.0.1:3101/revhub'
+node scripts/e2e-study-guides.cjs
+```
+
+This checks tab counts and keyboard controls, direct links, refresh/history,
+course-scoped sidebar selection, mobile modal focus/dismissal, iframe scripts,
+SVG/canvas/images, scrolling, origin/storage isolation, loading and retryable
+failures, and unknown selections. Screenshots go to
+`tmp/study-guide-screenshots` unless `SCREENSHOTS_DIR` is set. Repeat builds with
+`NEXT_PUBLIC_BASE_PATH` unset to verify root hosting. Fixture directories and
+screenshots are disposable and are never included in `out/`.
 
 ## How the player works
 

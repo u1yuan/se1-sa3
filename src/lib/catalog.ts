@@ -12,6 +12,7 @@ import devnetAll from "../../data/assessments/devnet-all.json";
 import devnetPool from "../../data/pools/devnet.json";
 import type { AssessmentFile, Catalog, QuestionBank, QuestionPool } from "./types.ts";
 import { findAssessment, findCourse, resolveBank, type DataSet } from "./resolve.ts";
+import { findStudyGuide } from "./study-guides.ts";
 
 const files = [softeng1, devnetM5, devnetM6, devnetFa6, devnetAll, mlSa3, mlSa3B, mlConcepts] as unknown as AssessmentFile[];
 
@@ -25,6 +26,11 @@ export const catalog: Catalog = data.catalog;
 
 export function getCourse(courseId: string) {
   return findCourse(data.catalog, courseId);
+}
+
+export function getStudyGuide(courseId: string, guideId: string) {
+  const course = getCourse(courseId);
+  return course ? findStudyGuide(course, guideId) : undefined;
 }
 
 export function getBank(courseId: string, assessmentId: string): QuestionBank | undefined {

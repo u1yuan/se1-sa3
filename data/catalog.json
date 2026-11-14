@@ -4,6 +4,7 @@
       "id": "cs0025",
       "code": "CS0025",
       "title": "SoftEng1",
+      "studyGuides": [],
       "assessments": [
         {
           "id": "m3-m6-m7",
@@ -20,6 +21,7 @@
       "id": "devnet",
       "code": "DEVNET",
       "title": "DevNet Associate (v1.0)",
+      "studyGuides": [],
       "assessments": [
         {
           "id": "module-5",
@@ -63,6 +65,7 @@
       "id": "cs0075",
       "code": "CS0075",
       "title": "Machine Learning and Algorithms",
+      "studyGuides": [],
       "assessments": [
         {
           "id": "sa-3-mock-exam",

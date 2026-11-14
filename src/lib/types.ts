@@ -91,11 +91,20 @@ export interface CatalogAssessment {
   examTimerMinutes: number | null;
 }
 
+export interface CatalogStudyGuide {
+  id: string;
+  title: string;
+  description: string;
+  /** Self-contained HTML under /public/study-guides/<courseId>/<id>.html. */
+  artifactPath: string;
+}
+
 export interface CatalogCourse {
   id: string;
   code: string;
   title: string;
   assessments: CatalogAssessment[];
+  studyGuides: CatalogStudyGuide[];
 }
 
 export interface Catalog {

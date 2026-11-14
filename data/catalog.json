@@ -81,6 +81,15 @@
           "topic": "Decision Trees, Random Forests, Gradient Boosting, and SVM",
           "questionCount": 60,
           "examTimerMinutes": 60
+        },
+        {
+          "id": "sa3-concepts-hyperparameters",
+          "bankId": "cs0075-sa3-concepts-hyperparameters",
+          "title": "SA 3 Concepts & Hyperparameters",
+          "examLabel": null,
+          "topic": "Decision Trees, Random Forests, Gradient Boosting, and SVM",
+          "questionCount": 50,
+          "examTimerMinutes": 60
         }
       ]
     }

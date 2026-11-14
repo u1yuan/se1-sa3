@@ -88,6 +88,6 @@ for (const [assessmentId, bankId, title] of sets) describe(title, () => {
 
 test("CS0075: Set B follows Set A with intentionally identical question data", () => {
   const course = loadData().catalog.courses.find((c) => c.id === "cs0075")!;
-  assert.deepEqual(course.assessments.map((a) => [a.id, a.bankId, a.title]), sets);
+  assert.deepEqual(course.assessments.slice(0, 2).map((a) => [a.id, a.bankId, a.title]), sets);
   assert.deepEqual(bankFor("cs0075", sets[0][0]).questions, bankFor("cs0075", sets[1][0]).questions);
 });

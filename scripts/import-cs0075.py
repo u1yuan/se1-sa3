@@ -7,7 +7,6 @@ Usage: python scripts/import-cs0075.py path/to/cs0075-sa3-reviewer.html [--bank-
 The source's shuffle settings are intentionally replaced by the hub's fixed order.
 """
 import argparse
-from collections import Counter
 import json
 from pathlib import Path
 import re
@@ -15,6 +14,11 @@ import re
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_BANK_ID = "cs0075-sa3-mock-exam"
 TYPES = {"true_false": "truefalse", "mcq": "single", "blank": "fill"}
+FILL_INSTRUCTIONS = (
+    "Blanks ignore case and normalize surrounding/repeated whitespace. "
+    "Correct spelling, underscores, hyphens and punctuation are required. "
+    "Enter only the requested identifier or term."
+)
 
 
 def convert(source: Path, bank_id: str = DEFAULT_BANK_ID) -> dict:
@@ -24,10 +28,8 @@ def convert(source: Path, bank_id: str = DEFAULT_BANK_ID) -> dict:
         raise ValueError("reviewer-data script not found")
     bank = json.loads(match[1])["bank"]
     questions = bank["questions"]
-    if Counter(q["type"] for q in questions) != {"true_false": 24, "mcq": 21, "blank": 15}:
-        raise ValueError("Expected 24 true/false, 21 multiple-choice, and 15 blanks")
-    if len({q["id"] for q in questions}) != 60:
-        raise ValueError("Expected 60 unique question IDs")
+    if not questions or len({q["id"] for q in questions}) != len(questions):
+        raise ValueError("Expected non-empty questions with unique IDs")
 
     out = []
     for q in questions:
@@ -38,13 +40,13 @@ def convert(source: Path, bank_id: str = DEFAULT_BANK_ID) -> dict:
             "id": q["id"],
             "type": TYPES[q["type"]],
             "prompt": prose,
-            "instruction": bank["instructions"] if q["type"] == "blank" else "Select one answer.",
+            "instruction": bank.get("instructions", FILL_INSTRUCTIONS) if q["type"] == "blank" else "Select one answer.",
             "explanation": q["explanation"] + "\n\nSources:\n" + "\n".join(q["sources"]),
         }
         if separator:
             item["code"] = code.split("\n")
         if q["type"] == "blank":
-            if not q["answer"] or not all(isinstance(a, str) and a for a in q["answer"]):
+            if not isinstance(q["answer"], list) or not q["answer"] or not all(isinstance(a, str) and a for a in q["answer"]):
                 raise ValueError(f"Invalid accepted answers: {q['id']}")
             item["acceptedAnswers"] = q["answer"]
         else:
@@ -70,7 +72,7 @@ if __name__ == "__main__":
     if args.check:
         if json.loads(dest.read_text(encoding="utf-8")) != converted:
             raise SystemExit("Assessment differs from source; re-run the importer without --check")
-        print("All 60 questions match source content, order, keys, explanations, references, and code.")
+        print(f"All {len(converted['questions'])} questions match source content, order, keys, explanations, references, and code.")
     else:
         dest.write_text(json.dumps(converted, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"Imported {len(converted['questions'])} questions to {dest}")

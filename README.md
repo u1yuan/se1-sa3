@@ -18,6 +18,7 @@ Look: light-mode "Canvas in a terminal" — paper background, white panels,
 | | All (every unique question; overlaps counted once) | 46 | 60 min |
 | **CS0075 · Machine Learning and Algorithms** | SA3 Mock Set A — Decision Trees, Random Forests, Gradient Boosting, and SVM | 60 | 60 min |
 | | SA3 Mock Set B (same questions, separate attempt) | 60 | 60 min |
+| | SA 3 Concepts & Hyperparameters | 50 | 60 min |
 
 Module 6's 15 questions all also appear in Formative Assessment 6. They are
 stored **once** in `data/pools/devnet.json` and referenced by id from both
@@ -36,32 +37,38 @@ The identical Set B is intentional. Set A keeps its original route
 existing hub attempts still restore. Set B uses `/courses/cs0075/sa3-mock-set-b/`
 and bank ID `cs0075-sa3-mock-set-b` with independent attempt storage.
 
-## SA3 Concepts and Hyperparameters companion
+## SA 3 Concepts & Hyperparameters
 
-The CS0075 course page also links a separate, downloadable offline reviewer at
-`reviewers/cs0075-sa3-concepts-hyperparameters-reviewer.html`. The original
-60-question assessment is preserved.
+This native CS0075 assessment is available at
+`/courses/cs0075/sa3-concepts-hyperparameters/` with bank ID
+`cs0075-sa3-concepts-hyperparameters`. It uses the same RevHub start screen,
+player, feedback, results, grading, countdown, and independent session storage
+as every other assessment: fixed source order, locked submitted answers,
+no backtracking, untimed Prep, and a 60-minute Exam.
 
-The companion has 50 new questions: 20 single-answer MCQ, 10 true/false, and
-20 blanks (12 hyperparameter identifiers and 8 conceptual identification items,
-including entropy and Gini splitting criteria). Coverage is Decision Trees (13),
-Random Forest (12), Gradient Boosting (13), and SVM (12); difficulty is
-25 easy / 20 medium / 5 hard. Each item cites an original PDF page or notebook cell.
+Its 50 questions comprise 20 single choice, 10 true/false, and 20 blanks
+(12 hyperparameter identifiers and 8 conceptual identification items).
+All wording, choices, accepted answers, explanations, PDF/notebook references,
+and six code excerpts are preserved from the source. Original source exports
+and the authoring record remain unchanged under `public/reviewers/` as archival
+references. Progress from the original standalone HTML player is not migrated.
 
-This standalone player provides untimed Prep and a default 60-minute Exam,
-question and choice shuffling, flags, backtracking, filterable results, and
-separate saved attempts in local storage. Exam answers stay editable and feedback
-stays hidden until submission; checked Prep answers lock. The deadline continues
-while closed. The HTML opens directly from disk without a network connection.
-Its behavior is independent of the hub's locked-answer player described below.
-
-The companion JSON bank and authoring record are alongside the HTML under
-`public/reviewers/`. To run its offline browser verification with a locally
-installed Playwright package and Chrome/Edge:
+To reproduce or verify the native import:
 
 ```bash
-node scripts/verify-sa3-companion.cjs public/reviewers/cs0075-sa3-concepts-hyperparameters-reviewer.html /absolute/path/to/playwright screenshots/sa3-companion
+python scripts/import-cs0075.py public/reviewers/cs0075-sa3-concepts-hyperparameters-reviewer.html --bank-id cs0075-sa3-concepts-hyperparameters
+python scripts/import-cs0075.py public/reviewers/cs0075-sa3-concepts-hyperparameters-reviewer.html --bank-id cs0075-sa3-concepts-hyperparameters --check
 ```
+
+## Reviewer import convention
+
+Every reviewer import belongs in the native catalog, assessment data loader,
+and shared `/courses/[courseId]/[assessmentId]/` flow. Reuse RevHub's components,
+grading, timer, and per-bank attempt storage. Convert source HTML into question
+data and preserve its content and keys; source player behavior does not replace
+RevHub's fixed-order, no-backtracking rules. Do not present imports as standalone
+HTML players, embedded pages, or special course cards. This convention is also
+recorded in `AGENTS.md` for future agents.
 
 ## Routes
 
@@ -136,6 +143,7 @@ data/catalog.json                    courses + assessment metadata (titles, labe
 data/assessments/cs0025-m3-m6-m7.json SoftEng1 bank (questions inline, confirmed keys)
 data/assessments/cs0075-sa3-mock-exam.json Machine Learning SA3 Set A bank (60 questions inline)
 data/assessments/cs0075-sa3-mock-set-b.json Machine Learning SA3 Set B bank (60 questions inline)
+data/assessments/cs0075-sa3-concepts-hyperparameters.json Native Concepts & Hyperparameters bank (50 questions)
 data/assessments/devnet-*.json       DevNet assessments: ordered question-id lists into the pool
 data/pools/devnet.json               46 unique DevNet questions (source order)
 public/exhibits/                     exhibit images extracted from the DevNet export
@@ -208,6 +216,6 @@ python scripts/import-cs0075.py path/to/cs0075-sa3-reviewer.html --bank-id cs007
 
 `--bank-id` controls both the stored ID and `data/assessments/<bank-id>.json`
 destination; it must be a lowercase alphanumeric slug separated by hyphens.
-The browser walkthrough also checks both CS0075 routes, independent saved
+The browser walkthrough also checks all three CS0075 routes, independent saved
 attempts, Prep feedback and source references, locked answers and refresh restoration, Exam countdown and hidden
 feedback, results, and code excerpts at desktop and 360px widths.

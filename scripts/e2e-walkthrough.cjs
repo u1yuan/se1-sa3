@@ -233,47 +233,30 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   await page.waitForSelector('.score__figure');
   check('SoftEng1 perfect 20/20 (Q8 STATECHART)', (await page.locator('.score__figure').innerText()).includes('20 / 20'));
 
-  // Machine Learning: hub navigation, all 60 Prep questions, every code excerpt.
+  // Machine Learning: every native assessment, every Prep question, every code excerpt.
   const mlSets = [
     { title: 'SA3 Mock Set A', bankId: 'cs0075-sa3-mock-exam', route: '/courses/cs0075/sa-3-mock-exam' },
     { title: 'SA3 Mock Set B', bankId: 'cs0075-sa3-mock-set-b', route: '/courses/cs0075/sa3-mock-set-b' },
+    { title: 'SA 3 Concepts & Hyperparameters', bankId: 'cs0075-sa3-concepts-hyperparameters', route: '/courses/cs0075/sa3-concepts-hyperparameters' },
   ];
-  // Preserve the independently hosted companion alongside both assessments.
-  await page.goto(BASE + '/courses/cs0075/');
-  const companionCard = page.getByRole('link', { name: /SA 3 Concepts & Hyperparameters/ });
-  check('CS0075 has separate 50-question offline companion', await companionCard.count() === 1 && (await companionCard.innerText()).includes('50 questions'));
-  const companionHref = await companionCard.getAttribute('href');
-  check('Companion link preserves deployment base path', new URL(companionHref, BASE).href === BASE + '/reviewers/cs0075-sa3-concepts-hyperparameters-reviewer.html');
-  await page.screenshot({ path: `${SHOTS}/26-cs0075-companion-card.png`, fullPage: true });
-  const companionPage = await ctx.newPage();
-  const companionErrors = [], companionRequests = [];
-  companionPage.on('pageerror', (e) => companionErrors.push(String(e)));
-  companionPage.on('request', (r) => companionRequests.push(r.url()));
-  const companionResponse = await companionPage.goto(new URL(companionHref, BASE).href);
-  check('Standalone companion loads from static export', companionResponse.ok() && (await companionPage.locator('body').innerText()).includes('50 questions. Two ways to study.'));
-  check('Companion starts with 60-minute timer and both shuffles', (await companionPage.getByLabel('Exam duration (minutes)').inputValue()) === '60' && (await companionPage.locator('body').innerText()).toLowerCase().includes('question shuffle: on / choice shuffle: on'));
-  await companionPage.getByRole('button', { name: 'Start Prep', exact: true }).click();
-  check('Companion uses independent Prep controls', await companionPage.getByRole('button', { name: 'Check Answer', exact: true }).count() === 1 && await companionPage.getByRole('button', { name: 'Flag question', exact: true }).count() === 1);
-  await companionPage.setViewportSize({ width: 360, height: 800 });
-  check('Hosted companion fits mobile viewport', await companionPage.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-  await companionPage.screenshot({ path: `${SHOTS}/27-cs0075-companion-mobile.png`, fullPage: true });
-  check('Hosted companion has no browser errors or subrequests', companionErrors.length === 0 && companionRequests.length === 1);
-  await companionPage.close();
-  let setAState;
+  const savedStates = {};
   for (const set of mlSets) {
     const ml = bankQs(set.bankId);
     const mlRoute = set.route;
+    const codeCount = ml.filter((q) => q.code).length;
+    const refreshAt = ml.findIndex((q) => q.code);
     await page.goto(BASE + '/');
     await page.click('.card:has-text("CS0075")');
     await page.waitForURL('**/courses/cs0075/');
-    check('CS0075 course has Set A then Set B', JSON.stringify(await page.locator('.card[href*="/courses/cs0075/"] .card__title').allTextContents()) === JSON.stringify(mlSets.map((s) => s.title)));
-    check('both CS0075 cards have a 60-minute timer', (await page.locator('.card:has-text("60-minute exam timer")').count()) === 2);
+    check('CS0075 course lists all native assessments in catalog order', JSON.stringify(await page.locator('.card[href*="/courses/cs0075/"] .card__title').allTextContents()) === JSON.stringify(mlSets.map((s) => s.title)));
+    check('all CS0075 cards have a 60-minute timer', (await page.locator('.card:has-text("60-minute exam timer")').count()) === mlSets.length);
+    check('CS0075 has no standalone reviewer cards', (await page.locator('.card[href*="/reviewers/"]').count()) === 0);
     await page.click(`.card:has-text("${set.title}")`);
     await page.waitForURL(`**${mlRoute}/`);
     await page.waitForFunction((title) => document.title.includes(title), set.title);
     check(`${set.title} page title`, (await page.title()).includes(set.title));
     await page.waitForSelector('.mode-card');
-    check('CS0075 start shows 60 questions and topic', (await page.locator('.facts').innerText()).includes('60') && (await page.locator('.subhead').innerText()) === 'Decision Trees, Random Forests, Gradient Boosting, and SVM');
+    check(`${set.title} start shows question count and topic`, (await page.locator('.facts dd').first().innerText()) === String(ml.length) && (await page.locator('.subhead').innerText()) === 'Decision Trees, Random Forests, Gradient Boosting, and SVM');
     await page.screenshot({ path: `${SHOTS}/${set.bankId}-21-start-cs0075.png`, fullPage: true });
     await page.click('.start-button');
     await page.waitForSelector('.qcard');
@@ -289,7 +272,7 @@ const qText = (page) => page.locator('.qcard__count').innerText();
         mlCode++;
         check(`CS0075 desktop code ${q.id}`, (await page.locator('.codeblock code').textContent()) === q.code.join('\n'));
         check(`CS0075 desktop code ${q.id} fits page`, await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
-        if (q.id === 'RF-15') await page.screenshot({ path: `${SHOTS}/${set.bankId}-22-cs0075-desktop-code.png`, fullPage: true });
+        if (q.id === ml.findLast((q) => q.code)?.id) await page.screenshot({ path: `${SHOTS}/${set.bankId}-22-cs0075-desktop-code.png`, fullPage: true });
       }
       if (q.type === 'fill') {
         await page.fill('.fill__input', `  ${q.acceptedAnswers[0].toUpperCase().replace(/ /g, '   ')}  `);
@@ -298,23 +281,23 @@ const qText = (page) => page.locator('.qcard__count').innerText();
       await submit(page);
       await page.waitForSelector('.feedback--correct');
       check(`CS0075 Prep Q${i + 1} explanation and references`, (await page.locator('.feedback__explain').textContent()) === q.explanation);
-      if (i === 12) {
+      if (i === refreshAt) {
         check('CS0075 submitted fill is locked', !(await page.locator('.fill__input').isEditable()));
         await page.reload();
         await page.waitForSelector('.feedback--correct');
-        check('CS0075 refresh restores locked code question', (await qText(page)).toUpperCase() === 'QUESTION 13 OF 60' && !(await page.locator('.fill__input').isEditable()) && (await page.locator('.codeblock code').textContent()) === q.code.join('\n'));
+        check('CS0075 refresh restores locked code question', (await qText(page)).toUpperCase() === `QUESTION ${refreshAt + 1} OF ${ml.length}` && !(await page.locator('.fill__input').isEditable()) && (await page.locator('.codeblock code').textContent()) === q.code.join('\n'));
         await page.screenshot({ path: `${SHOTS}/${set.bankId}-23-cs0075-prep-feedback.png`, fullPage: true });
       }
       await next(page);
     }
-    check('CS0075 desktop checked all ten code excerpts', mlCode === 10);
+    check(`${set.title} desktop checked all code excerpts`, mlCode === codeCount);
     await page.waitForSelector('.score__figure');
-    check('CS0075 normalized perfect Prep scores 60/60', (await page.locator('.score__figure').innerText()).includes('60 / 60'));
+    check(`${set.title} normalized perfect Prep score`, (await page.locator('.score__figure').innerText()).includes(`${ml.length} / ${ml.length}`));
     check('CS0075 results include every explanation and reference', JSON.stringify(await page.locator('.review__explain').allTextContents()) === JSON.stringify(ml.map((q) => q.explanation)));
     await page.screenshot({ path: `${SHOTS}/${set.bankId}-24-cs0075-results.png` });
     await page.reload();
     await page.waitForSelector('.score__figure');
-    check('CS0075 results survive refresh', (await page.locator('.score__figure').innerText()).includes('60 / 60'));
+    check(`${set.title} results survive refresh`, (await page.locator('.score__figure').innerText()).includes(`${ml.length} / ${ml.length}`));
 
     // Independent Exam attempt with a controlled clock, including restoration and expiry.
     const mlCtx = await browser.newContext({ viewport: { width: 1280, height: 860 } });
@@ -334,15 +317,17 @@ const qText = (page) => page.locator('.qcard__count').innerText();
     await mlExam.reload();
     await mlExam.waitForSelector('.feedback--locked');
     const mlRemaining = await mlExam.locator('.timer').innerText();
-    check('CS0075 Exam restores locked question and original deadline', (await qText(mlExam)).toUpperCase() === 'QUESTION 1 OF 60' && (await mlExam.evaluate((key) => JSON.parse(sessionStorage.getItem(key)).endsAt, mlStorageKey)) === mlDeadline && mlRemaining <= '59:00' && mlRemaining >= '58:50', mlRemaining);
+    check('CS0075 Exam restores locked question and original deadline', (await qText(mlExam)).toUpperCase() === `QUESTION 1 OF ${ml.length}` && (await mlExam.evaluate((key) => JSON.parse(sessionStorage.getItem(key)).endsAt, mlStorageKey)) === mlDeadline && mlRemaining <= '59:00' && mlRemaining >= '58:50', mlRemaining);
     await next(mlExam);
     await mlExam.clock.fastForward('59:01');
     await mlExam.waitForSelector('.score__figure');
-    check('CS0075 Exam expires into results with 59 unanswered', (await mlExam.locator('.score__figure').innerText()).includes('1 / 60') && (await mlExam.locator('.score__note').innerText()).includes('59 unanswered'));
+    check(`${set.title} Exam expiry score and unanswered count`, (await mlExam.locator('.score__figure').innerText()).includes(`1 / ${ml.length}`) && (await mlExam.locator('.score__note').innerText()).includes(`${ml.length - 1} unanswered`));
     await mlCtx.close();
     const saved = await page.evaluate(() => ({ ...sessionStorage }));
-    if (set.bankId === mlSets[0].bankId) setAState = saved['exam-reviewer:attempt:' + set.bankId];
-    else check('Set B results coexist with unchanged saved Set A results', saved['exam-reviewer:attempt:' + mlSets[0].bankId] === setAState && JSON.parse(saved['exam-reviewer:attempt:' + set.bankId]).bankId === set.bankId);
+    for (const [key, value] of Object.entries(savedStates)) check(`${set.title} preserves ${key}`, saved[key] === value);
+    const key = 'exam-reviewer:attempt:' + set.bankId;
+    check(`${set.title} saves its own attempt`, JSON.parse(saved[key]).bankId === set.bankId);
+    savedStates[key] = saved[key];
   }
 
   // Mobile 360
@@ -369,23 +354,23 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   const ov2 = await mp.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
   check('360px matching: no horizontal overflow', !ov2);
 
-  // All ten code excerpts for both sets on mobile.
+  // Every code excerpt in all native CS0075 assessments on mobile.
   for (const set of mlSets) {
     const ml = bankQs(set.bankId);
     await mp.goto(BASE + set.route);
     await mp.tap('.start-button');
     await mp.waitForSelector('.qcard');
     let mobileCode = 0;
-    for (let i = 0; i < 45; i++) {
+    for (let i = 0; i < ml.length; i++) {
       const q = ml[i];
       if (q.code) {
         mobileCode++;
         check(`CS0075 mobile code ${q.id}`, (await mp.locator('.codeblock code').textContent()) === q.code.join('\n') && await mp.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth));
-        if (q.id === 'RF-15') await mp.screenshot({ path: `${SHOTS}/${set.bankId}-25-cs0075-mobile-code.png`, fullPage: true });
+        if (q.id === ml.findLast((q) => q.code)?.id) await mp.screenshot({ path: `${SHOTS}/${set.bankId}-25-cs0075-mobile-code.png`, fullPage: true });
       }
       await answer(mp, q); await submit(mp); await next(mp);
     }
-    check(`${set.title} mobile checked all ten code excerpts`, mobileCode === 10);
+    check(`${set.title} mobile checked all code excerpts`, mobileCode === ml.filter((q) => q.code).length);
   }
 
   // Timer auto-finish with fake clock: FA 6 exam, Q1 locked, Q2 picked not submitted

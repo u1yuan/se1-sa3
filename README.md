@@ -134,7 +134,7 @@ build machine needs internet access.
 
 ## Deployment
 
-The existing GitHub Pages workflow deploys `out/` on pushes to `main` or manual dispatch. Keep the repository remote as `https://github.com/u1yuan/se1-sa3.git` and set Pages source to GitHub Actions. The workflow supplies `NEXT_PUBLIC_BASE_PATH` for the repository path; local builds default to `/`. All course and assessment routes are statically generated. `npm start` uses Next server mode and is not supported for this static export.
+The existing GitHub Pages workflow deploys `out/` on pushes to `main` or manual dispatch. The repository remote is `https://github.com/u1yuan/revhub.git`, and Pages source must be GitHub Actions. The live site is https://u1yuan.github.io/revhub/. The workflow supplies `NEXT_PUBLIC_BASE_PATH` from the Pages configuration; local builds default to `/`. After renaming the repository, run the workflow again so links and asset URLs are rebuilt with the new repository path. All course and assessment routes are statically generated. `npm start` uses Next server mode and is not supported for this static export.
 
 ## Notes and caveats
 

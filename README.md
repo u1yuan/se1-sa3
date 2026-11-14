@@ -83,9 +83,23 @@ recorded in `AGENTS.md` for future agents.
 
 ## Course study guides
 
-Every course starts with an empty `studyGuides` array and displays “No study
-guides yet.” Guides are reading material and interactive visualizations;
+CS0075 includes **Study Guide 1: Trees, Ensembles and SVM**, with eight algorithm
+lessons, 39 walkthrough steps and 40 ungraded recall prompts. Open
+`/courses/cs0075/study-guides/?guide=study-guide-1` (beneath `/revhub` on Pages).
+Its standalone artifact is `public/study-guides/cs0075/study-guide-1.html`.
+See [release notes](CHANGELOG.md) for the corrections and validation summary.
+
+Courses with an empty `studyGuides` array display “No study guides yet.”
+Guides are reading material and interactive visualizations;
 question-based reviewers still follow the **Reviewer import convention** above.
+
+For the CS0075 guide's independent arithmetic and full interaction checks:
+
+```bash
+python scripts/verify-cs0075-guide-math.py
+# With playwright-core + Chrome/Edge available, against the built /revhub site:
+BASE_URL=http://127.0.0.1:3101/revhub node scripts/verify-cs0075-study-guide.cjs
+```
 
 To register a guide:
 

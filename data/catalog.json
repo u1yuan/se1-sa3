@@ -65,7 +65,14 @@
       "id": "cs0075",
       "code": "CS0075",
       "title": "Machine Learning and Algorithms",
-      "studyGuides": [],
+      "studyGuides": [
+        {
+          "id": "study-guide-1",
+          "title": "Study Guide 1: Trees, Ensembles and SVM",
+          "description": "Eight algorithm lessons with guided calculations, Python examples and 40 ungraded recall prompts.",
+          "artifactPath": "/study-guides/cs0075/study-guide-1.html"
+        }
+      ],
       "assessments": [
         {
           "id": "sa-3-mock-exam",

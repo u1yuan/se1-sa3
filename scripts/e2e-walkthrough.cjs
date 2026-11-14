@@ -5,6 +5,8 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = process.env.ROOT || process.cwd();
 const BASE = process.env.BASE_URL || 'http://localhost:3100';
+// Browsers may probe the host root for an icon, outside a mounted Pages app.
+const hostFavicon = new URL(BASE).pathname !== '/' ? new URL('/favicon.ico', BASE).href : null;
 const SHOTS = process.env.SCREENSHOTS_DIR || path.join(ROOT, 'screenshots');
 fs.mkdirSync(SHOTS, { recursive: true });
 const read = (p) => JSON.parse(fs.readFileSync(path.join(ROOT, 'data', p), 'utf8'));
@@ -40,8 +42,8 @@ const qText = (page) => page.locator('.qcard__count').innerText();
   const page = await ctx.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
-  page.on('console', (m) => { if (m.type() === 'error') errors.push(m.text() + ' @ ' + (m.location()?.url || '')); });
-  page.on('response', (r) => { if (r.status() >= 400) errors.push(`${r.status()} ${r.url()}`); });
+  page.on('console', (m) => { if (m.type() === 'error' && m.location()?.url !== hostFavicon) errors.push(m.text() + ' @ ' + (m.location()?.url || '')); });
+  page.on('response', (r) => { if (r.status() >= 400 && r.url() !== hostFavicon) errors.push(`${r.status()} ${r.url()}`); });
 
   // Hub → DevNet → Module 5
   await page.goto(BASE + '/');
@@ -268,6 +270,7 @@ const qText = (page) => page.locator('.qcard__count').innerText();
     check('both CS0075 cards have a 60-minute timer', (await page.locator('.card:has-text("60-minute exam timer")').count()) === 2);
     await page.click(`.card:has-text("${set.title}")`);
     await page.waitForURL(`**${mlRoute}/`);
+    await page.waitForFunction((title) => document.title.includes(title), set.title);
     check(`${set.title} page title`, (await page.title()).includes(set.title));
     await page.waitForSelector('.mode-card');
     check('CS0075 start shows 60 questions and topic', (await page.locator('.facts').innerText()).includes('60') && (await page.locator('.subhead').innerText()) === 'Decision Trees, Random Forests, Gradient Boosting, and SVM');

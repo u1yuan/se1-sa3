@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Interactive fixture</title>
+<style>
+  body { margin: 0; padding: 24px; background: #162536; color: #fff; font: 18px system-ui; }
+  main { max-width: 760px; margin: auto; }
+  button, input { font: inherit; }
+  svg, canvas { display: block; max-width: 100%; margin-top: 20px; }
+  #end { margin-top: 1200px; }
+</style>
+<main>
+  <h1>Interactive visualization</h1>
+  <p>Test-only self-contained guide.</p>
+  <label>Depth <input id="depth" type="range" min="1" max="10" value="3"></label>
+  <output id="value">3</output>
+  <button id="increment">Explore</button>
+  <output id="count">0</output>
+  <svg width="340" height="100" viewBox="0 0 340 100" aria-label="Decision tree">
+    <path d="M170 20L60 80M170 20L280 80" stroke="#79dbd2" stroke-width="4"/>
+    <circle id="node" cx="170" cy="20" r="12" fill="#79dbd2"/>
+  </svg>
+  <canvas id="plot" width="340" height="120" aria-label="Depth plot"></canvas>
+  <img alt="Embedded dot" width="20" height="20" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='10' fill='orange'/%3E%3C/svg%3E">
+  <p id="isolation"></p>
+  <button id="try-navigation">Try top navigation</button>
+  <output id="navigation-result"></output>
+  <p id="end">End of guide</p>
+</main>
+<script>
+  const depth = document.querySelector('#depth');
+  const value = document.querySelector('#value');
+  const context = document.querySelector('#plot').getContext('2d');
+  function draw() {
+    value.textContent = depth.value;
+    context.clearRect(0, 0, 340, 120);
+    context.fillStyle = '#79dbd2';
+    context.fillRect(0, 10, Number(depth.value) * 30, 80);
+    document.querySelector('#node').setAttribute('r', Number(depth.value) + 8);
+  }
+  depth.addEventListener('input', draw);
+  draw();
+  let count = 0;
+  document.querySelector('#increment').onclick = () => document.querySelector('#count').textContent = ++count;
+  const blocked = [];
+  try { parent.document.body.dataset.guideEscape = 'escaped'; } catch { blocked.push('parent'); }
+  try { sessionStorage.setItem('guide-escape', 'escaped'); } catch { blocked.push('session'); }
+  try { localStorage.setItem('guide-escape', 'escaped'); } catch { blocked.push('local'); }
+  document.querySelector('#isolation').textContent = 'Blocked: ' + blocked.join(', ');
+  document.querySelector('#try-navigation').onclick = () => {
+    try { top.location.href = 'about:blank'; }
+    catch { document.querySelector('#navigation-result').textContent = 'Navigation blocked'; }
+  };
+</script>
+</html>

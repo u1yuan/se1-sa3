@@ -28,10 +28,10 @@ const perfect = (question: Question): Answer => {
   return choice(...question.choices.filter((c) => c.correct).map((c) => c.id));
 };
 
-test("catalog: three courses, six assessments, counts match data", () => {
+test("catalog: three courses, seven assessments, counts match data", () => {
   assert.deepEqual(data.catalog.courses.map((c) => c.id), ["cs0025", "devnet", "cs0075"]);
   const counts = Object.fromEntries(data.catalog.courses.flatMap((c) => c.assessments.map((a) => [`${c.id}/${a.id}`, a.questionCount])));
-  assert.deepEqual(counts, { "cs0025/m3-m6-m7": 20, "devnet/module-5": 18, "devnet/module-6": 15, "devnet/fa-6": 28, "devnet/all": 46, "cs0075/sa-3-mock-exam": 60 });
+  assert.deepEqual(counts, { "cs0025/m3-m6-m7": 20, "devnet/module-5": 18, "devnet/module-6": 15, "devnet/fa-6": 28, "devnet/all": 46, "cs0075/sa-3-mock-exam": 60, "cs0075/sa3-mock-set-b": 60 });
   for (const c of data.catalog.courses) for (const a of c.assessments) {
     const b = bankFor(c.id, a.id, data);
     assert.equal(b.questions.length, a.questionCount);

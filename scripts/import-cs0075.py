@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Import the SA 3 reviewer HTML without changing source content or answer keys.
 
-Usage: python scripts/import-cs0075.py path/to/cs0075-sa3-reviewer.html [--check]
+Usage: python scripts/import-cs0075.py path/to/cs0075-sa3-reviewer.html [--bank-id ID] [--check]
+--bank-id selects the bank ID and destination filename (defaults to Set A's ID).
 --check compares the entire converted bank with the committed assessment.
 The source's shuffle settings are intentionally replaced by the hub's fixed order.
 """
@@ -12,11 +13,11 @@ from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parent.parent
-DEST = ROOT / "data/assessments/cs0075-sa3-mock-exam.json"
+DEFAULT_BANK_ID = "cs0075-sa3-mock-exam"
 TYPES = {"true_false": "truefalse", "mcq": "single", "blank": "fill"}
 
 
-def convert(source: Path) -> dict:
+def convert(source: Path, bank_id: str = DEFAULT_BANK_ID) -> dict:
     html = source.read_text(encoding="utf-8")
     match = re.search(r'<script\b[^>]*\bid=[\"\']reviewer-data[\"\'][^>]*>(.*?)</script>', html, re.S)
     if not match:
@@ -53,19 +54,23 @@ def convert(source: Path) -> dict:
                 raise ValueError(f"Invalid choice IDs or answer key: {q['id']}")
             item["choices"] = [dict(c, correct=c["id"] == q["answer"]) for c in choices]
         out.append(item)
-    return {"id": "cs0075-sa3-mock-exam", "questions": out}
+    return {"id": bank_id, "questions": out}
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source", type=Path)
+    parser.add_argument("--bank-id", default=DEFAULT_BANK_ID)
     parser.add_argument("--check", action="store_true")
     args = parser.parse_args()
-    converted = convert(args.source)
+    if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", args.bank_id):
+        parser.error("--bank-id must be a lowercase alphanumeric slug separated by hyphens")
+    dest = ROOT / "data/assessments" / f"{args.bank_id}.json"
+    converted = convert(args.source, args.bank_id)
     if args.check:
-        if json.loads(DEST.read_text(encoding="utf-8")) != converted:
+        if json.loads(dest.read_text(encoding="utf-8")) != converted:
             raise SystemExit("Assessment differs from source; re-run the importer without --check")
         print("All 60 questions match source content, order, keys, explanations, references, and code.")
     else:
-        DEST.write_text(json.dumps(converted, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-        print(f"Imported {len(converted['questions'])} questions to {DEST}")
+        dest.write_text(json.dumps(converted, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"Imported {len(converted['questions'])} questions to {dest}")

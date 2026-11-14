@@ -67,7 +67,16 @@
         {
           "id": "sa-3-mock-exam",
           "bankId": "cs0075-sa3-mock-exam",
-          "title": "SA 3 Mock Exam",
+          "title": "SA3 Mock Set A",
+          "examLabel": null,
+          "topic": "Decision Trees, Random Forests, Gradient Boosting, and SVM",
+          "questionCount": 60,
+          "examTimerMinutes": 60
+        },
+        {
+          "id": "sa3-mock-set-b",
+          "bankId": "cs0075-sa3-mock-set-b",
+          "title": "SA3 Mock Set B",
           "examLabel": null,
           "topic": "Decision Trees, Random Forests, Gradient Boosting, and SVM",
           "questionCount": 60,

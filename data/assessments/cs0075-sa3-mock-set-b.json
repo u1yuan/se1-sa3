@@ -1,0 +1,1258 @@
+{
+  "id": "cs0075-sa3-mock-set-b",
+  "questions": [
+    {
+      "id": "DT-01",
+      "type": "truefalse",
+      "prompt": "A leaf node has no child nodes.",
+      "instruction": "Select one answer.",
+      "explanation": "A leaf is a terminal node; it ends a path through the tree.\n\nSources:\nsa3/docs/dTree/Decision Tree - notes.pdf, page 3: Leaf (or terminal) node",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "DT-02",
+      "type": "truefalse",
+      "prompt": "CART is restricted to classification tasks.",
+      "instruction": "Select one answer.",
+      "explanation": "CART supports classification and regression; its name expands to Classification And Regression Tree.\n\nSources:\nsa3/docs/dTree/Decision Tree - notes.pdf, page 4: CART can be used for both classification and regression problems",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "DT-03",
+      "type": "truefalse",
+      "prompt": "A binary node with equal numbers of the two classes has zero entropy.",
+      "instruction": "Select one answer.",
+      "explanation": "Equal class proportions give maximum binary entropy (1 bit); a pure node has entropy 0.\n\nSources:\nsa3/docs/dTree/Decision Tree.pdf, page 3: Entropy = 1",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "DT-04",
+      "type": "truefalse",
+      "prompt": "C4.5 uses gain ratio rather than information gain as its split metric.",
+      "instruction": "Select one answer.",
+      "explanation": "The notes distinguish C4.5 gain ratio from ID3 information gain.\n\nSources:\nsa3/docs/dTree/Decision Tree - notes.pdf, page 4: It uses the gain ratio metric instead of information gain",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "DT-05",
+      "type": "truefalse",
+      "prompt": "A high impurity-based feature importance establishes that the feature causes the target outcome.",
+      "instruction": "Select one answer.",
+      "explanation": "The Titanic notebook says importance measures reduction in Gini impurity and does not imply causation or show effect direction.\n\nSources:\nlecture-notebooks/TS31-WHITTY-decisionTreeTitanic.ipynb, cell 12: they do not show the direction of an effect or imply causation",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "DT-06",
+      "type": "truefalse",
+      "prompt": "For a fixed parent node, minimizing weighted child Gini is equivalent to maximizing Gini reduction.",
+      "instruction": "Select one answer.",
+      "explanation": "Gini reduction equals parent Gini minus weighted child Gini. The parent term is constant across candidate splits.\n\nSources:\nsa3/docs/dTree/Entropy vs Log_loss.pdf, page 3: Gini Reduction =\nsa3/docs/dTree/Entropy vs Log_loss.pdf, page 4: exactly equivalent for a",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "DT-07",
+      "type": "single",
+      "prompt": "Which node represents the entire dataset before any split?",
+      "instruction": "Select one answer.",
+      "explanation": "The root represents the entire dataset; a child is downstream, and leaf/terminal nodes end branches.\n\nSources:\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 5: The top node is called the root, representing the whole dataset",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Root node",
+          "correct": true
+        },
+        {
+          "id": "b",
+          "text": "Child node",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "Leaf node",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Terminal node",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "DT-08",
+      "type": "single",
+      "prompt": "A parent has entropy 1 bit. A split sends 1/4 of its records to a child with entropy 0 and 3/4 to a child with entropy 0.8. Using IG = H(parent) - weighted H(children), what is IG?",
+      "instruction": "Select one answer.",
+      "explanation": "Weighted child entropy = (1/4)(0) + (3/4)(0.8) = 0.6. IG = 1 - 0.6 = 0.4. The other values omit weighting, report remaining impurity, or copy a child entropy.\n\nSources:\nsa3/docs/dTree/Decision Tree.pdf, page 4: Information Gain = Entropy(Parent)",
+      "choices": [
+        {
+          "id": "a",
+          "text": "0.2 bits",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "0.4 bits",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "0.6 bits",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "0.8 bits",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "DT-09",
+      "type": "single",
+      "prompt": "For one regression-tree parent, split A has child sizes 2 and 8 with MSEs 1 and 9. Split B has sizes 5 and 5 with MSEs 5 and 5. Minimize (nL/n)MSEL + (nR/n)MSER. Which split is selected?",
+      "instruction": "Select one answer.",
+      "explanation": "A gives 0.2(1)+0.8(9)=7.4; B gives 0.5(5)+0.5(5)=5.0. Select B. Unweighted averaging incorrectly makes A look tied.\n\nSources:\nsa3/docs/dTree/Decision Tree - notes.pdf, page 6: lowest weighted MSE\nsa3/docs/dTree/Decision Tree - notes.pdf, page 7: The split with the smallest weighted MSE is selected",
+      "choices": [
+        {
+          "id": "a",
+          "text": "A, with weighted MSE 5.0",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "A, with weighted MSE 7.4",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "B, with weighted MSE 5.0",
+          "correct": true
+        },
+        {
+          "id": "d",
+          "text": "B, with weighted MSE 7.4",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "DT-10",
+      "type": "single",
+      "prompt": "The true class is Yes. Model A predicts P(Yes)=0.99 and model B predicts P(Yes)=0.60. Both choose Yes. Which statement matches the probability-evaluation notes?",
+      "instruction": "Select one answer.",
+      "explanation": "For the observed Yes class, the notes favor the larger probability. Label correctness alone does not determine log loss. The true class and its predicted probabilities are supplied.\n\nSources:\nsa3/docs/dTree/Entropy vs Log_loss.pdf, page 2: Log loss rewards the first model and penalizes the second",
+      "choices": [
+        {
+          "id": "a",
+          "text": "A has lower log loss although both labels are correct",
+          "correct": true
+        },
+        {
+          "id": "b",
+          "text": "B has lower log loss because it is less confident",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "Both have identical log loss because both labels are correct",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Neither model can have its log loss evaluated",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "DT-11",
+      "type": "single",
+      "prompt": "A tree predicts a continuous customer income amount. Which type of tree is this?",
+      "instruction": "Select one answer.",
+      "explanation": "The target is a continuous amount, so this is a regression tree; classification trees predict categories.\n\nSources:\nsa3/docs/dTree/Decision Tree - notes.pdf, page 3: predict customer income",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Classification tree",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Regression tree",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "DT-12",
+      "type": "fill",
+      "prompt": "What term means reducing a tree to its most important nodes or outcomes?",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "The terminology section calls this reduction pruning, the opposite of splitting.\n\nSources:\nsa3/docs/dTree/Decision Tree - notes.pdf, page 3: Pruning. The opposite of splitting",
+      "acceptedAnswers": [
+        "pruning"
+      ]
+    },
+    {
+      "id": "DT-13",
+      "type": "fill",
+      "prompt": "Restore the depth-limiting keyword from the job-tree constructor excerpt. Enter only the identifier; case is ignored, spelling and underscores matter.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "The original constructor sets max_depth=5. The other arguments constrain splitting, leaf sample count, and leaf count.\n\nSources:\nlecture-notebooks/TS31-WHITTY-decisionTreeJob.ipynb, cell 10: max_depth=5, min_samples_split=3",
+      "code": [
+        "tree.DecisionTreeClassifier(",
+        "  ____=5",
+        ")"
+      ],
+      "acceptedAnswers": [
+        "max_depth"
+      ]
+    },
+    {
+      "id": "DT-14",
+      "type": "fill",
+      "prompt": "Restore the keyword that sets the minimum sample count needed to split an internal node in the Titanic constructor excerpt. Enter only its identifier.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "Cell 7 explicitly constructs the Titanic model with min_samples_split=20.\n\nSources:\nlecture-notebooks/TS31-WHITTY-decisionTreeTitanic.ipynb, cell 7: model = DecisionTreeClassifier(max_depth=5, min_samples_split=20)",
+      "code": [
+        "model = (",
+        "  DecisionTreeClassifier(",
+        "    ____=20",
+        "  )",
+        ")"
+      ],
+      "acceptedAnswers": [
+        "min_samples_split"
+      ]
+    },
+    {
+      "id": "DT-15",
+      "type": "fill",
+      "prompt": "Restore the imported visualization function from the job-tree notebook. Enter only its name.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "Cell 2 imports plot_tree, and cell 13 calls it on dt_model. This is the notebook function, not the separate Graphviz export workflow.\n\nSources:\nlecture-notebooks/TS31-WHITTY-decisionTreeJob.ipynb, cell 2: from sklearn.tree import DecisionTreeClassifier, plot_tree\nlecture-notebooks/TS31-WHITTY-decisionTreeJob.ipynb, cell 13: plot_tree(dt_model, filled=True",
+      "code": [
+        "from sklearn.tree import (",
+        "  DecisionTreeClassifier,",
+        "  ____",
+        ")",
+        "# Draws dt_model later."
+      ],
+      "acceptedAnswers": [
+        "plot_tree"
+      ]
+    },
+    {
+      "id": "RF-01",
+      "type": "truefalse",
+      "prompt": "Bootstrap sampling draws training records with replacement.",
+      "instruction": "Select one answer.",
+      "explanation": "A record can be selected repeatedly because sampling is with replacement.\n\nSources:\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 30: randomly with replacement",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "RF-02",
+      "type": "truefalse",
+      "prompt": "In the course random-forest construction, each tree must wait for the previous tree to correct its errors.",
+      "instruction": "Select one answer.",
+      "explanation": "The forest trees are built independently. Sequential correction describes boosting.\n\nSources:\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 30: built completely independently from each other",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "RF-03",
+      "type": "truefalse",
+      "prompt": "Random-forest splitting considers a random subset of candidate features at each split.",
+      "instruction": "Select one answer.",
+      "explanation": "The ensemble notes place random feature selection at the splitting stage, separate from row bootstrapping.\n\nSources:\nsa3/docs/rForest-gBoost/Ensemble of Trees - Notes.pdf, page 3: a random subset of features is",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "RF-04",
+      "type": "truefalse",
+      "prompt": "OOB samples are a separately collected test dataset outside the original training data.",
+      "instruction": "Select one answer.",
+      "explanation": "OOB samples are training records omitted from a particular tree's bootstrap sample; a completely unseen test set is different.\n\nSources:\nsa3/docs/rForest-gBoost/RANDOM FOREST -oob_score.pdf, page 1: samples not\nsa3/docs/rForest-gBoost/RANDOM FOREST -oob_score.pdf, page 2: Completely unseen data",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "RF-05",
+      "type": "truefalse",
+      "prompt": "For the same training data and hyperparameters, fixing random_state supports reproducible random-forest results in the course setup.",
+      "instruction": "Select one answer.",
+      "explanation": "The ensemble notes tie reproducibility to a definite random state together with unchanged data and hyperparameters.\n\nSources:\nsa3/docs/rForest-gBoost/Ensemble of Trees - Notes.pdf, page 7: same hyperparameters and training data",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "RF-06",
+      "type": "truefalse",
+      "prompt": "The OOB notes recommend dispensing with a separate final test set in every case.",
+      "instruction": "Select one answer.",
+      "explanation": "OOB is useful for a quick estimate, but the notes still recommend a separate test set for final evaluation.\n\nSources:\nsa3/docs/rForest-gBoost/RANDOM FOREST -oob_score.pdf, page 2: a separate test set is still",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "RF-07",
+      "type": "single",
+      "prompt": "A regression forest has three equally weighted tree outputs: 12, 18, and 30. What prediction follows the course averaging rule?",
+      "instruction": "Select one answer.",
+      "explanation": "The mean is (12+18+30)/3=20. Eighteen is the middle output, 30 is the maximum, and 60 is the sum.\n\nSources:\nsa3/docs/rForest-gBoost/Ensemble of Trees - Notes.pdf, page 6: Averaging for regression",
+      "choices": [
+        {
+          "id": "a",
+          "text": "18",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "20",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "30",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "60",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "RF-08",
+      "type": "single",
+      "prompt": "Record r was used to train trees 1 and 3, but was OOB for trees 2 and 4. Which predictions may enter the OOB estimate for r?",
+      "instruction": "Select one answer.",
+      "explanation": "Use only trees that did not train on r: trees 2 and 4. Predictions from trees 1 or 3 would use in-bag information for this record.\n\nSources:\nsa3/docs/rForest-gBoost/RANDOM FOREST -oob_score.pdf, page 1: all trees where that instance was OOB",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Trees 1 and 3 only",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "All four trees",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "Trees 2 and 4 only",
+          "correct": true
+        },
+        {
+          "id": "d",
+          "text": "Tree 1 only",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "RF-09",
+      "type": "single",
+      "prompt": "In RF2, the first model uses 10 trees and all features; the later model uses 100 trees and selected features. Accuracy improves. What conclusion is justified by this comparison alone?",
+      "instruction": "Select one answer.",
+      "explanation": "Both the feature set and tree count changed, so this comparison does not isolate feature selection. The two notebook constructors explicitly use 10 and 100 trees.\n\nSources:\nlecture-notebooks/randomForest/TS31-WHITTY-RF2.ipynb, cell 5: rf = RandomForestClassifier(n_estimators=10, random_state=42)\nlecture-notebooks/randomForest/TS31-WHITTY-RF2.ipynb, cell 8: rf_selected = RandomForestClassifier(n_estimators=100, random_state=42)",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Feature selection alone caused the improvement",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Increasing the tree count alone caused the improvement",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "Neither change could affect accuracy",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "The improvement cannot be attributed to feature selection alone",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "RF-10",
+      "type": "single",
+      "prompt": "A forest has 99% training accuracy and 84% OOB accuracy. Which interpretation follows the supplied OOB scenario?",
+      "instruction": "Select one answer.",
+      "explanation": "The training/OOB gap could indicate overfitting. It does not establish underfitting or guarantee a final test accuracy; each OOB prediction uses trees that omitted the record.\n\nSources:\nsa3/docs/rForest-gBoost/RANDOM FOREST -oob_score.pdf, page 2: This could indicate overfitting",
+      "choices": [
+        {
+          "id": "a",
+          "text": "It could indicate overfitting",
+          "correct": true
+        },
+        {
+          "id": "b",
+          "text": "It proves underfitting",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "Its final test accuracy must be 84%",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Its OOB records were used by every tree during training",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "RF-11",
+      "type": "single",
+      "prompt": "Independent tree training makes the bagging workflow suitable for which execution structure?",
+      "instruction": "Select one answer.",
+      "explanation": "Independent models can be trained in parallel; sequential error correction creates a dependency between models.\n\nSources:\nsa3/docs/rForest-gBoost/Ensemble of Trees - Notes.pdf, page 5: Bagging can be parallelized",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Parallel",
+          "correct": true
+        },
+        {
+          "id": "b",
+          "text": "Sequential",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "RF-12",
+      "type": "fill",
+      "prompt": "Bagging is also called ____ aggregation. Enter the missing word.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "The ensemble notes expand bagging as Bootstrap Aggregation.\n\nSources:\nsa3/docs/rForest-gBoost/Ensemble of Trees - Notes.pdf, page 4: Also known as Bootstrap Aggregation",
+      "acceptedAnswers": [
+        "bootstrap"
+      ]
+    },
+    {
+      "id": "RF-13",
+      "type": "fill",
+      "prompt": "Restore the tree-count keyword from the RF1 constructor excerpt. Enter only its identifier.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "The RF1 constructor uses n_estimators=100; the ensemble notes define it as the number of trees.\n\nSources:\nlecture-notebooks/randomForest/TS31-WHITTY-RF1.ipynb, cell 5: n_estimators=100, oob_score=True\nsa3/docs/rForest-gBoost/Ensemble of Trees - Notes.pdf, page 7: n_estimators: Number of trees",
+      "code": [
+        "RandomForestClassifier(",
+        "  ____=100",
+        ")"
+      ],
+      "acceptedAnswers": [
+        "n_estimators"
+      ]
+    },
+    {
+      "id": "RF-14",
+      "type": "fill",
+      "prompt": "Restore the Boolean keyword that enables out-of-bag estimation in this RF1 constructor excerpt. Enter the keyword without a trailing underscore.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "The constructor keyword is oob_score. The later fitted attribute oob_score_ has a trailing underscore and is a different identifier.\n\nSources:\nlecture-notebooks/randomForest/TS31-WHITTY-RF1.ipynb, cell 5: n_estimators=100, oob_score=True\nlecture-notebooks/randomForest/TS31-WHITTY-RF1.ipynb, cell 7: classifier_rf.oob_score_",
+      "code": [
+        "RandomForestClassifier(",
+        "  ____=True",
+        ")"
+      ],
+      "acceptedAnswers": [
+        "oob_score"
+      ]
+    },
+    {
+      "id": "RF-15",
+      "type": "fill",
+      "prompt": "Restore the search class used in RF1. Enter only its name.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "Cell 9 imports and constructs GridSearchCV for the stated random-forest parameter grid.\n\nSources:\nlecture-notebooks/randomForest/TS31-WHITTY-RF1.ipynb, cell 9: from sklearn.model_selection import GridSearchCV",
+      "code": [
+        "grid_search = ____(",
+        "  estimator=rf,",
+        "  param_grid=params, cv=4,",
+        "  n_jobs=-1, verbose=1,",
+        "  scoring=\"accuracy\"",
+        ")"
+      ],
+      "acceptedAnswers": [
+        "GridSearchCV"
+      ]
+    },
+    {
+      "id": "GB-01",
+      "type": "truefalse",
+      "prompt": "Gradient boosting can be used for both classification and regression.",
+      "instruction": "Select one answer.",
+      "explanation": "The material explicitly supports both categorical and numeric outcomes.\n\nSources:\nsa3/docs/rForest-gBoost/Gradient Boosting.pdf, page 2: regression and classification tasks",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "GB-02",
+      "type": "truefalse",
+      "prompt": "The weak models in gradient boosted decision trees are typically decision trees.",
+      "instruction": "Select one answer.",
+      "explanation": "The gradient boosting definition identifies decision trees as the typical weak models.\n\nSources:\nsa3/docs/rForest-gBoost/Gradient Boosting.pdf, page 2: These weak models are typically decision trees",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "GB-03",
+      "type": "truefalse",
+      "prompt": "Standard gradient boosting appends previously trained trees as extra rows in the training dataset.",
+      "instruction": "Select one answer.",
+      "explanation": "Trees are added to the model, not the dataset. The feature rows remain and the residual targets change.\n\nSources:\nsa3/docs/rForest-gBoost/Gradient Boosting.pdf, page 4: they are added to the model, not the data",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "GB-04",
+      "type": "truefalse",
+      "prompt": "Gradient boosting classifies by taking a majority vote of its individual trees.",
+      "instruction": "Select one answer.",
+      "explanation": "The prediction note describes summing learning-rate-scaled tree contributions and then obtaining the class label.\n\nSources:\nsa3/docs/rForest-gBoost/Gradient Boosting Model - Prediction.pdf, page 1: Gradient Boosting does not use majority voting",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "GB-05",
+      "type": "truefalse",
+      "prompt": "Lowering the learning rate guarantees better performance on every dataset.",
+      "instruction": "Select one answer.",
+      "explanation": "The notes describe a possible benefit and a tradeoff with the number of trees, not an unconditional guarantee.\n\nSources:\nsa3/docs/rForest-gBoost/GB Machines - learning_rate.pdf, page 1: can often\nsa3/docs/rForest-gBoost/GB Machines - learning_rate.pdf, page 1: might require",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "GB-06",
+      "type": "truefalse",
+      "prompt": "The course suggests limiting maximum tree depth as one way to reduce gradient-boosting overfitting.",
+      "instruction": "Select one answer.",
+      "explanation": "The main slides recommend stronger pre-pruning by limiting maximum depth, or lowering the learning rate.\n\nSources:\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 40: limiting the maximum depth",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "GB-07",
+      "type": "single",
+      "prompt": "Use Fnew = F0 + eta(t1 + t2 + t3). Initial prediction F0=70, learning rate eta=0.1, and raw tree outputs are 8, 4, and -2. What is Fnew?",
+      "instruction": "Select one answer.",
+      "explanation": "The raw outputs sum to 10; multiply by 0.1 and add to 70 to obtain 71. Eighty omits shrinkage, 70.33 averages the corrections, and 7.1 incorrectly scales the initial value.\n\nSources:\nsa3/docs/rForest-gBoost/Gradient Boosting Model - Prediction.pdf, page 1: Initial Prediction + Learning Rate",
+      "choices": [
+        {
+          "id": "a",
+          "text": "71",
+          "correct": true
+        },
+        {
+          "id": "b",
+          "text": "80",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "70.33",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "7.1",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "GB-08",
+      "type": "single",
+      "prompt": "In the standard full-data process described in the notes, what changes when fitting the next correction tree?",
+      "instruction": "Select one answer.",
+      "explanation": "The same training records are used and current residuals or gradients change. Earlier trees are part of the model; test data are not the next training set.\n\nSources:\nsa3/docs/rForest-gBoost/Gradient Boosting.pdf, page 4: only the residuals (or gradients) change each round",
+      "choices": [
+        {
+          "id": "a",
+          "text": "The feature rows are replaced by earlier trees",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "The original target labels become feature names",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "The current residuals or gradients are recomputed",
+          "correct": true
+        },
+        {
+          "id": "d",
+          "text": "The test set replaces the training set",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "GB-09",
+      "type": "single",
+      "prompt": "A much smaller per-tree step makes learning slower. Which accompanying change do the learning-rate notes usually suggest to maintain performance?",
+      "instruction": "Select one answer.",
+      "explanation": "Smaller steps typically need more trees. Fewer trees reduce accumulated correction, while largest-output selection and voting are different combination rules.\n\nSources:\nsa3/docs/rForest-gBoost/GB Machines - learning_rate.pdf, page 1: a smaller learning_rate should be accompanied by a larger number of trees",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Use fewer trees so corrections stop sooner",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Use more trees to accumulate finer corrections",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "Keep only the largest single tree output",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Replace additive corrections with majority voting",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "GB-10",
+      "type": "single",
+      "prompt": "In GB-Class-Code1, parameter search fits X_train and y_train with cv=3. What does gbc2.best_score_ report in that workflow?",
+      "instruction": "Select one answer.",
+      "explanation": "The score comes from the cross-validated search fitted on X_train and y_train. It is not a separate X_test score or a count of combinations.\n\nSources:\nlecture-notebooks/gradientBoost/GB-Class-Code1.ipynb, cell 11: GridSearchCV(gbc,param_grid, cv=3, n_jobs=-1)\nlecture-notebooks/gradientBoost/GB-Class-Code1.ipynb, cell 11: gbc2.fit(X_train, y_train)\nlecture-notebooks/gradientBoost/GB-Class-Code1.ipynb, cell 13: gbc2.best_score_",
+      "choices": [
+        {
+          "id": "a",
+          "text": "The exact final score on X_test",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "The fraction of correctly classified rows in the full original dataset",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "The number of successful parameter combinations",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "The best cross-validation score from the training-data search",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "GB-11",
+      "type": "fill",
+      "prompt": "Complete the term explicitly named in the gradient boosting notes: ____ and decision trees on residuals are key components. Use the plural, hyphenated term.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "The notes explicitly identify pseudo-residuals as a key component. The requested hyphen and plural are part of this accepted answer.\n\nSources:\nsa3/docs/rForest-gBoost/Gradient Boosting.pdf, page 3: Pseudo-residuals and decision trees on residuals",
+      "acceptedAnswers": [
+        "pseudo-residuals"
+      ]
+    },
+    {
+      "id": "GB-12",
+      "type": "fill",
+      "prompt": "Restore the keyword for per-tree shrinkage from the income-classification constructor excerpt. Enter only its identifier.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "The course constructor sets learning_rate=0.05. The learning-rate note describes its role in scaling each tree contribution.\n\nSources:\nlecture-notebooks/gradientBoost/GB-Class-code2 1.ipynb, cell 14: n_estimators=100,learning_rate=0.05",
+      "code": [
+        "GradientBoostingClassifier(",
+        "  ____=0.05",
+        ")"
+      ],
+      "acceptedAnswers": [
+        "learning_rate"
+      ]
+    },
+    {
+      "id": "GB-13",
+      "type": "fill",
+      "prompt": "Restore the module path used by the gradient-boosting classification notebook. Enter the full path including its dot.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "Cell 1 imports GradientBoostingClassifier from sklearn.ensemble.\n\nSources:\nlecture-notebooks/gradientBoost/GB-Class-Code1.ipynb, cell 1: from sklearn.ensemble import GradientBoostingClassifier",
+      "code": [
+        "from ____ import (",
+        "  GradientBoostingClassifier",
+        ")"
+      ],
+      "acceptedAnswers": [
+        "sklearn.ensemble"
+      ]
+    },
+    {
+      "id": "GB-14",
+      "type": "fill",
+      "prompt": "Restore the function used in the wine-classification notebook. Enter only its name.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "Cell 9 calls cross_val_score with cv=3 and then averages the returned scores.\n\nSources:\nlecture-notebooks/gradientBoost/GB-Class-Code1.ipynb, cell 9: cross_val_score(gbc,X_train,y_train,cv=3, n_jobs=-1).mean()",
+      "code": [
+        "____(",
+        "  gbc, X_train, y_train,",
+        "  cv=3, n_jobs=-1",
+        ").mean()"
+      ],
+      "acceptedAnswers": [
+        "cross_val_score"
+      ]
+    },
+    {
+      "id": "GB-15",
+      "type": "fill",
+      "prompt": "Restore the keyword for the candidate-feature count from the income-classification constructor excerpt. Enter only its identifier.",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "Cell 14 explicitly sets max_features=5; this keyword is distinct from maximum depth and number of trees.\n\nSources:\nlecture-notebooks/gradientBoost/GB-Class-code2 1.ipynb, cell 14: random_state=100,max_features=5",
+      "code": [
+        "GradientBoostingClassifier(",
+        "  ____=5",
+        ")"
+      ],
+      "acceptedAnswers": [
+        "max_features"
+      ]
+    },
+    {
+      "id": "SVM-01",
+      "type": "truefalse",
+      "prompt": "SVM is a supervised learning method.",
+      "instruction": "Select one answer.",
+      "explanation": "The SVM introduction defines it as supervised learning for classification or regression.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 1: a type of supervised learning",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "SVM-02",
+      "type": "truefalse",
+      "prompt": "A soft-margin classifier forbids all misclassifications.",
+      "instruction": "Select one answer.",
+      "explanation": "Soft margins allow some misclassifications to improve generality; the hard-margin case disallows them under separability.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 6: allow some",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "SVM-03",
+      "type": "truefalse",
+      "prompt": "The kernel trick requires explicitly computing every coordinate of the expanded feature representation.",
+      "instruction": "Select one answer.",
+      "explanation": "The kernel trick operates in the high-dimensional feature space without explicitly computing those coordinates.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 9: without explicitly computing the coordinates",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "SVM-04",
+      "type": "truefalse",
+      "prompt": "A separator that is linear in an augmented feature space can correspond to a nonlinear boundary in the original space.",
+      "instruction": "Select one answer.",
+      "explanation": "The notes explain that adding nonlinear features can yield a nonlinear boundary when expressed in the original features.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 8: As the function of the original features\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 12: resulting in a non-linear solution",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "SVM-05",
+      "type": "truefalse",
+      "prompt": "A very high polynomial-kernel degree can increase overfitting risk and numerical instability.",
+      "instruction": "Select one answer.",
+      "explanation": "The degree discussion lists excess boundary complexity, large polynomial terms, and numerical instability as risks.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 14: A very high degree can cause the model to overfit\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 14: numerical instability",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": true
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "SVM-06",
+      "type": "truefalse",
+      "prompt": "The course describes kernel SVMs as insensitive to data preprocessing and feature scales.",
+      "instruction": "Select one answer.",
+      "explanation": "The main slides call SVM sensitive to preprocessing and present rescaling features to comparable ranges as a remedy.\n\nSources:\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 62: rescaling each feature\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 66: Sensitive data preprocessing and parameters",
+      "choices": [
+        {
+          "id": "t",
+          "text": "True",
+          "correct": false
+        },
+        {
+          "id": "f",
+          "text": "False",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "SVM-07",
+      "type": "single",
+      "prompt": "For separable classification, which goal describes the course SVM boundary?",
+      "instruction": "Select one answer.",
+      "explanation": "SVM aims to maximize its margin. Minimizing it reverses the objective; leaves and bootstrap-tree averaging belong to tree models.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 5: The goal of SVM is to maximize the margins",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Minimize the margin",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Maximize the margin",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "Maximize the number of tree leaves",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Average predictions from bootstrap trees",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "SVM-08",
+      "type": "single",
+      "prompt": "In a four-dimensional feature space, how many dimensions does a separating hyperplane have?",
+      "instruction": "Select one answer.",
+      "explanation": "The notes state that a hyperplane has one less dimension than its data space: 4-1=3.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 4: one less dimension than the data space",
+      "choices": [
+        {
+          "id": "a",
+          "text": "1",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "2",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "3",
+          "correct": true
+        },
+        {
+          "id": "d",
+          "text": "4",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "SVM-09",
+      "type": "single",
+      "prompt": "Which pairing matches the course kernel-SVM slide?",
+      "instruction": "Select one answer.",
+      "explanation": "The slide assigns SVC to classification and SVR to regression. The reversed and clustering pairings do not match it.\n\nSources:\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 49: Classification: SVC\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 49: Regression: SVR",
+      "choices": [
+        {
+          "id": "a",
+          "text": "SVC: classification; SVR: regression",
+          "correct": true
+        },
+        {
+          "id": "b",
+          "text": "SVC: regression; SVR: classification",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "SVC: clustering; SVR: classification",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "SVC: classification; SVR: clustering",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "SVM-10",
+      "type": "single",
+      "prompt": "Which description specifically defines a kernel function in the notes?",
+      "instruction": "Select one answer.",
+      "explanation": "A kernel function computes similarity or a dot product in transformed space. The algorithm family is a kernel method, explicit storage is unnecessary, and pruning is unrelated.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 10: computes the similarity (or a kind of",
+      "choices": [
+        {
+          "id": "a",
+          "text": "A full family of kernel-based learning algorithms",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "A rule requiring every expanded coordinate to be stored",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "A tree-pruning procedure",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "A similarity or dot-product computation in transformed feature space",
+          "correct": true
+        }
+      ]
+    },
+    {
+      "id": "SVM-11",
+      "type": "single",
+      "prompt": "With other settings fixed, gamma is reduced from 10 to 0.1 in the course Gaussian-kernel discussion. What effect is described?",
+      "instruction": "Select one answer.",
+      "explanation": "The slides say small gamma means a large Gaussian radius and many points are considered close. It changes width, not the kernel family.\n\nSources:\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 58: controls the width of the Gaussian kernel\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 59: A small gamma means a large radius",
+      "choices": [
+        {
+          "id": "a",
+          "text": "A smaller influence radius with fewer points close by",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "A larger influence radius with more points close by",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "No change to kernel width",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "A conversion from Gaussian to polynomial kernel",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "SVM-12",
+      "type": "single",
+      "prompt": "After scaling, a course SVM has similar training and test accuracy, both too low. Following the underfitting example, which tuning direction is proposed?",
+      "instruction": "Select one answer.",
+      "explanation": "The course underfitting example proposes increasing C or gamma for a more complex model. Further restriction opposes that direction, and neither infinite degree nor assumed optimality follows.\n\nSources:\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 65: increasing\nsa3/docs/M2S3 - Supervised Learning - Part-2 Main.pdf, page 65: either C or gamma to fit a more complex model",
+      "choices": [
+        {
+          "id": "a",
+          "text": "Decrease both C and gamma to restrict the model further",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "Increase C or gamma to allow a more complex model",
+          "correct": true
+        },
+        {
+          "id": "c",
+          "text": "Increase the polynomial degree to infinity",
+          "correct": false
+        },
+        {
+          "id": "d",
+          "text": "Treat the current scores as proof of optimality",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "SVM-13",
+      "type": "single",
+      "prompt": "Two RBF-SVM candidates use the same gamma but different C. Which interpretation matches the tuning notes?",
+      "instruction": "Select one answer.",
+      "explanation": "C controls the margin-versus-classification-error tradeoff; gamma is the kernel coefficient. Holding gamma fixed does not force identical fitted boundaries or change the feature count or kernel family.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 12: C: Regularization parameter, controlling the trade-off\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 12: gamma: Kernel coefficient",
+      "choices": [
+        {
+          "id": "a",
+          "text": "They must have different kernel families",
+          "correct": false
+        },
+        {
+          "id": "b",
+          "text": "They differ only in the number of input features",
+          "correct": false
+        },
+        {
+          "id": "c",
+          "text": "Their margin/error regularization tradeoff changes while the chosen kernel coefficient is held fixed",
+          "correct": true
+        },
+        {
+          "id": "d",
+          "text": "They must produce identical decision boundaries",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "id": "SVM-14",
+      "type": "fill",
+      "prompt": "What term names the SVM decision boundary that separates the data?",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "The terminology section calls the separating decision boundary a hyperplane.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 4: The decision boundary that separates your data is called the hyperplane",
+      "acceptedAnswers": [
+        "hyperplane"
+      ]
+    },
+    {
+      "id": "SVM-15",
+      "type": "fill",
+      "prompt": "What plural two-word term names the points closest to the separating boundary that determine its position in the course description?",
+      "instruction": "Blanks ignore case and normalize surrounding/repeated whitespace. Correct spelling, underscores, hyphens and punctuation are required. Enter only the requested identifier or term.",
+      "explanation": "The notes identify support vectors as the closest points affecting the position of the separating boundary.\n\nSources:\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 4: The decision boundary of an SVM is determined by support\nsa3/docs/svm/Support Vector Machine - Notes.pdf, page 4: closest to the hyperplane",
+      "acceptedAnswers": [
+        "support vectors"
+      ]
+    }
+  ]
+}

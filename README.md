@@ -31,6 +31,33 @@ spelling, underscores, hyphens, and punctuation still matter. The hub uses fixed
 order and locked answers, untimed Prep, and a 60-minute Exam, overriding the
 standalone reviewer's shuffle settings. Standalone saved progress is not imported.
 
+## SA3 Concepts and Hyperparameters companion
+
+The CS0075 course page also links a separate, downloadable offline reviewer at
+`reviewers/cs0075-sa3-concepts-hyperparameters-reviewer.html`. The original
+60-question assessment is preserved.
+
+The companion has 50 new questions: 20 single-answer MCQ, 10 true/false, and
+20 blanks (12 hyperparameter identifiers and 8 conceptual identification items,
+including entropy and Gini splitting criteria). Coverage is Decision Trees (13),
+Random Forest (12), Gradient Boosting (13), and SVM (12); difficulty is
+25 easy / 20 medium / 5 hard. Each item cites an original PDF page or notebook cell.
+
+This standalone player provides untimed Prep and a default 60-minute Exam,
+question and choice shuffling, flags, backtracking, filterable results, and
+separate saved attempts in local storage. Exam answers stay editable and feedback
+stays hidden until submission; checked Prep answers lock. The deadline continues
+while closed. The HTML opens directly from disk without a network connection.
+Its behavior is independent of the hub's locked-answer player described below.
+
+The companion JSON bank and authoring record are alongside the HTML under
+`public/reviewers/`. To run its offline browser verification with a locally
+installed Playwright package and Chrome/Edge:
+
+```bash
+node scripts/verify-sa3-companion.cjs public/reviewers/cs0075-sa3-concepts-hyperparameters-reviewer.html /absolute/path/to/playwright screenshots/sa3-companion
+```
+
 ## Routes
 
 - `/` — course list
